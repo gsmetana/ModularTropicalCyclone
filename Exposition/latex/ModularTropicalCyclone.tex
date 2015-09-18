@@ -1,0 +1,65 @@
+\documentclass{article}
+
+\usepackage{nomencl,etoolbox,ragged2e,siunitx,mathtools}
+
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+
+\newcommand{\DimensUnits}[2]{\hfill\makebox[8em]{#1\hfill}%
+\makebox[4em]{#2\hfill}\ignorespaces}
+\newcommand{\DefinitionCol}[1]{\hfill\parbox[t]{12em}{#1}\ignorespaces}
+
+\newcommand{\nomsubtitle}[1]{\item[\large\bfseries #1]}
+
+\renewcommand\nomgroup[1]{\def\nomtemp{\csname nomstart#1\endcsname}\nomtemp}
+
+\newcommand{\nomstartR}{\nomsubtitle{Subscripts}%
+  \item[\bfseries Symbol]%
+  \textbf{Description}}
+\newcommand{\nomstartG}{\nomsubtitle{Constants}%
+  \item[\bfseries Symbol]%
+  \textbf{Description}\DimensUnits{\textbf{Value}}{\textbf{Units}}}
+\newcommand{\nomstartD}{\nomsubtitle{Variables}%
+  \item[\bfseries Symbol]\textbf{Description}\DefinitionCol{\textbf{Units}}}
+
+\renewcommand*{\nompreamble}{\markboth{\nomname}{\nomname}}
+
+\newcommand{\nomdescr}[1]{\parbox[t]{4cm}{\RaggedRight #1}}
+\newcommand{\nomwithdim}[5]{\nomenclature[#1]{#2}%
+{\nomdescr{#3}\DimensUnits{#4}{#5}}}
+\newcommand{\nomtypeR}[5][]{\nomwithdim{R#1}{#2}{#3}{#4}{#5}}
+\newcommand{\nomtypeG}[5][]{\nomwithdim{G#1}{#2}{#3}{#4}{#5}}
+\newcommand{\nomtypeD}[4][]{\nomenclature[D#1]{#2}{\nomdescr{#3}\DefinitionCol{#4}}}
+\makenomenclature
+\title{Modular Analysis of Tropical Cyclones}
+\author{Francis Fendell, Paritosh Mokhasi, Gregory Smetana}
+\begin{document}
+\maketitle
+
+\nomtypeD{\( p \)}{pressure}{\si{Pa}}
+\nomtypeD{\( \rho \)}{density}{\si{kg.m^{-3}}}
+\nomtypeD{\( T \)}{temperature}{\si{K}}
+\nomtypeD{\( z \)}{altitude}{\si{m}}
+\nomtypeD{\( y \)}{water vapor mass fraction}{-}
+\nomtypeD{\( rh \)}{relative humidity}{-}
+
+\nomtypeG{\( g \)}{gravity}{9.81}{\si{m.s^{-2}}}
+\nomtypeG{\( R \)}{gas constant for air}{287.1}{\si{m^2.s^{-1}.K^{-1}}}
+\nomtypeG{\( \sigma \)}{ratio, molecular weights}{0.622}{ - }
+\nomtypeG{\( c_p \)}{specific heat capacity, const p}{10\(^4\)}{\si{m^2.s^{-2}.K^{-1}}}
+\nomtypeG{\( L \)}{specific latent heat, phase transition}{2.5 * 10\(^6\)}{\si{m^2.s^{-2}}}
+
+
+\nomtypeR[]{amb}{ambient}{}{}
+\nomtypeR[]{moist}{moist adiabat}{}{}
+\nomtypeR[]{eye}{eye}{}{}
+\nomtypeR[]{trop}{tropopause}{}{}
+\nomtypeR[]{sat}{saturated}{}{}
+\nomtypeR[]{v}{water vapor}{}{}
+\nomtypeR[]{vsat}{saturated water vapor}{}{}
+\nomtypeR[]{switch}{lifting condensation level}{}{}
+\nomtypeR[]{s}{ocean-surface value}{}{}
+\nomtypeR[]{underrun}{underrunning moist air}{}{}
+
+
+\printnomenclature[6em]
+\end{document}
