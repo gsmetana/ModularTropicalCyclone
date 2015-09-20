@@ -2,6 +2,18 @@
 
 \usepackage{nomencl,etoolbox,ragged2e,siunitx,mathtools}
 
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{color}   %May be necessary if you want to color links
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true, %set true if you want colored links
+    linktoc=all,     %set to all if you want both sections and subsections linked
+    linkcolor=blue,  %choose some color if you want links to stand out
+}
+\usepackage{cancel}
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+
 \DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
 
 \newcommand{\DimensUnits}[2]{\hfill\makebox[8em]{#1\hfill}%
@@ -29,6 +41,8 @@
 \newcommand{\nomtypeR}[5][]{\nomwithdim{R#1}{#2}{#3}{#4}{#5}}
 \newcommand{\nomtypeG}[5][]{\nomwithdim{G#1}{#2}{#3}{#4}{#5}}
 \newcommand{\nomtypeD}[4][]{\nomenclature[D#1]{#2}{\nomdescr{#3}\DefinitionCol{#4}}}
+
+
 \makenomenclature
 \title{Modular Analysis of Tropical Cyclones}
 \author{Francis Fendell, Paritosh Mokhasi, Gregory Smetana}
@@ -62,4 +76,225 @@
 
 
 \printnomenclature[6em]
+\tableofcontents
+\section{Bounding Tropical-Cyclone Intensity}
+
+Although it provides no insight into size, lifespan, precipitation, storm surge, or tornadogenesis, traditionally the one parameter taken to characterize best the intensity of a tropical cyclone is the peak sustained low-level wind speed within the vortex. Formally, NOAA takes this to be the maximal one-minute-averaged swirl speed at 10-m altitude above the air/sea interface, at any lateral distance from the center. Other meteorological agencies around the globe adopt three-minute or ten-minute averaging, and typically arrive at a lower value. (In many contexts, the tropical cyclone will continue to be characterized by the highest value achieved during its lifespan, even if the system in the meantime has declined to lower peak speed.) Also, the air/sea interface can become so convoluted and/or ill-defined under high wind shear that sometimes altitude as high as a kilometer above the nominal air/sea-interface height is adopted.  In any case, although definitive values are given for the intensity of a tropical cyclone, in fact, comprehensive measurement is almost never available. In the Atlantic basin, and sometimes in the eastern North Pacific, the  values often are best estimates inferred from measurements made by reconnaissance aircraft flying a few transects (“legs”) of the vortex at altitude of about 3 km, at intermittent intervals of time. Elsewhere in the tropics, the values for intensity are estimates from subjective interpretation of cloud imagery taken from satellites (i.e., from pattern recognition….the so-called Dvorak method). In general, any cited intensity is uncertain to within 5-10/% at least. 
+
+Accordingly, of interest is the peak swirl theoretically achievable in a given spawning ambient atmosphere, upon postulation of the physical processes occurring within the system. Here we idealize the system as a steady, axisymmetric vortex contained within a conceptual, uniformly rotating (at the angular speed of the locally normal component of the Earth’s rotation), right circular cylinder with an open lateral boundary. The cylinder has an impervious slippery isobaric isothermal horizontal lid at the altitude of the tropopause (to be defined), and an impervious no-slip nonisobaric horizontal bottom at the altitude of the nominal air-sea interface. Implicitly, there is a low-level inflow, ascent in the core near the axis of rotation (and symmetry), and upper-level outflow from the cylinder. However, we here deal minimally with the secondary (radial/axial) flow, and derive thermo-hydrostatically and cyclostrophically based bounds on the swirl speed achievable in the cylinder. We focus on sensible-heat-and-moisture content of the throughput entering the cylinder at the periphery, for a once-through transit and discharge back to the surrounding atmosphere. The intake is regarded as convectively unstably stratified, and the discharge is likely to be stably stratified.
+
+Thus a vortex of at least tropical-depression intensity is taken to exist in the cylinder. The ambient is somewhat modified from the mean autumnal maritime-tropical sounding (e.g., Jordan ambient) because on a typical day there is no tropical cyclone present. The diffusive transfer from sea to air of heat and moisture across the bottom boundary of the cylinder is at about ambient level, and is not significantly enhanced above ambient level. The heat and moisture already present in the atmospheric intake are shown to be readily sufficient to sustain the vortex without the need for any hypothesized augmented transfer of enthalpy from the underlying ocean.
+
+We take the adopted ambient stratification to hold at all altitudes at the periphery, even though the upper-tropospheric efflux disrupts that ambient stratification at higher altitudes in the troposphere.
+
+Our goal is to compute the lateral pressure deficit from ambient, holding at sea level under various vertical columns of air within the vortex. For a hydrostatic approximation, the sea-level pressure is the weight per cross-sectional area of a vertical column of fluid. Thus, the sea-level pressure anomaly is an integral over altitude of the discrepancy of the local density from ambient density. If the top of the vortex is an isobaric isothermal lid, then any sea-level-pressure anomaly is owing to processes within the vortex.
+In particular, sea-level air rising on a moist-adiabatic locus of thermodynamic states in the idealized eyewall of a hurricane (or in the core of a well-developed tropical storm) can generate a pressure anomaly of no more than a few tens of hectoPascals (hPa, equivalent to millibars). Condensational heating, to counteract expansional cooling during ascent to lower pressure, can effect no greater density reduction. Under a cyclostrophic approximation to the conservation of radial momentum (suitable for the axisymmetric right-circular-cylinder geometry), with the radial profile of the swirl component of relative velocity being of Rankine-vortex form, and with the density being held approximately constant with radius, then the peak swirl speed cannot exceed about 40 m/s. This is the peak speed of a strong tropical storm, and substantially smaller than the speed recorded in the highest category of hurricane. 
+To achieve the columnar reduction of density that results in a sea-level-pressure anomaly of of nearly 100 hPa or even greater, some other physical process must be involved. That process is compressional heating of relatively dry, tropopause-level air, during descent seaward to higher pressure in a central eye.  The pressure deficit so achievable is far more than the magnitude that is consistent with the nearly 100 m/s peak swirl speed observed in the most intense hurricanes. In practice, the eye is not entirely dry owing to evaporative cooling related to the influx to the eye of condensate generated in the adjacent eyewall. Also, the eye may not extend the entire distance from the tropopause seaward to ocean surface; some inflowing moist air may underrun a partially inserted, central eye.
+
+An inconsistency in the foregoing discussion is that the computation of the lateral pressure differences is at sea-level altitude. However, the swirl-speed conversion utilizes a cyclostrophic balance. A diffusion-free approximation to the conservation of radial momentum holds in the inviscid flow above the roughly one-kilometer-thickness, ocean-surface-contiguous boundary layer. Nevertheless, the adopted procedures seem a reasonable way to proceed. 
+
+The analysis that follows provides quantitative details in support of the foregoing discussion. Even so, the analysis leaves many notable details unresolved. Why do (statistically) only about half of tropical storms develop eyes, and can we anticipate which tropical storms will evolve to become hurricanes? Why do (statistically) only about one-third to one-half of hurricanes generate well-defined eyes (i.e., become major hurricanes), and can we anticipate which hurricanes will? These transitions may depend on changes in ambient conditions, but plausibly, once a tropical system achieves the levels of intensity under discussion, the transitions may depend primarily on internal thermo-fluid-dynamics. Also, the high peak swirling of a hurricane is observed near the base of the eyewall; the wind in the eye is famously calm. Hence, with increasing height, the eye/eyewall interface must slope radially outward, away from the central vertical axis, so that the density reduction in the eye may be cited plausibly as the physical mechanism supporting enhanced swirling through enhanced sea-level pressure deficit. The entrainment/detrainment between the eye and the eyewall in a steady model remains to be explored.
+
+\section{Equations}
+
+\subsection{Ambient Profiles with Altitude  }
+(calculated from $T_{amb}[p]$, $ rh_{amb}[p]$)
+\begin{itemize}
+
+\item Equations of State
+\begin{equation}
+	p = \rho R T
+\end{equation}
+\begin{equation}
+	\sigma p_v = \rho_v R T
+\end{equation}
+
+\item Definition of Water Vapor Mass Fraction
+
+\begin{equation}
+	y = \rho_v / \rho
+\end{equation}
+
+\begin{equation}
+	y = \sigma rh P(T) / \rho
+\end{equation}
+
+\item Definition of relative humidity
+\begin{equation}
+	rh = \rho_v / P(T)
+\end{equation}
+
+\item Hydrostatics
+\begin{equation}
+	\frac{\partial p}{\partial z} = -\rho g
+\end{equation}
+
+\end{itemize}
+
+\subsection{Moist Adiabat Profiles}
+
+Since $y$ const, on a dry adiabat,   
+\begin{equation}
+	\left ( \frac{T}{T_{ref}} \right ) ^\frac{\gamma}{\gamma-1} = \frac{p}{p_{ref}} = \frac{p_v}{(p_v)_{ref}}
+\end{equation}
+where $\frac{\gamma}{\gamma-1} = \frac{R}{c_p}$
+
+Let $T$ be the lifting-condensation-level state and $T_{ref}$ be the sea-level-ambient state
+\begin{equation}
+	\left ( \frac{ (T_{sat} )_{onset}  }{ (T_{amb})_{\rho} } \right ) ^{3.5} = \frac{ p_v[ (T_{sat})_{onset}]   }{1}
+\end{equation}
+
+
+This gives the temperature at which surface air would saturate if lifted dry adiabatically The temperature implies a pressure on the adiabat.
+
+Once saturated, the moist adiabat follows the following locus of the thermodynamic states, to rough approximation (the condensate falls out):
+\begin{equation}
+	c_p dT + L \sigma d\{ p[T]/p \} - \frac{dp}{\rho} = 0
+\end{equation}
+where $T(P_{onset} ) = (T_{sat} )_{onset}$
+
+Where this $T(p)$ curve crosses the $T_{amb}(p)$ is identified as the tropopause. The height of the tropopause is from $z_{amb}(p)$, inverse of $p_{amb}(z)$
+
+Note: The moist-adiabat locus is based on the total energy $c_p T + Ly + gz + q^2/z = const$, where $q^2/2$ (kinetic energy) is about a 1.5\% contribution and is discarded.
+
+Integrate from the tropopause seaward to find the thermodynamic state holding at the base $z=0$:
+
+\begin{equation}
+	\frac{dp}{dz} = - \rho g
+\end{equation}
+
+\begin{equation}
+	c_p \frac{dT}{dz} + \sigma L \frac{d}{dz} [ p(T) / p] - \frac{1}{\rho} \frac{d \rho}{d z} = 0
+\end{equation}
+
+\begin{equation}
+	p(z_{trop}) = p_{trop} 
+\end{equation}
+
+\begin{equation}
+	T(z_{trop} ) = T_{trop}
+\end{equation}
+
+Remember to drop the terms with $L$ thenceforth if $T$ increases in value to $(T_{sat})_{onset}$ before $z=0$ is reaced; i.e. , switch over to the dry adiabat below the lifting condensation level. Note $p_{moist}(z=0)$
+
+There is a self-consistency issue that may call for iteration of the moist-adaibat result. The ambient-sea-level state is adopted as the reference state for the adiabat, but is really not pertinent to a vertical column in the core. The final state computed at $z=0$ should be used as the reference state for a second calculation of temperature vs pressure, identification of the tropopause, and assignment of altitude. Presumably, the process quickly converges, so the initial sea-level state is recovered as the sea-level state, to excellent approximation.
+
+\subsection{Eye Adiabat Profiles}
+
+Integrate seaward from the tropopause for an unsaturated eye. Thus
+
+\begin{equation}
+	\frac{dp}{dz} = - \rho z (???)
+\end{equation}
+
+\begin{equation}
+	c_p \frac{dT}{dz} + \sigma L \frac{d}{dz} [ p(T) / p] - \frac{1}{\rho} \frac{d \rho}{d z} = 0
+\end{equation}
+
+\begin{equation}
+	p(z_{trop}) = p_{trop} 
+\end{equation}
+
+\begin{equation}
+	T(z_{trop} ) = T_{trop}
+\end{equation}
+
+The key new parameter here is $RH$, which denotes the relative humidity in the eye. If $RH=0$, the eye is totally dry, and, for the extreme idealization, the pressure at sea level is quite decremented from $p_{amb,s}$, the sea-level ambient value (given).
+
+We envision some evaporatic cooling because condensate (ice crystals and droplets) fall into the eye and are evaporated. The value of $RH$ could vary with altitude, but the simplest procedure is to hold it constant with height , at some value between 0 and 1. At $RH=1$, all the heating in the eyewall owing to condensation is reversed in the eye owing to evaporation.
+
+
+\subsection{Translation of Sea-Level Pressure Anomalies to Peak Swirl}
+
+
+\section{Boundary Layer Dynamics and Energetics}
+
+\subsection{Dynamics (unchanged from JFM work for a constant-density model)}
+
+\subsection{Energetics}
+
+\section{Diffusive Model of the Bulk-Vortex Module}
+
+\begin{figure}[h!]
+	\centering
+	\def\svgwidth{0.7\columnwidth}
+	\input{figures/bulkvortex.pdf_tex}
+\end{figure}
+
+Notes:
+\begin{itemize}
+
+\item Prime superscript denotes a dimensional quantity
+\item Parameters $z_{edge}'$, $z_{interface}'$, $r_{min}'$, $r_0'$ given; the dimension $z_{lid}'$ is computed in the (preliminary ) tephigram method
+\item The efflux (mass/time) at $r' = r_0'$, $z_{interface}' < z' < z_{lid}'$ equals the influx of $r'=r_0'$, $0 < z' < z_{lid}'$. Here, known ambient conditions hold only for $r' = r_0'$, $0 < z' < z_{interface}'$, where convectively unstable stratification holds for circumstances of interest.
+
+\item In the Carrier/Hammond/George treatment, the angular momentum per unit mass, $r' v'(r', z') + \Omega' r'^2$, is constant on streamlines (inviscid treatment). Here, $v'$ is the (relative( swirl, i.e., swirl in non-inertial coordinates rotating with the Earth at the locally pertinent angular speed $\Omega'$, termed the Coriolis parameter. We also adopt $r' v' (r') + \Omega' r'^2 = r_0' v_0' + \Omega' r_o'^2$, where $v'(r_o') = v_0'$, and $0 < \varepsilon \ll 1$ where $\varepsilon \equiv v_0' / (\Omega' r_0')$, given.
+
+\item In the CHG treatment, in the bulk-vortex modules
+
+\begin{equation}
+	Y(r', z') = Y_{amb}(z') \equiv Y(r_0', z')
+\end{equation}
+
+\begin{equation}
+	E'(r',z') = E_{amb}'(z') \equiv'(r_0', z')
+\end{equation}
+
+where 
+\begin{equation}
+\begin{split}
+	Y &\equiv \rho_v' / \rho' = \sigma(RH) P'(T')/ P' \\
+	E &= c_p' T' + L' Y + g'z' + q'^2 /2 \\
+	&= c_p' T + L'Y + g'z' + v^2 / 2
+\end{split}
+\end{equation}
+
+That is, the relative speed $q'^2 = u'^2 + v'^2 + w'^2 = v'^2$, and sometimes we drop even the $v'^2$ for tractability, as in the ambient $r' \to r_0'$. We simply cite CHG for justification for this approximation. Physically, CHG are saying that, as air entering this bulk vortex at $r' = r_0'$ moves to smaller $'r$, it is sinking slowly into the boundary-layer module, for compatibility with the boundary-layer solution. As the air descends to smaller $z'$, it takes on the properties of air that formerly occupied that position at smaller $z'$. We recall from the tephigram method:
+
+\begin{equation}
+	E_{amb}'(z') \equiv c_p' T_{amb}(z') + L' Y_{amb}(z') + g' z' + \cancelto{0}{\frac{v_0^2(z')}{2}}
+\end{equation}
+
+\begin{equation}
+	Y_{amb}(z') \equiv \sigma RH_{amb}(z') P[T_{amb}'(z')] / p_{amb}'(z')
+\end{equation}
+where for a given ambient we have the data
+\begin{equation}
+	T_{amb}'(p'), RH_{amb}(p') \equiv p_v'(p')/p'[T_{amb}'(p')]
+\end{equation}
+Also, we have [recall that $p'(r_0', z') \equiv p_{amb}'(z')$ ]
+
+\begin{equation}
+	\frac{dp_{amb}'(z')}{dz'} = -\rho_{amb}'(z') g' = -[p_{amb}'[p'(z')]]g'
+\end{equation}
+
+In other words, we need to be able to switch between the inverse functions $p_{amb}'(z') \leftrightarrow z_{amb}'(p')$. The reference state is taken to be $p_{amb}'(r_0', 0) = p_{ref}'$, $T_{amb}'(r_0', 0) = T_{ref}'$.
+\begin{equation}
+	\sigma p_v' \equiv p_v' R' T'
+\end{equation}
+\begin{equation}
+	p'(r',z') = p'(r',z')R'T'(r',z') \Rightarrow p_{amb}'(z') = \rho_{amb}'(z') R'T_{amb}'(z')
+\end{equation}
+
+It will be convenient to approximate the equation of state for the gas as 
+
+\begin{equation}
+	p'(r',z') \approx p_{amb}'(z') T'(r',z')
+\end{equation}
+
+in the bulk-gas module, for some purposes. This says merely that the density change in the bulk-vortex module is owing to hydrostatics mostly, because even the most intense hurricane is highly subsonic. We are also saying that we track water vapor only for its large condensational/evaporative heat; aside from that, water vapor is a trace species ( $<3 \%$ by mass contribution to air).
+
+\item Since the flow is quasisteady and axisymmetric, the secondary flow is treated by the introduction of the streamfunction $\eta'(r',z')$; as the radial velocity component $u'(r',z')$ and the axial velocity component $w'(r',z'$ are given by
+
+\begin{equation}
+\begin{split}
+	p'(r',z')u'(r',z')r' &= -\frac{\partial \eta'}{\partial z'} \\
+	p'(r',z')w'(r',z')r' &= \frac{\partial \eta'}{\partial r'}
+\end{split}
+\end{equation}
+If the aximuthial component of vorticity, $w$
+
+
+\end{itemize}
+
 \end{document}
