@@ -3,52 +3,52 @@
  \nomgroup{D}
 
   \item [{\( \rho \)}]\begingroup \nomdescr {density}\DefinitionCol {\si {kg.m^{-3}}}\nomeqref {0}
-		\nompageref{1}
+		\nompageref{2}
   \item [{\( p \)}]\begingroup \nomdescr {pressure}\DefinitionCol {\si {Pa}}\nomeqref {0}
-		\nompageref{1}
+		\nompageref{2}
   \item [{\( rh \)}]\begingroup \nomdescr {relative humidity}\DefinitionCol {-}\nomeqref {0}
-		\nompageref{1}
+		\nompageref{2}
   \item [{\( T \)}]\begingroup \nomdescr {temperature}\DefinitionCol {\si {K}}\nomeqref {0}
-		\nompageref{1}
+		\nompageref{2}
   \item [{\( y \)}]\begingroup \nomdescr {water vapor mass fraction}\DefinitionCol {-}\nomeqref {0}
-		\nompageref{1}
+		\nompageref{2}
   \item [{\( z \)}]\begingroup \nomdescr {altitude}\DefinitionCol {\si {m}}\nomeqref {0}
-		\nompageref{1}
+		\nompageref{2}
 
  \nomgroup{G}
 
   \item [{\( \sigma \)}]\begingroup \nomdescr {ratio, molecular weights}\DimensUnits {0.622}{ - }\nomeqref {0}
-		\nompageref{1}
+		\nompageref{2}
   \item [{\( c_p \)}]\begingroup \nomdescr {specific heat capacity, const p}\DimensUnits {10\(^4\)}{\si {m^2.s^{-2}.K^{-1}}}\nomeqref {0}
-		\nompageref{1}
+		\nompageref{2}
   \item [{\( g \)}]\begingroup \nomdescr {gravity}\DimensUnits {9.81}{\si {m.s^{-2}}}\nomeqref {0}
-		\nompageref{1}
-  \item [{\( L \)}]\begingroup \nomdescr {specific latent heat, phase transition}\DimensUnits {2.5 * 10\(^6\)}{\si {m^2.s^{-2}}}\nomeqref {0}
-		\nompageref{1}
+		\nompageref{2}
+  \item [{\( L \)}]\begingroup \nomdescr {specific latent heat, phase transition}\DimensUnits {2.5 \timesten {6} }{\si {m^2.s^{-2}}}\nomeqref {0}
+		\nompageref{2}
   \item [{\( R \)}]\begingroup \nomdescr {gas constant for air}\DimensUnits {287.1}{\si {m^2.s^{-1}.K^{-1}}}\nomeqref {0}
-		\nompageref{1}
+		\nompageref{2}
 
  \nomgroup{R}
 
   \item [{amb}]\begingroup \nomdescr {ambient}\DimensUnits {}{}\nomeqref {0}
-		\nompageref{1}
+		\nompageref{2}
   \item [{eye}]\begingroup \nomdescr {eye}\DimensUnits {}{}\nomeqref {0}
-		\nompageref{1}
+		\nompageref{2}
   \item [{moist}]\begingroup \nomdescr {moist adiabat}\DimensUnits {}{}\nomeqref {0}
-		\nompageref{1}
+		\nompageref{2}
   \item [{s}]\begingroup \nomdescr {ocean-surface value}\DimensUnits {}{}\nomeqref {0}
-		\nompageref{1}
+		\nompageref{2}
   \item [{sat}]\begingroup \nomdescr {saturated}\DimensUnits {}{}\nomeqref {0}
-		\nompageref{1}
+		\nompageref{2}
   \item [{switch}]\begingroup \nomdescr {lifting condensation level}\DimensUnits {}{}\nomeqref {0}
-		\nompageref{1}
+		\nompageref{2}
   \item [{trop}]\begingroup \nomdescr {tropopause}\DimensUnits {}{}\nomeqref {0}
-		\nompageref{1}
+		\nompageref{2}
   \item [{underrun}]\begingroup \nomdescr {underrunning moist air}\DimensUnits {}{}\nomeqref {0}
-		\nompageref{1}
+		\nompageref{2}
   \item [{v}]\begingroup \nomdescr {water vapor}\DimensUnits {}{}\nomeqref {0}
-		\nompageref{1}
+		\nompageref{2}
   \item [{vsat}]\begingroup \nomdescr {saturated water vapor}\DimensUnits {}{}\nomeqref {0}
-		\nompageref{1}
+		\nompageref{2}
 
 \end{thenomenclature}

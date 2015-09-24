@@ -1,5 +1,6 @@
-\documentclass{article}
-
+\documentclass[preprint, prX]{revtex4}
+% possible journal styles: pra, prb, prc, prd, pre, prl, prstab and rmp
+% twocolumn / preprint
 \usepackage{nomencl,etoolbox,ragged2e,siunitx,mathtools}
 
 \usepackage[letterpaper, margin=1in]{geometry}
@@ -42,11 +43,43 @@
 \newcommand{\nomtypeG}[5][]{\nomwithdim{G#1}{#2}{#3}{#4}{#5}}
 \newcommand{\nomtypeD}[4][]{\nomenclature[D#1]{#2}{\nomdescr{#3}\DefinitionCol{#4}}}
 
+% gamma over gamma minus1
+\newcommand{\gogmo}{\frac{\gamma}{\gamma-1}}
+% fraction w/ parenthesis
+\newcommand{\pfrac}[2]{\left(\frac{#1}{#2}\right)}
+% fraction w/ curly brackets
+\newcommand{\cbfrac}[2]{\left\{\frac{#1}{#2}\right\}}
+%  derivative
+\newcommand{\dd}[2]{\frac{d#1}{d#2}}
+% partial derivative
+\newcommand{\pd}[2]{\frac{\partial#1}{\partial#2}}
+% partial derivative w/ parenthesis
+\newcommand{\ppd}[2]{\left(\frac{\partial#1}{\partial#2}\right)}
+% partial derivative holding constant
+\newcommand{\tpd}[3]{\left( \frac{\partial#1}{\partial#2} \right)_{#3}}
+\newcommand{\timesten}[1]{$\times 10^{#1}$}
+\newcommand{\ten}[1]{10$^{#1}$}
 
 \makenomenclature
-\title{Modular Analysis of Tropical Cyclones}
-\author{Francis Fendell, Paritosh Mokhasi, Gregory Smetana}
+
 \begin{document}
+
+\title{Modular Analysis of Tropical Cyclones}
+
+
+\author{Francis Fendell}
+\affiliation{Northrop Grumman Aerospace Systems, Redondo Beach, CA 90278, USA}
+
+\author{Paritosh Mokhasi}
+\affiliation{Wolfram Research Inc., Champaign, IL 61820, USA}
+
+\author{Gregory Smetana}
+\affiliation{Northrop Grumman Aerospace Systems, Redondo Beach, CA 90278, USA}
+
+\begin{abstract}
+In the early 1970s, George Carrier and coworkers undertook a modular approach to modelling the internal thermofluid-dynamics of tropical cyclones of tropical-depression-or-greater intensity. A novel, relatively simplistic, approximate analysis of the vortex, idealized as axisymmetric, was carried out in the asymptotic limit of large Reynolds number, so that inviscid and diffusive subdomains of the structure were distinguished. Little subsequent work has followed this line of investigation. The indifference has proven problematic because accurate prediction of tropical-cycling intensity remains a challenge for operational forecasting, despite decades of effort at direct integration of comprehensive boundary/initial-value formulations. A contributing factor is that, to achieve solution in real time, such computational treatment of the entire vortex invariably resorts to coarse gridding, and key features remain inadequately resolved. Accordingly, here the modular approach is revisited, with the assistance of: recent observational insights; greatly enhanced computer-processing power; and convenient computational software, which facilitates implementation of a semi-analytic, semi-numerical methodology.
+\end{abstract}
+
 \maketitle
 
 \nomtypeD{\( p \)}{pressure}{\si{Pa}}
@@ -60,7 +93,7 @@
 \nomtypeG{\( R \)}{gas constant for air}{287.1}{\si{m^2.s^{-1}.K^{-1}}}
 \nomtypeG{\( \sigma \)}{ratio, molecular weights}{0.622}{ - }
 \nomtypeG{\( c_p \)}{specific heat capacity, const p}{10\(^4\)}{\si{m^2.s^{-2}.K^{-1}}}
-\nomtypeG{\( L \)}{specific latent heat, phase transition}{2.5 * 10\(^6\)}{\si{m^2.s^{-2}}}
+\nomtypeG{\( L \)}{specific latent heat, phase transition}{2.5 \timesten{6} }{\si{m^2.s^{-2}}}
 
 
 \nomtypeR[]{amb}{ambient}{}{}
@@ -79,7 +112,7 @@
 \tableofcontents
 \section{Bounding Tropical-Cyclone Intensity}
 
-Although it provides no insight into size, lifespan, precipitation, storm surge, or tornadogenesis, traditionally the one parameter taken to characterize best the intensity of a tropical cyclone is the peak sustained low-level wind speed within the vortex. Formally, NOAA takes this to be the maximal one-minute-averaged swirl speed at 10-m altitude above the air/sea interface, at any lateral distance from the center. Other meteorological agencies around the globe adopt three-minute or ten-minute averaging, and typically arrive at a lower value. (In many contexts, the tropical cyclone will continue to be characterized by the highest value achieved during its lifespan, even if the system in the meantime has declined to lower peak speed.) Also, the air/sea interface can become so convoluted and/or ill-defined under high wind shear that sometimes altitude as high as a kilometer above the nominal air/sea-interface height is adopted.  In any case, although definitive values are given for the intensity of a tropical cyclone, in fact, comprehensive measurement is almost never available. In the Atlantic basin, and sometimes in the eastern North Pacific, the  values often are best estimates inferred from measurements made by reconnaissance aircraft flying a few transects (“legs”) of the vortex at altitude of about 3 km, at intermittent intervals of time. Elsewhere in the tropics, the values for intensity are estimates from subjective interpretation of cloud imagery taken from satellites (i.e., from pattern recognition….the so-called Dvorak method). In general, any cited intensity is uncertain to within 5-10/% at least. 
+Although it provides no insight into size, lifespan, precipitation, storm surge, or tornadogenesis, traditionally the one parameter taken to characterize best the intensity of a tropical cyclone is the peak sustained low-level wind speed within the vortex. Formally, NOAA takes this to be the maximal one-minute-averaged swirl speed at 10-m altitude above the air/sea interface, at any lateral distance from the center. Other meteorological agencies around the globe adopt three-minute or ten-minute averaging, and typically arrive at a lower value. (In many contexts, the tropical cyclone will continue to be characterized by the highest value achieved during its lifespan, even if the system in the meantime has declined to lower peak speed.) Also, the air/sea interface can become so convoluted and/or ill-defined under high wind shear that sometimes altitude as high as a kilometer above the nominal air/sea-interface height is adopted.  In any case, although definitive values are given for the intensity of a tropical cyclone, in fact, comprehensive measurement is almost never available. In the Atlantic basin, and sometimes in the eastern North Pacific, the  values often are best estimates inferred from measurements made by reconnaissance aircraft flying a few transects (“legs”) of the vortex at altitude of about 3 km, at intermittent intervals of time. Elsewhere in the tropics, the values for intensity are estimates from subjective interpretation of cloud imagery taken from satellites (i.e., from pattern recognition….the so-called Dvorak method). In general, any cited intensity is uncertain to within 5-10\% at least. 
 
 Accordingly, of interest is the peak swirl theoretically achievable in a given spawning ambient atmosphere, upon postulation of the physical processes occurring within the system. Here we idealize the system as a steady, axisymmetric vortex contained within a conceptual, uniformly rotating (at the angular speed of the locally normal component of the Earth’s rotation), right circular cylinder with an open lateral boundary. The cylinder has an impervious slippery isobaric isothermal horizontal lid at the altitude of the tropopause (to be defined), and an impervious no-slip nonisobaric horizontal bottom at the altitude of the nominal air-sea interface. Implicitly, there is a low-level inflow, ascent in the core near the axis of rotation (and symmetry), and upper-level outflow from the cylinder. However, we here deal minimally with the secondary (radial/axial) flow, and derive thermo-hydrostatically and cyclostrophically based bounds on the swirl speed achievable in the cylinder. We focus on sensible-heat-and-moisture content of the throughput entering the cylinder at the periphery, for a once-through transit and discharge back to the surrounding atmosphere. The intake is regarded as convectively unstably stratified, and the discharge is likely to be stably stratified.
 
@@ -126,7 +159,7 @@ The analysis that follows provides quantitative details in support of the forego
 
 \item Hydrostatics
 \begin{equation}
-	\frac{\partial p}{\partial z} = -\rho g
+	\pd{p}{z} = -\rho g
 \end{equation}
 
 \end{itemize}
@@ -135,13 +168,13 @@ The analysis that follows provides quantitative details in support of the forego
 
 Since $y$ const, on a dry adiabat,   
 \begin{equation}
-	\left ( \frac{T}{T_{ref}} \right ) ^\frac{\gamma}{\gamma-1} = \frac{p}{p_{ref}} = \frac{p_v}{(p_v)_{ref}}
+	 \pfrac{T}{T_{ref}}^\gogmo = \frac{p}{p_{ref}} = \frac{p_v}{(p_v)_{ref}}
 \end{equation}
-where $\frac{\gamma}{\gamma-1} = \frac{R}{c_p}$
+where $\gogmo = \frac{R}{c_p}$
 
 Let $T$ be the lifting-condensation-level state and $T_{ref}$ be the sea-level-ambient state
 \begin{equation}
-	\left ( \frac{ (T_{sat} )_{onset}  }{ (T_{amb})_{\rho} } \right ) ^{3.5} = \frac{ p_v[ (T_{sat})_{onset}]   }{[rh]_{amb}]_\rho p_v[(T_{amb})_\rho]}
+	 \pfrac{ (T_{sat} )_{onset}  }{ (T_{amb})_{\rho} } ^{3.5} = \frac{ p_v[ (T_{sat})_{onset}]   }{[rh]_{amb}]_\rho p_v[(T_{amb})_\rho]}
 \end{equation}
 
 
@@ -164,7 +197,7 @@ Integrate from the tropopause seaward to find the thermodynamic state holding at
 \end{equation}
 
 \begin{equation}
-	c_p \frac{dT}{dz} + \sigma L \frac{d}{dz} [ p(T) / p] - \frac{1}{\rho} \frac{d \rho}{d z} = 0
+	c_p \dd{T}{z} + \sigma L \dd{}{z} [ p(T) / p] - \frac{1}{\rho} \dd{\rho}{z} = 0
 \end{equation}
 
 \begin{equation}
@@ -184,11 +217,11 @@ There is a self-consistency issue that may call for iteration of the moist-adaib
 Integrate seaward from the tropopause for an unsaturated eye. Thus
 
 \begin{equation}
-	\frac{dp}{dz} = - \rho z (???)
+	\dd{p}{z} = - \rho z (???)
 \end{equation}
 
 \begin{equation}
-	c_p \frac{dT}{dz} + \sigma L \frac{d}{dz} [ p(T) / p] - \frac{1}{\rho} \frac{d \rho}{d z} = 0
+	c_p \dd{T}{z} + \sigma L \dd{}{z} [ p(T) / p] - \frac{1}{\rho} \dd{\rho}{z} = 0
 \end{equation}
 
 \begin{equation}
@@ -210,9 +243,9 @@ In the current notebook, there is an attempt to deal with a moist inflow underru
 \end{equation}
 where
 
-$T_+ = T(z_{underrun+}$, known
+$T_+ = T(z_{underrun+})$, known
 
-$T_- = T(z_{underrun-}$, to be found
+$T_- = T(z_{underrun-})$, to be found
 
 and, for completeness, if $\rho_- = \rho(z_{underrun-})$,
 
@@ -221,11 +254,11 @@ $\rho_- = p_{underrun} / (RT_-)$
 Then one integrates moist-adiabat equations
 
 \begin{equation}
-	\frac{dp}{dz} = -\rho g
+	\dd{p}{z} = -\rho g
 \end{equation}
 
 \begin{equation}
-	c_p \frac{dT}{dz} + \sigma L \frac{d[p(t)/p]}{dz} - \frac{1}{\rho}\frac{d \rho}{dz} = 0
+	c_p \dd{T}{z} + \sigma L \dd{[p(t)/p]}{z} - \frac{1}{\rho}\dd{\rho}{z} = 0
 \end{equation}
 
 to $z=0$ to find the pressure at the surface beneath a partially inserted eye.
@@ -246,7 +279,7 @@ v(r) =
 This patching of a rigidly rotating core to a potential vortex (Rankine vortex) lets $V_{max}$ be estimated from a cyclostropic balance by substitution and integration
 
 \begin{equation}
-	\frac{v^2}{r} = \frac{1}{\rho} \frac{ \partial p}{\partial r}, \quad 0 \le r \le \infty
+	\frac{v^2}{r} = \frac{1}{\rho} \pd{p}{r}, \quad 0 \le r \le \infty
 \end{equation}
 
 provided we estimate the density $\rho$ (e.g. ascribe $\rho$ some average value).
@@ -254,19 +287,19 @@ provided we estimate the density $\rho$ (e.g. ascribe $\rho$ some average value)
 For a tropical storm (no eye, so the moist adiabat holds near $r=0$)
 
 \begin{equation}
-	V_{max} = \left \{\frac{ 2 ( p_{amb} - p_{moist,s})}{ \rho_{amb,s} + \rho_{moist,s}) } \right \}^{1/2}
+	V_{max} = \cbfrac{ 2 ( p_{amb} - p_{moist,s})}{ \rho_{amb,s} + \rho_{moist,s}) }^{1/2}
 \end{equation}
 
 For a hurricane with a partially inserted eye,
 
 \begin{equation}
-	V_{max} = \left \{\frac{ 2 ( p_{amb,s} - p_{eye,s})}{ \rho_{amb,s} + \rho_{eye,s}) } \right \}^{1/2}
+	V_{max} = \cbfrac{ 2 ( p_{amb,s} - p_{eye,s})}{ \rho_{amb,s} + \rho_{eye,s}) }^{1/2}
 \end{equation}
 
 For a hurricane with a fully inserted, non-rotating eye, this is no rigidly rotating core, so
 
 \begin{equation}
-	V_{max} = \left \{\frac{ 4 ( p_{amb,s} - p_{eye,s})}{ \rho_{amb,s} + \rho_{eye,s}) } \right \}^{1/2}
+	V_{max} = \cbfrac{ 4 ( p_{amb,s} - p_{eye,s})}{ \rho_{amb,s} + \rho_{eye,s}) }^{1/2}
 \end{equation}
 
 There is more pressure deficit for fully inserted eye, and half need not be expended maintaining a rigidly rotating core. In any case, the absence of $r_{max}$ in the expressions for $V_{max}$ is noteworthy (and convenient).
@@ -337,7 +370,7 @@ where for a given ambient we have the data
 Also, we have [recall that $p'(r_0', z') \equiv p_{amb}'(z')$ ]
 
 \begin{equation}
-	\frac{dp_{amb}'(z')}{dz'} = -\rho_{amb}'(z') g' = -[p_{amb}'[p'(z')]]g'
+	\dd{p_{amb}'(z')}{z'} = -\rho_{amb}'(z') g' = -[p_{amb}'[p'(z')]]g'
 \end{equation}
 
 In other words, we need to be able to switch between the inverse functions $p_{amb}'(z') \leftrightarrow z_{amb}'(p')$. The reference state is taken to be $p_{amb}'(r_0', 0) = p_{ref}'$, $T_{amb}'(r_0', 0) = T_{ref}'$.
@@ -360,14 +393,14 @@ in the bulk-gas module, for some purposes. This says merely that the density cha
 
 \begin{equation}
 \begin{split}
-	p'(r',z')u'(r',z')r' &= -\frac{\partial \eta'}{\partial z'} \\
-	p'(r',z')w'(r',z')r' &= \frac{\partial \eta'}{\partial r'}
+	p'(r',z')u'(r',z')r' &= -\pd{ \eta'}{ z'} \\
+	p'(r',z')w'(r',z')r' &= \pd{ \eta'}{ r'}
 \end{split}
 \end{equation}
 If the aximuthial component of vorticity, $\omega_\theta' = 0$ within the bulk-vortex module, then
 
 \begin{equation}
-	\omega_\theta'(r',z') = - \left [  \frac{\partial v'}{\partial r'} - \frac{\partial u'}{\partial z'}\right ] = 0 \Rightarrow \frac{\partial}{\partial z'} \left ( \frac{1}{\rho' r'} \frac{\partial \eta'}{\partial z'} \right ) + \frac{\partial}{\partial r'} \left ( \frac{1}{\rho' r'}\frac{\partial \eta'}{\partial r'} \right ) = 0
+	\omega_\theta'(r',z') = - \left [  \pd{ v'}{ r'} - \pd{ u'}{ z'}\right ] = 0 \Rightarrow \pd{}{ z'} \left ( \frac{1}{\rho' r'} \pd{ \eta'}{ z'} \right ) + \pd{}{ r'} \left ( \frac{1}{\rho' r'}\pd{ \eta'}{ r'} \right ) = 0
 \end{equation}
 
 For a first cut, $p'(r',z') \rightarrow p_{amb}'(z')$ seems reasonable.
@@ -382,7 +415,7 @@ For Dirichlet boundary condition on $\eta ' (r',z')$ in the bulk-vortex module,
 
 At $r' = r_0'$:
 \begin{equation}
-	\rho' u' r_0' = -\frac{\partial \eta'}{\partial z'} \rightarrow \eta'(r_0', z') - 0 = r_0' \int_{z_{edge}'}^{z'} p'(r_0', z')[- u(r_0', z')] dz'
+	\rho' u' r_0' = -\pd{ \eta'}{ z'} \rightarrow \eta'(r_0', z') - 0 = r_0' \int_{z_{edge}'}^{z'} p'(r_0', z')[- u(r_0', z')] dz'
 \end{equation}
 \begin{equation}
 	\eta_{max}' = r_0' \int_{z_{edge}'}{z_{interface}'} p_{amb}'(z') [-u_{in}'(z') ] dz'
@@ -399,7 +432,7 @@ The inflow $(u_{in}'$ follows since $\eta_{max}'$ is know.
 \item Aside: 
 
 \begin{equation}
-	\frac{\partial p'}{\partial r'}(r_0', z_{edge}') \approx p'(r',z_{edge}') \left [ 2 \Omega' v'(r') + \frac{v'^2(r')}{r'} \right ], 
+	\pd{ p'}{ r'}(r_0', z_{edge}') \approx p'(r',z_{edge}') \left [ 2 \Omega' v'(r') + \frac{v'^2(r')}{r'} \right ], 
 \end{equation}
 $p'(r_0', z_{edge}') = p_{amb}'(z_{edge}'); v'(r')$ known:
 
@@ -434,8 +467,8 @@ where $r = r'/r_0'$, $z=z'/z_{lid}'$. We cannot readily non-dimensionalize $z'$ 
 
 \begin{equation}
 \begin{split}
-	\frac{\partial p'}{\partial z'} &= -\rho g' \\
-	\frac{\partial p'}{\partial r'} & = p'\left[ 2\Omega' v' + \frac{v'^2}{r'} \right ]\\
+	\pd{ p'}{ z'} &= -\rho g' \\
+	\pd{ p'}{ r'} & = p'\left[ 2\Omega' v' + \frac{v'^2}{r'} \right ]\\
 	p'(r_0',z') &= p_{amb}'(z') \\
 	p'(r_0',0) &= p_{ref}'
 \end{split}
@@ -452,13 +485,13 @@ In the above expression for $p'(r',z')$, $p'(r_0', z_{edge}') = p_{ref}'$. Also,
 
 \item Also, 
 \begin{equation}
-	\frac{\rho'(r',z')}{c_p'} = \ln \left\{ \frac{ \left[ T'(r',z')/T_{ref}'\right] }{\left[ p(r',z')/p_{ref}' \right]^{\frac{\gamma-1}{\gamma}} }\right\}
+	\frac{\rho'(r',z')}{c_p'} = \ln \cbfrac{ \left[ T'(r',z')/T_{ref}'\right] }{\left[ p(r',z')/p_{ref}' \right]^\frac{\gamma-1}{\gamma} }
 \end{equation}
 
 or
 
 \begin{equation}
-	\frac{s'(r',z')}{R'} = \ln \left\{ \frac{ \left[ T'(r',z')/T_{ref}'\right]^{\frac{\gamma}{\gamma-1}} }{\left[ p(r',z')/p_{ref}' \right] }\right\}
+	\frac{s'(r',z')}{R'} = \ln \cbfrac{ \left[ T'(r',z')/T_{ref}'\right]^\gogmo }{\left[ p(r',z')/p_{ref}' \right] }
 \end{equation}
 
 \item To within $2 \frac{1}{3} \%$, with $L' =2.5 *10^6 \si{J.kg^{-1}}$ ...
@@ -529,7 +562,7 @@ The two integrals can be tabulated ahead of time. Recall that $\rho'(r',z_{edge}
 \end{equation}
 
 \begin{equation}
-	\frac{S_{core}'(r_{min}', z_{edge}')}{R'} = \ln \left( \frac{T_{core}'(r_{min}', z_{edge}')}{T_{ref}'} \right)^\frac{\gamma}{\gamma -1} - \ln\left( \frac{p'(r_{min}', z_{edge}')}{P_{ref}} \right) + \frac{L' \sigma p'[T_{core}'(r_{min}',z_{edge}')]}{R' T_{core}'(r_{min}', z_{edge}')p'(r_{min}', z_{edge}')}
+	\frac{S_{core}'(r_{min}', z_{edge}')}{R'} = \ln  \pfrac{T_{core}'(r_{min}', z_{edge}')}{T_{ref}'} ^\gogmo - \ln \pfrac{p'(r_{min}', z_{edge}')}{P_{ref}} + \frac{L' \sigma p'[T_{core}'(r_{min}',z_{edge}')]}{R' T_{core}'(r_{min}', z_{edge}')p'(r_{min}', z_{edge}')}
 \end{equation}
 
 \begin{equation}
@@ -537,7 +570,7 @@ The two integrals can be tabulated ahead of time. Recall that $\rho'(r',z_{edge}
 \end{equation}
 
 \begin{equation}
-	\frac{S_{core}'(r_{in}', z_{edge}')}{R'} = \frac{S_{core}'(r_0', z_{interface}')}{R'} =  \ln \left( \frac{T_{core}'(r_{min}', z_{edge}')}{T_{ref}'} \right)^\frac{\gamma}{\gamma -1} - \ln \frac{p'(r_{min}', z_{edge}')}{p_{ref}'} + \frac{L' \sigma p'[T_{core}'(r_0', z_{interface})]}{R'T_{core}'(r_0', z_{interface}') p'(r_0', z_{interface}')}
+	\frac{S_{core}'(r_{in}', z_{edge}')}{R'} = \frac{S_{core}'(r_0', z_{interface}')}{R'} =  \ln \pfrac{T_{core}'(r_{min}', z_{edge}')}{T_{ref}'} ^\gogmo - \ln \frac{p'(r_{min}', z_{edge}')}{p_{ref}'} + \frac{L' \sigma p'[T_{core}'(r_0', z_{interface})]}{R'T_{core}'(r_0', z_{interface}') p'(r_0', z_{interface}')}
 \end{equation}
 
 \item Pressure field
@@ -545,7 +578,7 @@ The two integrals can be tabulated ahead of time. Recall that $\rho'(r',z_{edge}
 	E_{core}'(r_{min}', z_{edge}') = c_p' T_{core}'(r',z') + \frac{L' \sigma p'[T_{core}'(r',z')]}{p'(r',z')} + g'z' + \frac{v'^2(r')}{2}
 \end{equation}
 \begin{equation}
-	\frac{p'(r',z')}{p_{ref}'} = \left( \frac{T_{core}'(r',z')}{T_{ref}}\right)^\frac{\gamma}{\gamma-1} -\exp \left[ - \frac{S_{core}'(r_{core}', z_{edge}')}{R'} + \frac{L' \sigma p'[T_{core}'(r',z')]}{R'T_{core}'(r',z')p'(r',z')}\right]
+	\frac{p'(r',z')}{p_{ref}'} =  \pfrac{T_{core}'(r',z')}{T_{ref}}^\gogmo -\exp \left[ - \frac{S_{core}'(r_{core}', z_{edge}')}{R'} + \frac{L' \sigma p'[T_{core}'(r',z')]}{R'T_{core}'(r',z')p'(r',z')}\right]
 \end{equation}
 
 \end{itemize}
@@ -566,7 +599,7 @@ Of course, one of the other variables could have been selected as the parameter,
 
 \item In the bulk-vortex module
 \begin{equation}
-	\frac{S'(r',z')}{R'} = \ln \left( \frac{T'(r',z')}{T_{ref}'} \right)^\frac{\gamma}{\gamma -1} - \ln \left( \frac{p'(r',z')}{p_{ref}'}\right)
+	\frac{S'(r',z')}{R'} = \ln  \pfrac{T'(r',z')}{T_{ref}'} ^\gogmo - \ln  \pfrac{p'(r',z')}{p_{ref}'}
 \end{equation}
 The core-side streamline at the contour spends so little time in the boundary layer no angular momentum is lost, but the onset of saturation changes density, temperature, vapor mass fraction, and entropy across the contour.
 \end{itemize}
@@ -609,9 +642,86 @@ where
 
 \item $p'/p_r' = (p'/p_r')(T/T_r')$
 
-\item Solving the $S'$ equation for $p'/p_r'$, and substituting for $L'Y_\rho'$ from the $E'$ equation gives
+\item Solving the $S'$ equation for $p'/p_r'$, and substituting for $L'Y_\rho'$ from the $E'$ equation gives $p'[r',z',\eta'(r',z'), T'[r',z',\eta'(r',z')]/p_r'$
 
+\begin{equation}
+\begin{split}
+&p'[r',z',\eta'(r',z'), T'[r',z',\eta'(r',z')]/p_r' =  \\
+&\left( \frac{T'}{T_r'}\right)^\gogmo \exp \left[ -\frac{S'(\eta')}{R_a'}+ \frac{E'(\eta') - g'z' - q'^2/2}{R_a' T'} - \gogmo	\right] \\
+\end{split}
+\end{equation}
 
+Note: $E'(\eta')$ is an implicit algebraic equation for $T'[r',z',\eta'(r',z')$, once the streamfunction $\eta'(r',z')$ is found.
+
+\item Since $p' = p'[r',z',\eta'(r',z'), T'[r',z',\eta'(r',z')]$, by the chain rule
+
+\begin{equation}
+\begin{split}
+&\left \{ \pd{ p'}{ r'} [r',z',\eta'(r',z'), T'[r',z',\eta'(r',z')]\right \}_{z'} =\\
+& \tpd{ p'}{ \eta'}{T', r', z'}\tpd{ \eta'}{ r'}{z'}+\tpd{ p'}{ r'}{T', \eta', z'}+\\
+& \tpd{ p'}{ T'}{\eta', r',z'}\tpd{ T'}{ \eta'}{r',z'}\tpd{ \eta'}{ r'}{z'}+\tpd{ p'}{ T'}{\eta', r',z'} \tpd{ T'}{ r'}{\eta',z'}
+\end{split}
+\end{equation}
+
+We need this expression because we seek the streamfunction equation from the conservation of radial momentum:
+
+\begin{equation}
+	\rho'u'\pd{ u'}{ r'} + \rho'w' \pd{ u'}{ z'} - 2 \Omega' \rho'v' - \rho' \frac{v'^2}{r'} = -\tpd{ p'}{ r'}{z'}
+\end{equation}
+There are three partial derivatives of $p'$ to be found.
+
+\item From continuity
+\begin{equation}
+\tpd{ \eta'}{ r'}{z'} = \rho' w' r'
+\end{equation}
+\item
+\begin{equation}
+\begin{split}
+	&c_p' T' + \frac{L' \sigma' p_s'(T')/p_r'}{\pfrac{T'}{T_r'}^\gogmo \exp \left\{ -\frac{S'(\eta')}{R_a'} + \frac{E'(\eta') - g'z' - q'^2/2}{R_a'T'} - \gogmo \right\}} \\
+	& = E'(\eta') - g'z' - q'^2/2
+	\end{split}
+\end{equation}
+Where dimensionless
+\begin{equation}
+\Upsilon \equiv \pfrac{T'}{T_r'}^\gogmo \exp \left\{ -\frac{S'(\eta')}{R_a'} + \frac{E'(\eta') - g'z' - q'^2/2}{R_a'T'} - \gogmo \right\}
+\end{equation}
+
+This is a useful form from which to obtain the two need partial derivatives of $T'$.
+
+\item 
+\begin{equation}
+\tpd{p'}{r'}{T', \eta', z'} = \rho' \left[ -u' \pd{u'}{r'} - v'\pd{v'}{r'} - w'\pd{w'}{r'} \right]
+\end{equation}
+
+\item
+\begin{equation}
+\tpd{p'}{\eta'}{T', r', z'} = \rho' \left[ -T' \dd{S'(\eta')}{\eta'} + \dd{E'(\eta')}{\eta'} - v' \pd{v'}{\eta'} \right]
+\end{equation}
+
+\begin{equation}
+\Gamma'(\eta') = r'v' + \Omega'r'^2 \Rightarrow v' = \frac{\Gamma'(\eta') - \Omega'r'^2}{r'}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+\tpd{v'}{\eta'}{r',z'} &= \dd{\Gamma'(\eta')}{\eta'}\frac{1}{r'} \\
+& = \rho' \left[ -T' \dd{S'(\eta')}{\eta'} + \dd{E'(\eta')}{\eta'} - \frac{v'}{r'} \dd{\Gamma'(\eta')}{\eta'} \right] \\
+\end{split}
+\end{equation}
+
+\item
+\begin{equation}
+\tpd{p'}{T'}{\eta', r', z'} = \rho' \left[ c_p'- \frac{E'{\eta'} -g'z' - q'*2/2}{T'} \right]
+\end{equation}
+
+\item
+\begin{equation}
+\tpd{T'}{\eta'}{r',z'} = \frac{\dd{E'(\eta')}{\eta'	}}{c_p' + R_a'T'[\chi]\left\{ \frac{\dd{p_s'(T')}{T'}}{p_s'(T')} - \gogmo \frac{1}{T'} + \frac{E'(\eta') - g'z'-q'^2/w}{R_a'T'^2}\right\} }
+\end{equation}
+Where dimensionless 
+\begin{equation}
+\chi \equiv \frac{L'\sigma p_s'(T')/p_r'}{\Upsilon(R_a' T')} 
+\end{equation}
 \end{itemize}
 
 
