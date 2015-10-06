@@ -2,6 +2,7 @@
 % possible journal styles: pra, prb, prc, prd, pre, prl, prstab and rmp
 % twocolumn / preprint
 \usepackage{nomencl,etoolbox,ragged2e,siunitx,mathtools}
+\usepackage{microtype}
 
 \usepackage[letterpaper, margin=1in]{geometry}
 \usepackage{color}   %May be necessary if you want to color links
@@ -17,31 +18,36 @@
 
 \DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
 
-\newcommand{\DimensUnits}[2]{\hfill\makebox[8em]{#1\hfill}%
-\makebox[4em]{#2\hfill}\ignorespaces}
-\newcommand{\DefinitionCol}[1]{\hfill\parbox[t]{12em}{#1}\ignorespaces}
+\newcommand{\DimensUnits}[2]{\hfill \makebox[8em]{#1\hfill}\makebox[6em]{#2\hfill}\ignorespaces}
+\newcommand{\DefinitionCol}[1]{\hfill \parbox[t]{6em}{#1}\ignorespaces}
 
 \newcommand{\nomsubtitle}[1]{\item[\large\bfseries #1]}
 
 \renewcommand\nomgroup[1]{\def\nomtemp{\csname nomstart#1\endcsname}\nomtemp}
 
-\newcommand{\nomstartR}{\nomsubtitle{Subscripts}%
+\newcommand{\nomstartC}{\nomsubtitle{Subscripts}%
   \item[\bfseries Symbol]%
   \textbf{Description}}
-\newcommand{\nomstartG}{\nomsubtitle{Constants}%
+\newcommand{\nomstartD}{\nomsubtitle{Superscripts}%
+  \item[\bfseries Symbol]%
+  \textbf{Description}}  
+\newcommand{\nomstartB}{\nomsubtitle{Constants}%
   \item[\bfseries Symbol]%
   \textbf{Description}\DimensUnits{\textbf{Value}}{\textbf{Units}}}
-\newcommand{\nomstartD}{\nomsubtitle{Variables}%
+\newcommand{\nomstartA}{\nomsubtitle{Variables}
   \item[\bfseries Symbol]\textbf{Description}\DefinitionCol{\textbf{Units}}}
 
 \renewcommand*{\nompreamble}{\markboth{\nomname}{\nomname}}
 
-\newcommand{\nomdescr}[1]{\parbox[t]{4cm}{\RaggedRight #1}}
-\newcommand{\nomwithdim}[5]{\nomenclature[#1]{#2}%
-{\nomdescr{#3}\DimensUnits{#4}{#5}}}
-\newcommand{\nomtypeR}[5][]{\nomwithdim{R#1}{#2}{#3}{#4}{#5}}
-\newcommand{\nomtypeG}[5][]{\nomwithdim{G#1}{#2}{#3}{#4}{#5}}
-\newcommand{\nomtypeD}[4][]{\nomenclature[D#1]{#2}{\nomdescr{#3}\DefinitionCol{#4}}}
+\newcommand{\nomdescr}[1]{\parbox[t]{8cm}{\RaggedRight #1}}
+\newcommand{\nomlongdescr}[1]{\parbox[t]{16cm}{\RaggedRight #1}}
+
+\newcommand{\nomwithdim}[5]{\nomenclature[#1]{#2}{\nomdescr{#3}\DimensUnits{#4}{#5}}}
+
+\newcommand{\nomtypeSub}[3][]{\nomenclature[C#1]{#2}{\nomlongdescr{#3}}}
+\newcommand{\nomtypeSup}[3][]{\nomenclature[D#1]{#2}{\nomlongdescr{#3}}}
+\newcommand{\nomtypeC}[5][]{\nomwithdim{B#1}{#2}{#3}{#4}{#5}}
+\newcommand{\nomtypeV}[4][]{\nomenclature[A#1]{#2}{\nomdescr{#3}\DefinitionCol{#4}}}
 
 % gamma over gamma minus1
 \newcommand{\gogmo}{\frac{\gamma}{\gamma-1}}
@@ -59,69 +65,73 @@
 \newcommand{\tpd}[3]{\left( \frac{\partial#1}{\partial#2} \right)_{#3}}
 \newcommand{\timesten}[1]{$\times 10^{#1}$}
 \newcommand{\ten}[1]{10$^{#1}$}
+\newcommand{\rh}{\:\textls[-200]{RH}\:}
 
 \makenomenclature
 
 \begin{document}
 
-\title{Modular Analysis of Tropical Cyclones}
+\title{Modular Analysis of Tropical-Cyclone Structure}
 
 
 \author{Francis Fendell}
 \affiliation{Northrop Grumman Aerospace Systems, Redondo Beach, CA 90278, USA}
 
 \author{Paritosh Mokhasi}
-\affiliation{Wolfram Research Inc., Champaign, IL 61820, USA}
+\affiliation{Wolfram Research, Inc., Champaign, IL 61820, USA}
 
 \author{Gregory Smetana}
 \affiliation{Northrop Grumman Aerospace Systems, Redondo Beach, CA 90278, USA}
 
 \begin{abstract}
-In the early 1970s, George Carrier and coworkers undertook a modular approach to modelling the internal thermofluid-dynamics of tropical cyclones of tropical-depression-or-greater intensity. A novel, relatively simplistic, approximate analysis of the vortex, idealized as axisymmetric, was carried out in the asymptotic limit of large Reynolds number, so that inviscid and diffusive subdomains of the structure were distinguished. Little subsequent work has followed this line of investigation. The indifference has proven problematic because accurate prediction of tropical-cycling intensity remains a challenge for operational forecasting, despite decades of effort at direct integration of comprehensive boundary/initial-value formulations. A contributing factor is that, to achieve solution in real time, such computational treatment of the entire vortex invariably resorts to coarse gridding, and key features remain inadequately resolved. Accordingly, here the modular approach is revisited, with the assistance of: recent observational insights; greatly enhanced computer-processing power; and convenient computational software, which facilitates implementation of a semi-analytic, semi-numerical methodology.
+In the early 1970s, George Carrier and coworkers undertook a modular approach to modelling the internal thermofluid-dynamics of tropical cyclones of tropical-depression-or-greater intensity. A novel, relatively simplistic, approximate analysis of the vortex, idealized as axisymmetric, was carried out in the asymptotic limit of large Reynolds number, so that inviscid and diffusive subdomains of the structure were distinguished. Little subsequent work has followed this line of investigation. The indifference has proven problematic because accurate prediction of tropical-cyclone intensity remains a challenge for operational forecasting, despite decades of effort at direct integration of comprehensive boundary/initial-value formulations. A contributing factor is that, to achieve solution in real time, such computational treatment of the entire vortex invariably resorts to coarse gridding, and key features remain inadequately resolved. Accordingly, here the modular approach is revisited, with the assistance of: recent observational insights; greatly enhanced computer-processing power; and convenient computational software, which facilitates implementation of a semi-analytic, semi-numerical methodology.
 \end{abstract}
 
 \maketitle
 
-\nomtypeD{\( p \)}{pressure}{\si{Pa}}
-\nomtypeD{\( \rho \)}{density}{\si{kg.m^{-3}}}
-\nomtypeD{\( T \)}{temperature}{\si{K}}
-\nomtypeD{\( z \)}{altitude}{\si{m}}
-\nomtypeD{\( y \)}{water vapor mass fraction}{-}
-\nomtypeD{\( rh \)}{relative humidity}{-}
+\nomtypeV{\( p \)}{pressure}{\si{Pa}}
+\nomtypeV{\( \rho \)}{density}{\si{kg.m^{-3}}}
+\nomtypeV{\( T \)}{temperature}{\si{K}}
+\nomtypeV{\( z \)}{altitude}{\si{m}}
+\nomtypeV{\( Y \)}{water vapor mass fraction}{-}
+\nomtypeV{\( S \)}{entropy}{\si{m^2.s^{-2}.K^{-1}}}
+\nomtypeV{\( \rh \)}{relative humidity}{-}
 
-\nomtypeG{\( g \)}{gravity}{9.81}{\si{m.s^{-2}}}
-\nomtypeG{\( R \)}{gas constant for air}{287.1}{\si{m^2.s^{-1}.K^{-1}}}
-\nomtypeG{\( \sigma \)}{ratio, molecular weights}{0.622}{ - }
-\nomtypeG{\( c_p \)}{specific heat capacity, const p}{10\(^4\)}{\si{m^2.s^{-2}.K^{-1}}}
-\nomtypeG{\( L \)}{specific latent heat, phase transition}{2.5 \timesten{6} }{\si{m^2.s^{-2}}}
+\nomtypeC{\( g \)}{gravity}{9.81}{\si{m.s^{-2}}}
+\nomtypeC{\( R \)}{gas constant for air}{287.1}{\si{m^2.s^{-1}.K^{-1}}}
+\nomtypeC{\( \sigma \)}{ratio, molecular weights}{0.622}{ - }
+\nomtypeC{\( c_p \)}{specific heat capacity, const $p$}{10\(^4\)}{\si{m^2.s^{-2}.K^{-1}}}
+\nomtypeC{\( L \)}{specific latent heat, phase transition}{2.5 \timesten{6} }{\si{m^2.s^{-2}}}
 
 
-\nomtypeR[]{amb}{ambient}{}{}
-\nomtypeR[]{moist}{moist adiabat}{}{}
-\nomtypeR[]{eye}{eye}{}{}
-\nomtypeR[]{trop}{tropopause}{}{}
-\nomtypeR[]{sat}{saturated}{}{}
-\nomtypeR[]{v}{water vapor}{}{}
-\nomtypeR[]{vsat}{saturated water vapor}{}{}
-\nomtypeR[]{switch}{lifting condensation level}{}{}
-\nomtypeR[]{s}{ocean-surface value}{}{}
-\nomtypeR[]{underrun}{underrunning moist air}{}{}
+\nomtypeSub[]{amb}{ambient}
+\nomtypeSub[]{moist}{moist adiabat}
+\nomtypeSub[]{eye}{eye}
+\nomtypeSub[]{trop}{tropopause}
+\nomtypeSub[]{sat}{saturated}
+\nomtypeSub[]{v}{water vapor}
+\nomtypeSub[]{vsat}{saturated water vapor}
+\nomtypeSub[]{switch}{lifting condensation level}
+\nomtypeSub[]{s}{ocean-surface value; saturated (in core module)}
+\nomtypeSub[]{underrun}{underrunning moist air}
+
+\nomtypeSup[]{$'$}{dimensional quantity; normalized mass fraction}
 
 
 \printnomenclature[6em]
 \tableofcontents
 \section{Bounding Tropical-Cyclone Intensity}
 
-Although it provides no insight into size, lifespan, precipitation, storm surge, or tornadogenesis, traditionally the one parameter taken to characterize best the intensity of a tropical cyclone is the peak sustained low-level wind speed within the vortex. Formally, NOAA takes this to be the maximal one-minute-averaged swirl speed at 10-m altitude above the air/sea interface, at any lateral distance from the center. Other meteorological agencies around the globe adopt three-minute or ten-minute averaging, and typically arrive at a lower value. (In many contexts, the tropical cyclone will continue to be characterized by the highest value achieved during its lifespan, even if the system in the meantime has declined to lower peak speed.) Also, the air/sea interface can become so convoluted and/or ill-defined under high wind shear that sometimes altitude as high as a kilometer above the nominal air/sea-interface height is adopted.  In any case, although definitive values are given for the intensity of a tropical cyclone, in fact, comprehensive measurement is almost never available. In the Atlantic basin, and sometimes in the eastern North Pacific, the  values often are best estimates inferred from measurements made by reconnaissance aircraft flying a few transects (“legs”) of the vortex at altitude of about 3 km, at intermittent intervals of time. Elsewhere in the tropics, the values for intensity are estimates from subjective interpretation of cloud imagery taken from satellites (i.e., from pattern recognition….the so-called Dvorak method). In general, any cited intensity is uncertain to within 5-10\% at least. 
+Although it provides no insight into size, lifespan, precipitation, storm surge, or tornadogenesis, traditionally the one parameter taken to characterize best the intensity of a tropical cyclone is the peak sustained low-level wind speed within the vortex. Formally, NOAA takes this to be the maximal one-minute-averaged swirl speed at 10-m altitude above the air/sea interface, at any lateral distance from the center. Other meteorological agencies around the globe adopt three-minute or ten-minute averaging, and typically arrive at a lower value. (In many contexts, the tropical cyclone will continue to be characterized by the highest value achieved during its lifespan, even if the system in the meantime has declined to lower peak speed.) Also, the air/sea interface can become so convoluted and/or ill-defined under high wind shear that sometimes altitude as high as a kilometer above the nominal air/sea-interface height is adopted.  In any case, although definitive values are given for the intensity of a tropical cyclone, in fact, comprehensive measurement is almost never available. In the Atlantic basin, and sometimes in the eastern North Pacific, the  values often are best estimates inferred from measurements made by reconnaissance aircraft flying a few transects (“legs”) of the vortex at altitude of about 3 km, at intermittent intervals of time. Elsewhere in the tropics, the values for intensity are estimates from subjective interpretation of cloud imagery taken from satellites (i.e., from pattern recognition, the so-called Dvorak method). In general, any cited intensity is uncertain to within 5-10\% at least. 
 
-Accordingly, of interest is the peak swirl theoretically achievable in a given spawning ambient atmosphere, upon postulation of the physical processes occurring within the system. Here we idealize the system as a steady, axisymmetric vortex contained within a conceptual, uniformly rotating (at the angular speed of the locally normal component of the Earth’s rotation), right circular cylinder with an open lateral boundary. The cylinder has an impervious slippery isobaric isothermal horizontal lid at the altitude of the tropopause (to be defined), and an impervious no-slip nonisobaric horizontal bottom at the altitude of the nominal air-sea interface. Implicitly, there is a low-level inflow, ascent in the core near the axis of rotation (and symmetry), and upper-level outflow from the cylinder. However, we here deal minimally with the secondary (radial/axial) flow, and derive thermo-hydrostatically and cyclostrophically based bounds on the swirl speed achievable in the cylinder. We focus on sensible-heat-and-moisture content of the throughput entering the cylinder at the periphery, for a once-through transit and discharge back to the surrounding atmosphere. The intake is regarded as convectively unstably stratified, and the discharge is likely to be stably stratified.
+Accordingly, of interest is the peak swirl theoretically achievable in a given spawning ambient atmosphere, upon postulation of the physical processes occurring within the system. Here we idealize the system as a steady, axisymmetric vortex contained within a conceptual, uniformly rotating (at the angular speed of the locally normal component of the Earth's rotation), right circular cylinder with an open lateral boundary. The cylinder has an impervious slippery isobaric isothermal horizontal lid at the altitude of the tropopause (to be defined), and an impervious no-slip nonisobaric horizontal bottom at the altitude of the nominal air-sea interface. Implicitly, there is a low-level inflow, ascent in the core near the axis of rotation (and symmetry), and upper-level outflow from the cylinder. However, we here deal minimally with the secondary (radial/axial) flow, and derive thermo-hydrostatically and cyclostrophically based bounds on the swirl speed achievable in the cylinder. We focus on sensible-heat-and-moisture content of the throughput entering the cylinder at the periphery, for a once-through transit and discharge back to the surrounding atmosphere. The intake is regarded as convectively unstably stratified, and the discharge is likely to be stably stratified.
 
 Thus a vortex of at least tropical-depression intensity is taken to exist in the cylinder. The ambient is somewhat modified from the mean autumnal maritime-tropical sounding (e.g., Jordan ambient) because on a typical day there is no tropical cyclone present. The diffusive transfer from sea to air of heat and moisture across the bottom boundary of the cylinder is at about ambient level, and is not significantly enhanced above ambient level. The heat and moisture already present in the atmospheric intake are shown to be readily sufficient to sustain the vortex without the need for any hypothesized augmented transfer of enthalpy from the underlying ocean.
 
 We take the adopted ambient stratification to hold at all altitudes at the periphery, even though the upper-tropospheric efflux disrupts that ambient stratification at higher altitudes in the troposphere.
 
 Our goal is to compute the lateral pressure deficit from ambient, holding at sea level under various vertical columns of air within the vortex. For a hydrostatic approximation, the sea-level pressure is the weight per cross-sectional area of a vertical column of fluid. Thus, the sea-level pressure anomaly is an integral over altitude of the discrepancy of the local density from ambient density. If the top of the vortex is an isobaric isothermal lid, then any sea-level-pressure anomaly is owing to processes within the vortex.
-In particular, sea-level air rising on a moist-adiabatic locus of thermodynamic states in the idealized eyewall of a hurricane (or in the core of a well-developed tropical storm) can generate a pressure anomaly of no more than a few tens of hectoPascals (hPa, equivalent to millibars). Condensational heating, to counteract expansional cooling during ascent to lower pressure, can effect no greater density reduction. Under a cyclostrophic approximation to the conservation of radial momentum (suitable for the axisymmetric right-circular-cylinder geometry), with the radial profile of the swirl component of relative velocity being of Rankine-vortex form, and with the density being held approximately constant with radius, then the peak swirl speed cannot exceed about 40 m/s. This is the peak speed of a strong tropical storm, and substantially smaller than the speed recorded in the highest category of hurricane. 
+In particular, sea-level air rising on a moist-adiabatic locus of thermodynamic states in the idealized eyewall of a hurricane (or in the core of a well-developed tropical storm) can generate a pressure anomaly of no more than a few tens of hectoPascals (hPa, equivalent to millibars). Condensational heating, to counteract expansional cooling during ascent to lower pressure, can effect no greater density reduction. Under a cyclostrophic approximation to the conservation of radial momentum (suitable for the axisymmetric right-circular-cylinder geometry), with the radial profile of the swirl component of relative velocity being of Rankine-vortex form, and with the density being held approximately constant with radius, then the peak swirl speed cannot exceed about 40 m/s. This approximates the peak speed of a strong tropical storm and is substantially smaller than the speed recorded in the highest category of hurricane. 
 To achieve the columnar reduction of density that results in a sea-level-pressure anomaly of of nearly 100 hPa or even greater, some other physical process must be involved. That process is compressional heating of relatively dry, tropopause-level air, during descent seaward to higher pressure in a central eye.  The pressure deficit so achievable is far more than the magnitude that is consistent with the nearly 100 m/s peak swirl speed observed in the most intense hurricanes. In practice, the eye is not entirely dry owing to evaporative cooling related to the influx to the eye of condensate generated in the adjacent eyewall. Also, the eye may not extend the entire distance from the tropopause seaward to ocean surface; some inflowing moist air may underrun a partially inserted, central eye.
 
 An inconsistency in the foregoing discussion is that the computation of the lateral pressure differences is at sea-level altitude. However, the swirl-speed conversion utilizes a cyclostrophic balance. A diffusion-free approximation to the conservation of radial momentum holds in the inviscid flow above the roughly one-kilometer-thickness, ocean-surface-contiguous boundary layer. Nevertheless, the adopted procedures seem a reasonable way to proceed. 
@@ -131,7 +141,7 @@ The analysis that follows provides quantitative details in support of the forego
 \section{Equations}
 
 \subsection{Ambient Profiles with Altitude  }
-(calculated from $T_{amb}[p]$, $ rh_{amb}[p]$)
+(calculated from $T_{amb}[p]$, $ \rh_{amb}[p]$, taken as available from sounding)
 \begin{itemize}
 
 \item Equations of State
@@ -145,16 +155,16 @@ The analysis that follows provides quantitative details in support of the forego
 \item Definition of Water Vapor Mass Fraction
 
 \begin{equation}
-	y = \rho_v / \rho
+	Y = \rho_v / \rho
 \end{equation}
 
 \begin{equation}
-	y = \sigma rh P(T) / \rho
+	Y = \sigma \rh P(T) / \rho
 \end{equation}
 
 \item Definition of relative humidity
 \begin{equation}
-	rh = \rho_v / P(T)
+	\rh = \rho_v / P(T)
 \end{equation}
 
 \item Hydrostatics
@@ -722,6 +732,98 @@ Where dimensionless
 \begin{equation}
 \chi \equiv \frac{L'\sigma p_s'(T')/p_r'}{\Upsilon(R_a' T')} 
 \end{equation}
+
+\item
+\begin{equation}
+\tpd{T'}{r'}{\eta',z'} = \frac{-\left( u'\pd{u'}{r'} + v' \pd{v'}{r'} + w'\pd{w'}{r'}\right)\left[ 1 + \chi\right]}{c_p' + R_a'T'[\chi] \left\{ \frac{\dd{P_s'(T')}{T'}}{P_s'(T')} - \gogmo \frac{1}{T'} \frac{E'(\eta') - g'z'-q'^2/2}{R_a'T'^2}  \right\}}
+\end{equation}
+
+Substituting for the pressure gradient in the equation for conservation of radial momentum:
+\begin{equation}
+\begin{split}
+&\rho'u'\pd{u'}{r'} + \rho' w' \pd{u'}{z'} - 2 \rho' \Omega'v' - \rho'\frac{v'^2}{r'} = \\
+&-\rho'\left[ -T' \dd{s'(\eta')}{\eta'} +\dd{E'(\eta')}{\eta'}- v' \pd{v'}{\eta'} \right] \rho' w' r' \\
+& - \rho' \left[ -u'\pd{u'}{r'} -v'\pd{v'}{r'} -w'\pd{w'}{r'}\right]_{T',\eta',z'} \\
+& - \rho' \left[ c_p' - \frac{E'(\eta') - g'z' - q'^2/2}{T'}\right]\rho' w' r' \quad \times \\
+&\left\{ \frac{\dd{E'(\eta')}{\eta'}\left[ 1+\chi\right] - v'\tpd{v'}{r'}{r',z'}\left[ 1 + \chi \right] - T' \dd{S'(\eta')}{\eta'}[\chi]}{c_p'+R_a'T'[\chi] \left\{ \frac{\dd{P_s'(T')}{T'}}{P_s'(T'} -\gogmo \frac{1}{T'} + \frac{E'(\eta') - g'z' - q'^2/2}{R_a'T'^2} \right\} }\right\} \\
+&+ \rho' \left[ c_p' - \frac{E'(\eta') - g'z'-q'^2/2}{T'}\right] \quad \times \\
+& \left\{ \frac{ \left( u'\pd{u'}{r'} +v'\pd{v'}{r'} w'\pd{w'}{r'} \right)_{\eta',r'} [1+\chi] }{c_p' + R_a'T'[\chi] \left\{ \frac{\dd{P_s'(T')}{T'}}{P_s'(T')} -\gogmo \frac{1}{T'} + \frac{E'(\eta') - g'z' - q'^2/2}{R_a'T'^2}\right \} }	\right\}
+\end{split}
+\end{equation}
+
+\item
+We take $v'\pd{v'}{r'} \gg \left( u' \pd{u'}{r'} + w'\pd{w'}{r'}\right)$ in the last term
+
+\item
+We note:
+\begin{equation}
+-2 \Omega v' - \frac{v'^2}{r'} = v'\tpd{v'}{r'}{eta'}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+c_p' - \frac{E'(\eta') - g' z' - q'^2/2}{T'} &= -L' Y_s'(T')/T' \\
+&= -\frac{L'}{T'}\frac{\sigma P_s'(T')}{P'}
+\end{split}
+\end{equation}
+
+\item 
+Cancel $\rho'$ in all terms and divide each term by $w'$
+\begin{equation}
+\begin{split}
+&\pd{u'}{z'} - \pd{w'}{r'} = \\
+&-\rho'r'\left[ -T' \dd{s'(\eta')}{\eta'} +\dd{E'(\eta')}{\eta'}- v' \pd{v'}{\eta'} \right] \\
+& - \rho' r' \left[ -\frac{L'}{T'}\frac{\sigma P_s'(T')}{P'} \right] \left\{ \frac{\dd{E'(\eta')}{\eta'}\left[ 1+\chi\right] - v'\tpd{v'}{r'}{r',z'}\left[ 1 + \chi \right] - T' \dd{S'(\eta')}{\eta'}[\chi]}{c_p'+R_a'T'[\chi] \left\{ \frac{\dd{P_s'(T')}{T'}}{P_s'(T'} -\gogmo \frac{1}{T'} + \frac{E'(\eta') - g'z' - q'^2/2}{R_a'T'^2} \right\} }\right\} \\
+&+ \frac{1}{w'} \left[ -\frac{L'}{T'}\frac{\sigma P_s'(T')}{P'} \right] \left\{ \frac{ \left( u'\pd{u'}{r'} +v'\pd{v'}{r'} w'\pd{w'}{r'} \right)_{\eta',r'} [1+\chi] }{c_p' + R_a'T'[\chi] \left\{ \frac{\dd{P_s'(T')}{T'}}{P_s'(T')} -\gogmo \frac{1}{T'} + \frac{E'(\eta') - g'z' - q'^2/2}{R_a'T'^2} \right \} }	\right\}
+\end{split}
+\end{equation}
+\item
+Since $v' = v'(\eta',r')$, a well known identity is
+\begin{equation}
+\tpd{\eta'}{r'}{v'}\tpd{v'}{\eta'}{r'}\tpd{r'}{v'}{\eta'} = -1
+\end{equation}
+For terms in the last two lines to cancel,
+\begin{equation}
+\rho'w'r'\left(v'\pd{v'}{\eta'} \right) = -v'\tpd{v'}{r'}{\eta',z'}
+\end{equation}
+but $\rho'w'r' = \tpd{\eta'}{r'}{z'}$, so
+\begin{equation}
+\tpd{\eta'}{r'}{z'}\tpd{v'}{\eta'}{r',z'}\tpd{r'}{v'}{\eta',z'} = -1
+\end{equation}
+We take this to hold to good approximation, so terms involving $v'$ in the last two lines cancel.
+
+\begin{equation}
+\begin{split}
+&-\pd{}{z'}\left( \frac{1}{\rho' r'} \pd{\eta'}{z'}\right) - \pd{}{r'}\left(\frac{1}{\rho'r'} \pd{\eta'}{r'}\right) =\\
+&-\rho'r'\left[ -T' \dd{s'(\eta')}{\eta'} +\dd{E'(\eta')}{\eta'}- \frac{v'}{r'} \pd{\Gamma(\eta')}{\eta'} \right] \\
+& - \rho' r' \left[ -\frac{L'Y_s'(T',p')}{T'} \right] \left\{ \frac{\dd{E'(\eta')}{\eta'}\left[ 1+\chi\right]  - T' \dd{S'(\eta')}{\eta'}[\chi]}{c_p'+R_a'T'[\chi] \left\{ \frac{\dd{P_s'(T')}{T'}}{P_s'(T'} +\frac{L'Y_s'(T',p')/T}{R_a T'} \right\} }\right\} \\
+\end{split}
+\end{equation}
+
+\begin{equation}
+Y_s'(T',p') \equiv \frac{\sigma P_s'(T')}{P'}
+\end{equation}
+
+\item
+Recall:
+\begin{equation}
+\chi \equiv \frac{L'\sigma p_s'(T')/p_r'}{\Upsilon(R_a' T')} 
+\end{equation}
+\begin{equation}
+\Upsilon \equiv \pfrac{T'}{T_r'}^\gogmo \exp \left\{ -\frac{S'(\eta')}{R_a'} +\frac{L'Y_s'(T',p')/T}{R_a T'} \right\}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+&-\pd{}{z'}\left( \frac{1}{\rho' r'} \pd{\eta'}{z'}\right) - \pd{}{r'}\left(\frac{1}{\rho'r'} \pd{\eta'}{r'}\right) =\\
+&-\rho'r' \Bigg\{ -T' \dd{s'(\eta')}{\eta'} \left[ 1 - \frac{[\chi] L'Y_s'(T',p')/T'}{c_p' + R_a'T'[\chi] \left( \frac{\dd{P_s'(T')}{T'}}{P_s'(T')} +\frac{L'Y_s'(T',p')/T'}{R_a'T'} \right)}\right]  \\
+& + \dd{E'(\eta')}{\eta'} \left[1 - \frac{[1+\chi] L'Y_s'(T',p')/T'}{c_p' + R_a'T'[\chi] \left( \frac{\dd{P_s'(T')}{T'}}{P_s'(T')} +\frac{L'Y_s'(T',p')/T'}{R_a'T'} \right)} \right]  \\
+&- \frac{v'}{r'}\dd{\Gamma'(\eta')}{\eta'} \Bigg\}
+\end{split}
+\end{equation}
+
+\item
+Nondimensionalization 
 \end{itemize}
 
 

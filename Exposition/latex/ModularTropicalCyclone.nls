@@ -1,25 +1,27 @@
 \begin{thenomenclature} 
 
- \nomgroup{D}
+ \nomgroup{A}
 
+  \item [{\( \rh \)}]\begingroup \nomdescr {relative humidity}\DefinitionCol {-}\nomeqref {0}
+		\nompageref{2}
   \item [{\( \rho \)}]\begingroup \nomdescr {density}\DefinitionCol {\si {kg.m^{-3}}}\nomeqref {0}
 		\nompageref{2}
   \item [{\( p \)}]\begingroup \nomdescr {pressure}\DefinitionCol {\si {Pa}}\nomeqref {0}
 		\nompageref{2}
-  \item [{\( rh \)}]\begingroup \nomdescr {relative humidity}\DefinitionCol {-}\nomeqref {0}
+  \item [{\( S \)}]\begingroup \nomdescr {entropy}\DefinitionCol {\si {m^2.s^{-2}.K^{-1}}}\nomeqref {0}
 		\nompageref{2}
   \item [{\( T \)}]\begingroup \nomdescr {temperature}\DefinitionCol {\si {K}}\nomeqref {0}
 		\nompageref{2}
-  \item [{\( y \)}]\begingroup \nomdescr {water vapor mass fraction}\DefinitionCol {-}\nomeqref {0}
+  \item [{\( Y \)}]\begingroup \nomdescr {water vapor mass fraction}\DefinitionCol {-}\nomeqref {0}
 		\nompageref{2}
   \item [{\( z \)}]\begingroup \nomdescr {altitude}\DefinitionCol {\si {m}}\nomeqref {0}
 		\nompageref{2}
 
- \nomgroup{G}
+ \nomgroup{B}
 
   \item [{\( \sigma \)}]\begingroup \nomdescr {ratio, molecular weights}\DimensUnits {0.622}{ - }\nomeqref {0}
 		\nompageref{2}
-  \item [{\( c_p \)}]\begingroup \nomdescr {specific heat capacity, const p}\DimensUnits {10\(^4\)}{\si {m^2.s^{-2}.K^{-1}}}\nomeqref {0}
+  \item [{\( c_p \)}]\begingroup \nomdescr {specific heat capacity, const $p$}\DimensUnits {10\(^4\)}{\si {m^2.s^{-2}.K^{-1}}}\nomeqref {0}
 		\nompageref{2}
   \item [{\( g \)}]\begingroup \nomdescr {gravity}\DimensUnits {9.81}{\si {m.s^{-2}}}\nomeqref {0}
 		\nompageref{2}
@@ -28,27 +30,32 @@
   \item [{\( R \)}]\begingroup \nomdescr {gas constant for air}\DimensUnits {287.1}{\si {m^2.s^{-1}.K^{-1}}}\nomeqref {0}
 		\nompageref{2}
 
- \nomgroup{R}
+ \nomgroup{C}
 
-  \item [{amb}]\begingroup \nomdescr {ambient}\DimensUnits {}{}\nomeqref {0}
+  \item [{amb}]\begingroup \nomlongdescr {ambient}\nomeqref {0}
 		\nompageref{2}
-  \item [{eye}]\begingroup \nomdescr {eye}\DimensUnits {}{}\nomeqref {0}
+  \item [{eye}]\begingroup \nomlongdescr {eye}\nomeqref {0}
 		\nompageref{2}
-  \item [{moist}]\begingroup \nomdescr {moist adiabat}\DimensUnits {}{}\nomeqref {0}
+  \item [{moist}]\begingroup \nomlongdescr {moist adiabat}\nomeqref {0}
 		\nompageref{2}
-  \item [{s}]\begingroup \nomdescr {ocean-surface value}\DimensUnits {}{}\nomeqref {0}
+  \item [{s}]\begingroup \nomlongdescr {ocean-surface value; saturated (in core module)}\nomeqref {0}
 		\nompageref{2}
-  \item [{sat}]\begingroup \nomdescr {saturated}\DimensUnits {}{}\nomeqref {0}
+  \item [{sat}]\begingroup \nomlongdescr {saturated}\nomeqref {0}
 		\nompageref{2}
-  \item [{switch}]\begingroup \nomdescr {lifting condensation level}\DimensUnits {}{}\nomeqref {0}
+  \item [{switch}]\begingroup \nomlongdescr {lifting condensation level}\nomeqref {0}
 		\nompageref{2}
-  \item [{trop}]\begingroup \nomdescr {tropopause}\DimensUnits {}{}\nomeqref {0}
+  \item [{trop}]\begingroup \nomlongdescr {tropopause}\nomeqref {0}
 		\nompageref{2}
-  \item [{underrun}]\begingroup \nomdescr {underrunning moist air}\DimensUnits {}{}\nomeqref {0}
+  \item [{underrun}]\begingroup \nomlongdescr {underrunning moist air}\nomeqref {0}
 		\nompageref{2}
-  \item [{v}]\begingroup \nomdescr {water vapor}\DimensUnits {}{}\nomeqref {0}
+  \item [{v}]\begingroup \nomlongdescr {water vapor}\nomeqref {0}
 		\nompageref{2}
-  \item [{vsat}]\begingroup \nomdescr {saturated water vapor}\DimensUnits {}{}\nomeqref {0}
+  \item [{vsat}]\begingroup \nomlongdescr {saturated water vapor}\nomeqref {0}
+		\nompageref{2}
+
+ \nomgroup{D}
+
+  \item [{$'$}]\begingroup \nomlongdescr {dimensional quantity; normalized mass fraction}\nomeqref {0}
 		\nompageref{2}
 
 \end{thenomenclature}

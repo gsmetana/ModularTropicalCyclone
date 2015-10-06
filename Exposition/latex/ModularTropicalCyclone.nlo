@@ -1,21 +1,23 @@
-\nomenclatureentry{D\( p \)@[{\( p \)}]\begingroup \nomdescr {pressure}\DefinitionCol {\si {Pa}}\nomeqref {0}|nompageref}{2}
-\nomenclatureentry{D\( \rho \)@[{\( \rho \)}]\begingroup \nomdescr {density}\DefinitionCol {\si {kg.m^{-3}}}\nomeqref {0}|nompageref}{2}
-\nomenclatureentry{D\( T \)@[{\( T \)}]\begingroup \nomdescr {temperature}\DefinitionCol {\si {K}}\nomeqref {0}|nompageref}{2}
-\nomenclatureentry{D\( z \)@[{\( z \)}]\begingroup \nomdescr {altitude}\DefinitionCol {\si {m}}\nomeqref {0}|nompageref}{2}
-\nomenclatureentry{D\( y \)@[{\( y \)}]\begingroup \nomdescr {water vapor mass fraction}\DefinitionCol {-}\nomeqref {0}|nompageref}{2}
-\nomenclatureentry{D\( rh \)@[{\( rh \)}]\begingroup \nomdescr {relative humidity}\DefinitionCol {-}\nomeqref {0}|nompageref}{2}
-\nomenclatureentry{G\( g \)@[{\( g \)}]\begingroup \nomdescr {gravity}\DimensUnits {9.81}{\si {m.s^{-2}}}\nomeqref {0}|nompageref}{2}
-\nomenclatureentry{G\( R \)@[{\( R \)}]\begingroup \nomdescr {gas constant for air}\DimensUnits {287.1}{\si {m^2.s^{-1}.K^{-1}}}\nomeqref {0}|nompageref}{2}
-\nomenclatureentry{G\( \sigma \)@[{\( \sigma \)}]\begingroup \nomdescr {ratio, molecular weights}\DimensUnits {0.622}{ - }\nomeqref {0}|nompageref}{2}
-\nomenclatureentry{G\( c_p \)@[{\( c_p \)}]\begingroup \nomdescr {specific heat capacity, const p}\DimensUnits {10\(^4\)}{\si {m^2.s^{-2}.K^{-1}}}\nomeqref {0}|nompageref}{2}
-\nomenclatureentry{G\( L \)@[{\( L \)}]\begingroup \nomdescr {specific latent heat, phase transition}\DimensUnits {2.5 \timesten {6} }{\si {m^2.s^{-2}}}\nomeqref {0}|nompageref}{2}
-\nomenclatureentry{Ramb@[{amb}]\begingroup \nomdescr {ambient}\DimensUnits {}{}\nomeqref {0}|nompageref}{2}
-\nomenclatureentry{Rmoist@[{moist}]\begingroup \nomdescr {moist adiabat}\DimensUnits {}{}\nomeqref {0}|nompageref}{2}
-\nomenclatureentry{Reye@[{eye}]\begingroup \nomdescr {eye}\DimensUnits {}{}\nomeqref {0}|nompageref}{2}
-\nomenclatureentry{Rtrop@[{trop}]\begingroup \nomdescr {tropopause}\DimensUnits {}{}\nomeqref {0}|nompageref}{2}
-\nomenclatureentry{Rsat@[{sat}]\begingroup \nomdescr {saturated}\DimensUnits {}{}\nomeqref {0}|nompageref}{2}
-\nomenclatureentry{Rv@[{v}]\begingroup \nomdescr {water vapor}\DimensUnits {}{}\nomeqref {0}|nompageref}{2}
-\nomenclatureentry{Rvsat@[{vsat}]\begingroup \nomdescr {saturated water vapor}\DimensUnits {}{}\nomeqref {0}|nompageref}{2}
-\nomenclatureentry{Rswitch@[{switch}]\begingroup \nomdescr {lifting condensation level}\DimensUnits {}{}\nomeqref {0}|nompageref}{2}
-\nomenclatureentry{Rs@[{s}]\begingroup \nomdescr {ocean-surface value}\DimensUnits {}{}\nomeqref {0}|nompageref}{2}
-\nomenclatureentry{Runderrun@[{underrun}]\begingroup \nomdescr {underrunning moist air}\DimensUnits {}{}\nomeqref {0}|nompageref}{2}
+\nomenclatureentry{A\( p \)@[{\( p \)}]\begingroup \nomdescr {pressure}\DefinitionCol {\si {Pa}}\nomeqref {0}|nompageref}{2}
+\nomenclatureentry{A\( \rho \)@[{\( \rho \)}]\begingroup \nomdescr {density}\DefinitionCol {\si {kg.m^{-3}}}\nomeqref {0}|nompageref}{2}
+\nomenclatureentry{A\( T \)@[{\( T \)}]\begingroup \nomdescr {temperature}\DefinitionCol {\si {K}}\nomeqref {0}|nompageref}{2}
+\nomenclatureentry{A\( z \)@[{\( z \)}]\begingroup \nomdescr {altitude}\DefinitionCol {\si {m}}\nomeqref {0}|nompageref}{2}
+\nomenclatureentry{A\( Y \)@[{\( Y \)}]\begingroup \nomdescr {water vapor mass fraction}\DefinitionCol {-}\nomeqref {0}|nompageref}{2}
+\nomenclatureentry{A\( S \)@[{\( S \)}]\begingroup \nomdescr {entropy}\DefinitionCol {\si {m^2.s^{-2}.K^{-1}}}\nomeqref {0}|nompageref}{2}
+\nomenclatureentry{A\( \rh \)@[{\( \rh \)}]\begingroup \nomdescr {relative humidity}\DefinitionCol {-}\nomeqref {0}|nompageref}{2}
+\nomenclatureentry{B\( g \)@[{\( g \)}]\begingroup \nomdescr {gravity}\DimensUnits {9.81}{\si {m.s^{-2}}}\nomeqref {0}|nompageref}{2}
+\nomenclatureentry{B\( R \)@[{\( R \)}]\begingroup \nomdescr {gas constant for air}\DimensUnits {287.1}{\si {m^2.s^{-1}.K^{-1}}}\nomeqref {0}|nompageref}{2}
+\nomenclatureentry{B\( \sigma \)@[{\( \sigma \)}]\begingroup \nomdescr {ratio, molecular weights}\DimensUnits {0.622}{ - }\nomeqref {0}|nompageref}{2}
+\nomenclatureentry{B\( c_p \)@[{\( c_p \)}]\begingroup \nomdescr {specific heat capacity, const $p$}\DimensUnits {10\(^4\)}{\si {m^2.s^{-2}.K^{-1}}}\nomeqref {0}|nompageref}{2}
+\nomenclatureentry{B\( L \)@[{\( L \)}]\begingroup \nomdescr {specific latent heat, phase transition}\DimensUnits {2.5 \timesten {6} }{\si {m^2.s^{-2}}}\nomeqref {0}|nompageref}{2}
+\nomenclatureentry{Camb@[{amb}]\begingroup \nomlongdescr {ambient}\nomeqref {0}|nompageref}{2}
+\nomenclatureentry{Cmoist@[{moist}]\begingroup \nomlongdescr {moist adiabat}\nomeqref {0}|nompageref}{2}
+\nomenclatureentry{Ceye@[{eye}]\begingroup \nomlongdescr {eye}\nomeqref {0}|nompageref}{2}
+\nomenclatureentry{Ctrop@[{trop}]\begingroup \nomlongdescr {tropopause}\nomeqref {0}|nompageref}{2}
+\nomenclatureentry{Csat@[{sat}]\begingroup \nomlongdescr {saturated}\nomeqref {0}|nompageref}{2}
+\nomenclatureentry{Cv@[{v}]\begingroup \nomlongdescr {water vapor}\nomeqref {0}|nompageref}{2}
+\nomenclatureentry{Cvsat@[{vsat}]\begingroup \nomlongdescr {saturated water vapor}\nomeqref {0}|nompageref}{2}
+\nomenclatureentry{Cswitch@[{switch}]\begingroup \nomlongdescr {lifting condensation level}\nomeqref {0}|nompageref}{2}
+\nomenclatureentry{Cs@[{s}]\begingroup \nomlongdescr {ocean-surface value; saturated (in core module)}\nomeqref {0}|nompageref}{2}
+\nomenclatureentry{Cunderrun@[{underrun}]\begingroup \nomlongdescr {underrunning moist air}\nomeqref {0}|nompageref}{2}
+\nomenclatureentry{D$'$@[{$'$}]\begingroup \nomlongdescr {dimensional quantity; normalized mass fraction}\nomeqref {0}|nompageref}{2}
