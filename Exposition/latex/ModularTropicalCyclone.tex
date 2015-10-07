@@ -824,7 +824,80 @@ Recall:
 
 \item
 Nondimensionalization 
+\begin{equation}
+\begin{split}
+\widetilde{Y}_\rho(T,p) &\equiv Y_\rho'(T',p') / Y_{ref}'  \qquad Y_{ref}' = Y_{amb,surface}' \\
+T &\equiv T'/T_{ref}' \\
+p &\equiv p'/p_{ref}' \\
+p_\rho(T) &\equiv p_\rho'(T') / p_{ref}
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+\widetilde{Y}_\rho(T,p) &= \frac{\sigma[p_\rho'(T')/p_{amb,\rho}' ]/(p'/p_{amb,\rho}')}{\sigma[(\rh)_{amb,\rho} p_\rho'(T_{amb,\rho}'/p_{amb}']/(p_{amb,\rho}'/p_{amb,\rho}')} \\
+&= \frac{p_\rho(T)/p}{(\rh)_{amb,\rho}p_\rho(1)}\\
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+(\rh)_{amb,\rho} &\equiv \frac{(p_v')_{ref}}{p_\rho'(T_{ref}'}\\
+p_v &= p_v' / p_{ref}' \\
+S(\eta) &= S'(\eta)/R_a' \\
+\pi_1 &\equiv \frac{L'Y_{ref}'}{c_p' T_{ref}'} \\
+\Upsilon &= T^\gogmo \exp\left[ -S(\eta) + \pi_1 \gogmo \frac{\widetilde{Y}_\rho(T,p)}{T}\right] \\
+\chi &= \pi_1 \gogmo \frac{\widetilde{Y}_\rho(T,p) p}{T[\Upsilon]} \\
+\pi_2 &\equiv (\Omega'^2 r_o'^2)/(c_p'T_{ref}') \\
+\pi_4 &\equiv z_t'^2 / r_0'^2 \qquad \textit{($z_t'$ is an alternate for $z_{lid}$)} \\
+S &= S'/R_a' \qquad (R_a'/c_p') = \gogmo \\
+\eta &= \eta'/\eta_{ref}' \qquad \eta_{ref}' \equiv \rho_{ref}'\Omega r_o^3 (E/2)^{1/2} \qquad E \equiv \pfrac{\nu'}{\Omega' r_o'}\\
+r &= r'/r_o' \qquad z= z'/z_t' \qquad p= p'/p_{ref}' \qquad T=T'/T_{ref}' \qquad \rho = \rho'/\rho_{ref}' \\
+p_v &= p_v'/p_{ref}' \qquad p_\rho= p_\rho'/p_{ref}' \qquad p_{ref}' = \rho_{ref}'R_a'T_{ref}' \\
+\Gamma &= \Gamma'/(\Omega'r_o'^2) = r v + \Omega^2 \qquad v = v'/(\Omega' r_o') 
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+&-\pd{}{z} \left( \frac{1}{\rho r}\pd{\eta}{z} \right) - \pi_4 \pd{}{r} \left( \frac{1}{\rho r}\pd{\eta}{r} \right) = \\
+&-\frac{\pi_4}{\pi(E/2)} \Bigg\{- \pi_2 \frac{v}{r}\dd{\Gamma(\eta)}{\eta} \\
+&-\frac{\gamma -1}{\gamma}T \dd{S}{\eta}\left[ 1- \frac{[\chi]\pi_1 \widetilde{Y}_\rho(T,p)/T}{1+\pi_1[\widetilde{Y}_\rho(T,p)/T]\left( \pi_1 \frac{\widetilde{Y}_\rho(T,p)}{T}\gogmo + \frac{T}{P_\rho(T)}\dd{p_\rho(T)}{T}\right)}\right] \\
+&+ \dd{E}{\eta}\left[ 1- \frac{[1+\chi]\pi_1 \widetilde{Y}_\rho(T,p)/T}{1+\pi_1[\widetilde{Y}_\rho(T,p)/T]\left( \pi_1 \frac{\widetilde{Y}_\rho(T,p)}{T}\gogmo + \frac{T}{P_\rho(T)}\dd{p_\rho(T)}{T}\right)}\right] 
+\Bigg\}
+\end{split}
+\end{equation}
+
+$\pi_1 \approx \mathcal{O}(0.2)$, typically
+
+$\pi_4 \approx 10^{-3}$, $E=10^{-1}$, $\pi_2 = 10^{-2}$, typically
+
 \end{itemize}
 
+\section{Core Module: Boundary Conditions on Streamfunction}
 
+\begin{figure}[h!]
+	\centering
+	\def\svgwidth{0.7\columnwidth}
+	\input{figures/bulkvortex.pdf_tex}
+\end{figure}
+
+The boundary condition holding on $r'=r_o'$, $z_{lid}'\geq z' \geq z_{interface}'$ deserves discussion.
+
+$\eta'(r_o',z')$ should decrease monotonically from $\eta' = \eta_{max}'$ at $z'=z_{interface}'$ to $\eta'=0$ at $z'=z_{lid}'$, but we really can't prescribe how.
+
+\begin{equation}
+-\rho' u'(r_o',z')r_o' = \pd{\eta'(r_o',z')}{z'}
+\end{equation}
+
+\begin{equation}
+-\rho' w'(r_o',z')r_o' = \pd{\eta'(r_o',z')}{r'}
+\end{equation}
+
+
+\begin{equation}
+\pd{\eta'(r_o',z')}{r'} <0 \quad \Rightarrow \quad u'(r_o',z') > 0 \quad \text{(outflow)}
+\end{equation}
+
+We expect $\pd{\eta'(r_o',z')}{r'} =0$ at $z'=z_{interface}'$ and $z'=z_{lid}'$ because these are streamlines (no crossflow)
 \end{document}
