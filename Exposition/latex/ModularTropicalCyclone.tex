@@ -49,12 +49,15 @@
 \newcommand{\nomtypeC}[5][]{\nomwithdim{B#1}{#2}{#3}{#4}{#5}}
 \newcommand{\nomtypeV}[4][]{\nomenclature[A#1]{#2}{\nomdescr{#3}\DefinitionCol{#4}}}
 
-% gamma over gamma minus1
-\newcommand{\gogmo}{\frac{\gamma}{\gamma-1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% General formatting shortcuts
+%%%%%%%%%%%%%%%%%%%%%%%%%
 % fraction w/ parenthesis
 \newcommand{\pfrac}[2]{\left(\frac{#1}{#2}\right)}
 % fraction w/ curly brackets
 \newcommand{\cbfrac}[2]{\left\{\frac{#1}{#2}\right\}}
+% fraction w/ square brackets
+\newcommand{\sbfrac}[2]{\left[\frac{#1}{#2}\right]}
 %  derivative
 \newcommand{\dd}[2]{\frac{d#1}{d#2}}
 % partial derivative
@@ -65,7 +68,21 @@
 \newcommand{\tpd}[3]{\left( \frac{\partial#1}{\partial#2} \right)_{#3}}
 \newcommand{\timesten}[1]{$\times 10^{#1}$}
 \newcommand{\ten}[1]{10$^{#1}$}
-\newcommand{\rh}{\:\textls[-200]{RH}\:}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% Application specific shortcuts
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% gamma over gamma minus1
+\newcommand{\gogmo}{\frac{\gamma}{\gamma-1}}
+\newcommand{\rh}{\:\textls[-150]{RH}\:}
+
+\newcommand{\rmin}{r_{min}}
+
+\newcommand{\xmin}{x_{min}}
+
+\newcommand{\zedge}{z_{edge}}
+\newcommand{\zinter}{z_{interface}}
+\newcommand{\ztrop}{z_{trop}}
 
 \makenomenclature
 
@@ -132,6 +149,7 @@ We take the adopted ambient stratification to hold at all altitudes at the perip
 
 Our goal is to compute the lateral pressure deficit from ambient, holding at sea level under various vertical columns of air within the vortex. For a hydrostatic approximation, the sea-level pressure is the weight per cross-sectional area of a vertical column of fluid. Thus, the sea-level pressure anomaly is an integral over altitude of the discrepancy of the local density from ambient density. If the top of the vortex is an isobaric isothermal lid, then any sea-level-pressure anomaly is owing to processes within the vortex.
 In particular, sea-level air rising on a moist-adiabatic locus of thermodynamic states in the idealized eyewall of a hurricane (or in the core of a well-developed tropical storm) can generate a pressure anomaly of no more than a few tens of hectoPascals (hPa, equivalent to millibars). Condensational heating, to counteract expansional cooling during ascent to lower pressure, can effect no greater density reduction. Under a cyclostrophic approximation to the conservation of radial momentum (suitable for the axisymmetric right-circular-cylinder geometry), with the radial profile of the swirl component of relative velocity being of Rankine-vortex form, and with the density being held approximately constant with radius, then the peak swirl speed cannot exceed about 40 m/s. This approximates the peak speed of a strong tropical storm and is substantially smaller than the speed recorded in the highest category of hurricane. 
+
 To achieve the columnar reduction of density that results in a sea-level-pressure anomaly of of nearly 100 hPa or even greater, some other physical process must be involved. That process is compressional heating of relatively dry, tropopause-level air, during descent seaward to higher pressure in a central eye.  The pressure deficit so achievable is far more than the magnitude that is consistent with the nearly 100 m/s peak swirl speed observed in the most intense hurricanes. In practice, the eye is not entirely dry owing to evaporative cooling related to the influx to the eye of condensate generated in the adjacent eyewall. Also, the eye may not extend the entire distance from the tropopause seaward to ocean surface; some inflowing moist air may underrun a partially inserted, central eye.
 
 An inconsistency in the foregoing discussion is that the computation of the lateral pressure differences is at sea-level altitude. However, the swirl-speed conversion utilizes a cyclostrophic balance. A diffusion-free approximation to the conservation of radial momentum holds in the inviscid flow above the roughly one-kilometer-thickness, ocean-surface-contiguous boundary layer. Nevertheless, the adopted procedures seem a reasonable way to proceed. 
@@ -176,15 +194,15 @@ The analysis that follows provides quantitative details in support of the forego
 
 \subsection{Moist Adiabat Profiles}
 
-Since $y$ const, on a dry adiabat,   
+Since $Y$ is const, on a dry adiabat,   
 \begin{equation}
 	 \pfrac{T}{T_{ref}}^\gogmo = \frac{p}{p_{ref}} = \frac{p_v}{(p_v)_{ref}}
 \end{equation}
-where $\gogmo = \frac{R}{c_p}$
+where $\gogmo = \frac{R}{c_p}$.
 
-Let $T$ be the lifting-condensation-level state and $T_{ref}$ be the sea-level-ambient state
+Let $(T_{sat})_{onset}$ be the lifting-condensation-level state and $T_{ref} \equiv (T_{amb})_s$ be the sea-level-ambient state
 \begin{equation}
-	 \pfrac{ (T_{sat} )_{onset}  }{ (T_{amb})_{\rho} } ^{3.5} = \frac{ p_v[ (T_{sat})_{onset}]   }{[rh]_{amb}]_\rho p_v[(T_{amb})_\rho]}
+	 \pfrac{ (T_{sat} )_{onset}  }{ (T_{amb})_s } ^{3.5} = \frac{ P_v[ (T_{sat})_{onset}]   }{[\rh]_{amb}]_s P_v[(T_{amb})_s]}
 \end{equation}
 
 
@@ -192,13 +210,13 @@ This gives the temperature at which surface air would saturate if lifted dry adi
 
 Once saturated, the moist adiabat follows the following locus of the thermodynamic states, to rough approximation (the condensate falls out):
 \begin{equation}
-	c_p dT + L \sigma d\{ p[T]/p \} - \frac{dp}{\rho} = 0
+	c_p dT + L \sigma d\{ P[T]/p \} - \frac{dp}{\rho} = 0
 \end{equation}
-where $T(P_{onset} ) = (T_{sat} )_{onset}$
+where $T(p_{onset} ) = (T_{sat} )_{onset}$.
 
-Where this $T(p)$ curve crosses the $T_{amb}(p)$ is identified as the tropopause. The height of the tropopause is from $z_{amb}(p)$, inverse of $p_{amb}(z)$
+Where this $T(p)$ curve crosses the $T_{amb}(p)$ is identified as the tropopause. The height of the tropopause is from $z_{amb}(p)$, inverse of $p_{amb}(z)$.
 
-Note: The moist-adiabat locus is based on the total energy $c_p T + Ly + gz + q^2/z = const$, where $q^2/2$ (kinetic energy) is about a 1.5\% contribution and is discarded.
+Note: The moist-adiabat locus is based on the total energy $c_p T + Ly + gz + q^2/z = const$, where $q^2/2$ (kinetic energy) is about a 1.5\% contribution and is discarded for present purposes.
 
 Integrate from the tropopause seaward to find the thermodynamic state holding at the base $z=0$:
 
@@ -207,49 +225,49 @@ Integrate from the tropopause seaward to find the thermodynamic state holding at
 \end{equation}
 
 \begin{equation}
-	c_p \dd{T}{z} + \sigma L \dd{}{z} [ p(T) / p] - \frac{1}{\rho} \dd{\rho}{z} = 0
+	c_p \dd{T}{z} + \sigma L \dd{}{z} [ P(T) / p] - \frac{1}{\rho} \dd{p}{z} = 0
 \end{equation}
 
 \begin{equation}
-	p(z_{trop}) = p_{trop} 
+	p(\ztrop) = p_{trop} 
 \end{equation}
 
 \begin{equation}
-	T(z_{trop} ) = T_{trop}
+	T(\ztrop ) = T_{trop}
 \end{equation}
 
-Remember to drop the terms with $L$ thenceforth if $T$ increases in value to $(T_{sat})_{onset}$ before $z=0$ is reaced; i.e. , switch over to the dry adiabat below the lifting condensation level. Note $p_{moist}(z=0)$
+Remember to drop the terms with $L$ thenceforth if $T$ increases in value to $(T_{sat})_{onset}$ before $z=0$ is reached; i.e. , switch over to the dry adiabat below the lifting condensation level. Note the value of $p(z=0)$; this is henceforth cited as $p_{moist}(z=0)$, or $p_{moist,s}$.
 
-There is a self-consistency issue that may call for iteration of the moist-adaibat result. The ambient-sea-level state is adopted as the reference state for the adiabat, but is really not pertinent to a vertical column in the core. The final state computed at $z=0$ should be used as the reference state for a second calculation of temperature vs pressure, identification of the tropopause, and assignment of altitude. Presumably, the process quickly converges, so the initial sea-level state is recovered as the sea-level state, to excellent approximation.
+There is a self-consistency issue that may call for iteration of the moist-adiabat result. The ambient-sea-level state is adopted as the reference state for the adiabat, but is really not pertinent to a vertical column in the core. The final state computed at $z=0$ should be used as the reference state for: a second calculation of temperature vs pressure; identification of the tropopause; and assignment of altitude. Presumably, this iterative process quickly converges, so an initial estimate of the sea-level state is recovered as the updated sea-level state, to satisfactory approximation.
 
 \subsection{Eye Adiabat Profiles}
 
 Integrate seaward from the tropopause for an unsaturated eye. Thus
 
 \begin{equation}
-	\dd{p}{z} = - \rho z (???)
+	\dd{p}{z} = - \rho g
 \end{equation}
 
 \begin{equation}
-	c_p \dd{T}{z} + \sigma L \dd{}{z} [ p(T) / p] - \frac{1}{\rho} \dd{\rho}{z} = 0
+	c_p \dd{T}{z} + \sigma L \rh \dd{}{z} [ P(T) / p] - \frac{1}{\rho} \dd{p}{z} = 0
 \end{equation}
 
 \begin{equation}
-	p(z_{trop}) = p_{trop} 
+	p(\ztrop) = p_{trop} 
 \end{equation}
 
 \begin{equation}
-	T(z_{trop} ) = T_{trop}
+	T(\ztrop ) = T_{trop}
 \end{equation}
 
-The key new parameter here is $RH$, which denotes the relative humidity in the eye. If $RH=0$, the eye is totally dry, and, for the extreme idealization, the pressure at sea level is quite decremented from $p_{amb,s}$, the sea-level ambient value (given).
+The key new parameter here is $RH$, which denotes the relative humidity in the eye. If $RH=0$, the eye is totally dry, and, for this extreme idealization, the pressure at sea level is quite decremented from $p_{amb,s}$, the sea-level ambient value (given).
 
 We envision some evaporative cooling because condensate (ice crystals and droplets) fall into the eye and are evaporated. The value of $RH$ could vary with altitude, but the simplest procedure is to hold it constant with height , at some value between 0 and 1. At $RH=1$, all the heating in the eyewall owing to condensation is reversed in the eye owing to evaporation.
 
-In the current notebook, there is an attempt to deal with a moist inflow underrunning an eye that descends only part of the distance from the tropopause to the sea surface. So for $z_{underrun} < z < z_{tropopause}$, with $z_{underrun}$ specified (if $z_{underrun}=0$, there is no underrun), or for $p_{tropopause} < p < p_{underrun}$, with $p_{underrun}$ specified (if $p_{underrun} > (p_{moist})_{surface}$, there is no underrun), use the above equations in the eye. In the underrun, use the same equations except $RH=1$. However, at $z=z_{underrun}$, (or $p=p_{undderrun}$ -- a value for one implies a value for the other), there is a contact surface: pressure $p$ is continuous, but density $\rho$ and temperature $T$ are discontinuous. Also, the total energy is (dis?) continuous (within our approximation that the kinetic energy is negligible). So
+In the current notebook, there is an attempt to deal with a moist inflow underrunning an eye that descends only part of the distance from the tropopause to the sea surface. So for $z_{underrun} < z < z_{tropopause}$, with $z_{underrun}$ specified (if $z_{underrun}=0$, there is no underrun), or for $p_{tropopause} < p < p_{underrun}$, with $p_{underrun}$ specified (if $p_{underrun} > (p_{moist})_{surface}$, there is no underrun), use the above equations in the eye. In the underrun, use the same equations except $RH=1$. However, at $z=z_{underrun}$, (or $p=p_{underrun}$ -- a value for one implies a value for the other), there is a contact surface: pressure $p$ is continuous, but density $\rho$ and temperature $T$ are discontinuous. Also, the total energy is continuous (within our approximation that the kinetic energy is negligible). So
 
 \begin{equation}
-	c_p T_+ + \sigma L (RH) p(T_+) / p_{underrun} = c_p T_- + \sigma L p(T_-) / p_{underrun}
+	c_p T_+ + \sigma L (RH) P(T_+) / p_{underrun} = c_p T_- + \sigma L P(T_-) / p_{underrun}
 \end{equation}
 where
 
@@ -257,7 +275,7 @@ $T_+ = T(z_{underrun+})$, known
 
 $T_- = T(z_{underrun-})$, to be found
 
-and, for completeness, if $\rho_- = \rho(z_{underrun-})$,
+\noindent and, for completeness, if $\rho_- = \rho(z_{underrun-})$,
 
 $\rho_- = p_{underrun} / (RT_-)$
 
@@ -270,8 +288,7 @@ Then one integrates moist-adiabat equations
 \begin{equation}
 	c_p \dd{T}{z} + \sigma L \dd{[p(t)/p]}{z} - \frac{1}{\rho}\dd{\rho}{z} = 0
 \end{equation}
-
-to $z=0$ to find the pressure at the surface beneath a partially inserted eye.
+to $z=0$ to find the pressure at the surface beneath a partially inserted eye. Incidentally, note that the radially outward slope of the mean eye/eyewall allows hydrometeors in transient, vertically ascending (?) of the inner portions of the eyewall to penetrate into the eye, for subsequent evaporation.
 
 \subsection{Translation of Sea-Level Pressure Anomalies to Peak Swirl}
 
@@ -281,46 +298,45 @@ Let swirl
 \begin{equation}
 v(r) = 
 \begin{cases} 
-      v_{max}(r/r_{max}), \quad & 0 < r < r_{max} \\
-      v_{max}(r_{max}/r),\quad & r_{max} < r < \infty \\
+      V_{max}(r/r_{max}), \qquad & 0 < r < r_{max} \\
+      V_{max}(r_{max}/r),\qquad & r_{max} < r < \infty \\
    \end{cases}
 \end{equation}
 
 This patching of a rigidly rotating core to a potential vortex (Rankine vortex) lets $V_{max}$ be estimated from a cyclostropic balance by substitution and integration
 
 \begin{equation}
-	\frac{v^2}{r} = \frac{1}{\rho} \pd{p}{r}, \quad 0 \le r \le \infty
+	\frac{v^2}{r} = \frac{1}{\rho} \pd{p}{r}, \qquad 0 \le r \le \infty
+	\label{eq:cycbalance}
 \end{equation}
-
-provided we estimate the density $\rho$ (e.g. ascribe $\rho$ some average value).
+provided we estimate the density $\rho$ (e.g., ascribe $\rho$ some average value). Note that \eqref{eq:cycbalance} does not furnish a (?) relationship between $v$ and $p$, but between $v$ and $\pd{p}{r}$
 
 For a tropical storm (no eye, so the moist adiabat holds near $r=0$)
 
 \begin{equation}
-	V_{max} = \cbfrac{ 2 ( p_{amb} - p_{moist,s})}{ \rho_{amb,s} + \rho_{moist,s}) }^{1/2}
+	V_{max} = \cbfrac{ 2 ( p_{amb} - p_{moist,s})}{ \rho_{amb,s} + \rho_{moist,s} }^{1/2}
 \end{equation}
 
 For a hurricane with a partially inserted eye,
 
 \begin{equation}
-	V_{max} = \cbfrac{ 2 ( p_{amb,s} - p_{eye,s})}{ \rho_{amb,s} + \rho_{eye,s}) }^{1/2}
+	V_{max} = \cbfrac{ 2 ( p_{amb,s} - p_{eye,s})}{ \rho_{amb,s} + \rho_{eye,s} }^{1/2}
 \end{equation}
 
 For a hurricane with a fully inserted, non-rotating eye, this is no rigidly rotating core, so
 
 \begin{equation}
-	V_{max} = \cbfrac{ 4 ( p_{amb,s} - p_{eye,s})}{ \rho_{amb,s} + \rho_{eye,s}) }^{1/2}
+	V_{max} = \cbfrac{ 4 ( p_{amb,s} - p_{eye,s})}{ \rho_{amb,s} + \rho_{eye,s} }^{1/2}
 \end{equation}
 
 There is more pressure deficit for fully inserted eye, and half need not be expended maintaining a rigidly rotating core. In any case, the absence of $r_{max}$ in the expressions for $V_{max}$ is noteworthy (and convenient).
 
-? , plots of total energy (ignoring kinetic energy)
+Plots of total static energy (ignoring kinetic energy)
 
 \begin{equation}
-	H(z) = c_p T(z) + L \frac{\sigma(RH) p(T(z))}{p(z)} + g(z)
+	H(z) = c_p T(z) + L \frac{\sigma(RH) P(T(z))}{p(z)} + g(z)
 \end{equation}
-
-for the various columns is informative.
+for the various columns are informative.
 
 \section{Boundary Layer Dynamics and Energetics}
 
@@ -339,32 +355,34 @@ for the various columns is informative.
 Notes:
 \begin{itemize}
 
-\item Prime superscript denotes a dimensional quantity
-\item Parameters $z_{edge}'$, $z_{interface}'$, $r_{min}'$, $r_0'$ given; the dimension $z_{lid}'$ is computed in the (preliminary ) tephigram method
-\item The efflux (mass/time) at $r' = r_0'$, $z_{interface}' < z' < z_{lid}'$ equals the influx of $r'=r_0'$, $0 < z' < z_{lid}'$. Here, known ambient conditions hold only for $r' = r_0'$, $0 < z' < z_{interface}'$, where convectively unstable stratification holds for circumstances of interest.
+\item Prime superscript denotes a dimensional quantity.
+\item Parameters $\zedge'$, $\zinter'$, $\rmin'$, $r_0'$ are given; the dimension $z_{lid}'$ is computed in the (preliminary ) tephigram method.
+\item The efflux (mass/time) at $r' = r_0'$, $\zinter' < z' < z_{lid}'$ equals the influx of $r'=r_0'$, $0 < z' < z_{lid}'$. Here, known ambient conditions hold only for $r' = r_0'$, $0 < z' < \zinter'$, where convectively unstable stratification holds for circumstances of interest.
 
-\item In the Carrier/Hammond/George treatment, the angular momentum per unit mass, $r' v'(r', z') + \Omega' r'^2$, is constant on streamlines (inviscid treatment). Here, $v'$ is the (relative( swirl, i.e., swirl in non-inertial coordinates rotating with the Earth at the locally pertinent angular speed $\Omega'$, termed the Coriolis parameter. We also adopt $r' v' (r') + \Omega' r'^2 = r_0' v_0' + \Omega' r_o'^2$, where $v'(r_o') = v_0'$, and $0 < \varepsilon \ll 1$ where $\varepsilon \equiv v_0' / (\Omega' r_0')$, given.
+\item In the Carrier/Hammond/George treatment (CHG), the angular momentum per unit mass, $r' v'(r', z') + \Omega' r'^2$, is constant on streamlines (inviscid treatment). Here, $v'$ is the (relative) swirl, i.e., swirl in non-inertial coordinates rotating with the Earth at the locally pertinent angular speed $\Omega'$, termed the Coriolis parameter. We also adopt $r' v' (r') + \Omega' r'^2 = r_0' v_0' + \Omega' r_o'^2$, where $v'(r_o') = v_0'$, and $0 < \varepsilon \ll 1$ where $\varepsilon \equiv v_0' / (\Omega' r_0')$, given.
 
-\item In the CHG treatment, in the bulk-vortex modules
+\item In the CHG treatment, in the bulk-vortex module,
 
 \begin{equation}
 	Y(r', z') = Y_{amb}(z') \equiv Y(r_0', z')
+	\label{eq:bulky}
 \end{equation}
 
 \begin{equation}
 	E'(r',z') = E_{amb}'(z') \equiv E'(r_0', z')
+	\label{eq:bulke}
 \end{equation}
 
 where 
 \begin{equation}
 \begin{split}
-	Y &\equiv \rho_v' / \rho' = \sigma(RH) P'(T')/ P' \\
+	Y &\equiv \rho_v' / \rho' = \sigma(RH) P'(T')/ p' \\
 	E &= c_p' T' + L' Y + g'z' + q'^2 /2 \\
-	&= c_p' T + L'Y + g'z' + v^2 / 2
+	&\approx c_p' T + L'Y + g'z' + v^2 / 2
 \end{split}
 \end{equation}
 
-That is, the relative speed $q'^2 = u'^2 + v'^2 + w'^2 = v'^2$, and sometimes we drop even the $v'^2$ for tractability, as in the ambient $r' \to r_0'$. We simply cite CHG for justification for this approximation. Physically, CHG are saying that, as air entering this bulk vortex at $r' = r_0'$ moves to smaller $'r$, it is sinking slowly into the boundary-layer module, for compatibility with the boundary-layer solution. As the air descends to smaller $z'$, it takes on the properties of air that formerly occupied that position at smaller $z'$. We recall from the tephigram method:
+That is, the relative speed $q'^2 = u'^2 + v'^2 + w'^2 \approx v'^2$, and sometimes we drop even the $v'^2$ for tractability, as in the ambient $r' \to r_0'$. We cite the analysis in CHG for justification for the approximation in \eqref{eq:bulky} and \eqref{eq:bulke}. Physically, CHG are saying that, as air in the bulk-vortex module at moves to smaller $r'$, on average, it is sinking slowly toward the boundary-layer module, for compatibility with the boundary-layer solution. As the air descends to smaller $z'$, the air takes on the thermodynamic properties of air that formerly occupied that position at smaller $z'$. We recall from the tephigram method:
 
 \begin{equation}
 	E_{amb}'(z') \equiv c_p' T_{amb}(z') + L' Y_{amb}(z') + g' z' + \cancelto{0}{\frac{v_0^2(z')}{2}}
@@ -375,12 +393,13 @@ That is, the relative speed $q'^2 = u'^2 + v'^2 + w'^2 = v'^2$, and sometimes we
 \end{equation}
 where for a given ambient we have the data
 \begin{equation}
-	T_{amb}'(p'), RH_{amb}(p') \equiv p_v'(p')/p'[T_{amb}'(p')]
+	T_{amb}'(p'), RH_{amb}(p') \equiv p_v'(p')/P'[T_{amb}'(p')]
 \end{equation}
 Also, we have [recall that $p'(r_0', z') \equiv p_{amb}'(z')$ ]
 
 \begin{equation}
-	\dd{p_{amb}'(z')}{z'} = -\rho_{amb}'(z') g' = -[p_{amb}'[p'(z')]]g'
+	\dd{p_{amb}'(z')}{z'} = -\rho_{amb}'(z') g' = -[P_{amb}'[p'(z')]]g'
+	\label{eq:bulkdpambdz}
 \end{equation}
 
 In other words, we need to be able to switch between the inverse functions $p_{amb}'(z') \leftrightarrow z_{amb}'(p')$. The reference state is taken to be $p_{amb}'(r_0', 0) = p_{ref}'$, $T_{amb}'(r_0', 0) = T_{ref}'$.
@@ -388,23 +407,23 @@ In other words, we need to be able to switch between the inverse functions $p_{a
 	\sigma p_v' \equiv p_v' R' T'
 \end{equation}
 \begin{equation}
-	p'(r',z') = p'(r',z')R'T'(r',z') \Rightarrow p_{amb}'(z') = \rho_{amb}'(z') R'T_{amb}'(z')
+	p'(r',z') = \rho'(r',z')R'T'(r',z') \Rightarrow p_{amb}'(z') = \rho_{amb}'(z') R'T_{amb}'(z')
 \end{equation}
 
 It will be convenient to approximate the equation of state for the gas as 
 
 \begin{equation}
-	p'(r',z') \approx p_{amb}'(z') T'(r',z')
+	p'(r',z') \approx rho_{amb}'(z') R' T'(r',z')
 \end{equation}
 
 in the bulk-gas module, for some purposes. This says merely that the density change in the bulk-vortex module is owing to hydrostatics mostly, because even the most intense hurricane is highly subsonic. We are also saying that we track water vapor only for its large condensational/evaporative heat; aside from that, water vapor is a trace species ( $<3 \%$ by mass contribution to air).
 
-\item Since the flow is quasisteady and axisymmetric, the secondary flow is treated by the introduction of the streamfunction $\eta'(r',z')$; as the radial velocity component $u'(r',z')$ and the axial velocity component $w'(r',z'$ are given by
+\item Since the flow is quasisteady and axisymmetric, the secondary flow is treated by the introduction of the streamfunction $\eta'(r',z')$;  the radial velocity component $u'(r',z')$ and the axial velocity component $w'(r',z')$ are given by
 
 \begin{equation}
 \begin{split}
-	p'(r',z')u'(r',z')r' &= -\pd{ \eta'}{ z'} \\
-	p'(r',z')w'(r',z')r' &= \pd{ \eta'}{ r'}
+	\rho'(r',z')u'(r',z')r' &= -\pd{ \eta'}{ z'} \\
+	\rho'(r',z')w'(r',z')r' &= \pd{ \eta'}{ r'}
 \end{split}
 \end{equation}
 If the aximuthial component of vorticity, $\omega_\theta' = 0$ within the bulk-vortex module, then
@@ -413,9 +432,9 @@ If the aximuthial component of vorticity, $\omega_\theta' = 0$ within the bulk-v
 	\omega_\theta'(r',z') = - \left [  \pd{ v'}{ r'} - \pd{ u'}{ z'}\right ] = 0 \Rightarrow \pd{}{ z'} \left ( \frac{1}{\rho' r'} \pd{ \eta'}{ z'} \right ) + \pd{}{ r'} \left ( \frac{1}{\rho' r'}\pd{ \eta'}{ r'} \right ) = 0
 \end{equation}
 
-For a first cut, $p'(r',z') \rightarrow p_{amb}'(z')$ seems reasonable.
+For a first cut, $\rho'(r',z') \rightarrow \rho_{amb}'(z')$ seems reasonable.
 
-For Dirichlet boundary condition on $\eta ' (r',z')$ in the bulk-vortex module,
+For a Dirichlet boundary condition on $\eta ' (r',z')$ in the bulk-vortex module,
 
 \begin{figure}[h!]
 	\centering
@@ -425,94 +444,98 @@ For Dirichlet boundary condition on $\eta ' (r',z')$ in the bulk-vortex module,
 
 At $r' = r_0'$:
 \begin{equation}
-	\rho' u' r_0' = -\pd{ \eta'}{ z'} \rightarrow \eta'(r_0', z') - 0 = r_0' \int_{z_{edge}'}^{z'} p'(r_0', z')[- u(r_0', z')] dz'
+	\rho' u' r_0' = -\pd{ \eta'}{ z'} \rightarrow \eta'(r_0', z') - 0 = r_0' \int_{\zedge'}^{z'} \rho'(r_0', z')[- u(r_0', z')] dz'
 \end{equation}
 \begin{equation}
-	\eta_{max}' = r_0' \int_{z_{edge}'}{z_{interface}'} p_{amb}'(z') [-u_{in}'(z') ] dz'
+	\eta_{max}' = r_0' \int_{\zedge'}^{\zinter'} \rho_{amb}'(z') [-u_{in}'(z') ] dz'
 \end{equation}
 
 If $[-u_{in}'(z')] = -u_{in}'$, const, then
 
 \begin{equation}
-	\eta_{max}' = \frac{r_0'}{g'} \left [ p_{amb,s}'(z_{interface}') - p_{amb,s}'(z_{edge}')\right ] (-u_{in})
+	\eta_{max}' = \frac{r_0'}{g'} \left [ p_{amb,s}'(\zinter') - p_{amb,s}'(\zedge')\right ] (-u_{in}')
 \end{equation}
 
-The inflow $(u_{in}'$ follows since $\eta_{max}'$ is know.
+The inflow $u_{in}'$ follows, once $\eta_{max}'$ is known.
 
 \item Aside: 
 
 \begin{equation}
-	\pd{ p'}{ r'}(r_0', z_{edge}') \approx p'(r',z_{edge}') \left [ 2 \Omega' v'(r') + \frac{v'^2(r')}{r'} \right ], 
+	\pd{ p'}{ r'}(r', \zedge') \approx \rho'(r',\zedge') \left [ 2 \Omega' v'(r') + \frac{v'^2(r')}{r'} \right ], 
 \end{equation}
-$p'(r_0', z_{edge}') = p_{amb}'(z_{edge}'); v'(r')$ known:
-
+\begin{center}
+$p'(r_0', \zedge') = p_{amb}'(\zedge'); v'(r')$ known:
+\label{eq:bulkdpdz}
+\end{center}
 \begin{equation}
 \begin{split}
 	&r'v'(r') + \Omega' r'^2 = r_0' v'(r_0') + \Omega' r_0'^2 \\
-	&\rho'(r', z_{edge}') = p'(r',z_{edge}') /[R' T'(r',z_{edge}')]\\
-	&c_p' T'(r',z_{edge}') + L'Y(z_{edge}') + g'z_{edge}' + \frac{v'^2(r')}{2} = E_{amb}'(z_{edge}')
+	&\rho'(r', \zedge') = p'(r',\zedge') /[R' T'(r',\zedge')]\\
+	&c_p' T'(r',\zedge') + L'Y(\zedge') + g'\zedge' + \frac{v'^2(r')}{2} = E_{amb}'(\zedge')
 \end{split}
+\label{eq:bulkpvknown}
 \end{equation}
 
-This yields a good approximation to $p'(r_{min}', z_{edge}')$
+from \eqref{eq:bulke}. This yields a good approximation to $p'(\rmin', \zedge')$.
 
-\item Returning to estimation of $\eta_{max}' = \eta'(r_{min}', z_{edge}')$:
+\item Returning to estimation of $\eta_{max}' = \eta'(\rmin', \zedge')$:
 \begin{equation}
-	\eta'(r',z_{edge}) - 0 = \int_{r_0'}^{r'} \underline{r}' p'(\underline{r}', z_{edge}') w'(\underline{r}', z_{edge}') d\underline{r}'
+	\eta'(r',\zedge) - 0 = \int_{r_0'}^{r'} \underline{r}' \rho'(\underline{r}', \zedge') w'(\underline{r}', \zedge') d\underline{r}'
 \end{equation}
 
-From boundary-layer dynamics,
+From boundary-layer (BL) dynamics,
 \begin{equation}
-	\eta_{max}' = \int_{r_{min}'}^{r_0'} \underline{r}' p'(\underline{r}', z_{edge}')\left [ -w_{BL edge}'(\underline{r}')\right ] d\underline{r}'
+	\eta_{max}' = \int_{\rmin'}^{r_0'} \underline{r}' \rho'(\underline{r}', \zedge')\left [ -w_{BL edge}'(\underline{r}')\right ] d\underline{r}'
 \end{equation}
 
-The entrainment into the boundary layer is estimated on an incompressible basis (constant-density treatment of the dynamics), but we accept this approximation. The density $\rho'(r',z_{edge}')$ is discussed just above. The quantity $\eta_{max}'$ is an enormous number in SI units, and we use it for normalization of $\eta(r',z')$ for computational convenience! So we deal with 
+The entrainment into the boundary layer is estimated on an incompressible basis (constant-density treatment of the dynamics), but we accept this approximation. The density $\rho'(r',\zedge')$ is discussed just above. The quantity $\eta_{max}'$ is an enormous number in SI units, and we use it for normalization of $\eta'(r',z')$ for computational convenience! So we deal with 
 
 \begin{equation}
 	\eta(r,z) = \eta'(r',z')/\eta_{max}'
 \end{equation}
-where $r = r'/r_0'$, $z=z'/z_{lid}'$. We cannot readily non-dimensionalize $z'$ against $r_0'$ because $r_0' \gg z_{lid}'$. It is ture that $r_{min}'$ is closer to $z_{lid}'$ in size, but I prefer not to use it for non-dimensionalization. We could use $[\nu'/(2\Omega')]^{1/2}$ for non-dimensionalizing $z'$ in the bulk-vortex module, since $z_{interface}' \approx 3(z_{edge}')$ and $z_{edge}' \sim 5 \left( \frac{v'}{2\Omega'}\right)^{1/2}$. I did not want to do this when the bulk-vortex module was being treated as inviscid, but now only the dynamics (not the energetics) is inviscid in the bulk-vortex module.
+where $r = r'/r_0'$, $z=z'/z_{lid}'$. We cannot readily non-dimensionalize $z'$ against $r_0'$ because $r_0' \gg z_{lid}'$. It is true that $\rmin'$ is closer to $z_{lid}'$ in size, but we prefer not to use it for non-dimensionalization. We could use $[\nu'/(2\Omega')]^{1/2}$ for non-dimensionalizing $z'$ in the bulk-vortex module, since $\zinter' \approx 3(\zedge')$ and $\zedge' \sim 5 \left( \frac{v'}{2\Omega'}\right)^{1/2}$. We did not so normalize when the bulk-vortex module was being treated as inviscid, but now only the dynamics (not the energetics) is inviscid in the bulk-vortex module.
 
 \item The pressure field in the bulk-vortex module is given by inviscid dynamics:
 
 \begin{equation}
 \begin{split}
-	\pd{ p'}{ z'} &= -\rho g' \\
-	\pd{ p'}{ r'} & = p'\left[ 2\Omega' v' + \frac{v'^2}{r'} \right ]\\
+	\pd{ p'}{ z'} &= -\rho' g' \\
+	\pd{ p'}{ r'} & = \rho'\left[ 2\Omega' v' + \frac{v'^2}{r'} \right ]\\
 	p'(r_0',z') &= p_{amb}'(z') \\
 	p'(r_0',0) &= p_{ref}'
 \end{split}
 \end{equation}
 
-Conveniently,
+Conveniently, as an approximation,
 \begin{equation}
-	p'(r',z') - p'(r_0', z_{edge}') \doteq -g' \int_{z_{edge}'}^{z'} p_{amb}'(\underline{z}') d\underline{z}' - \int_{r'}^{r_0'} p'(\underline{r}', z_{edge}') \left[ 2\Omega'v'(\underline{r}' + \frac{v'^2(\underline{r}')}{\underline{r}'}\right] d\underline{r}'
+	p'(r',z') - p'(r_0', \zedge') \doteq -g' \int_{\zedge'}^{z'} \rho_{amb}'(\underline{z}') d\underline{z}' - \int_{r'}^{r_0'} p'(\underline{r}', \zedge') \left[ 2\Omega'v'(\underline{r}') + \frac{v'^2(\underline{r}')}{\underline{r}'}\right] d\underline{r}'
 \end{equation}
 
-This approximation gives the pressure field to better accuracy along the top edge of the boundary and at the periphery, but less accurately elsewhere. Thus, the contour is given relatively accurately near its end "points" $(r_{min}', z_{edge}')$ and $(r_0', z_{interface}')$.
+This approximation gives the pressure field to better accuracy along the top edge of the boundary and at the periphery, but less accurately elsewhere. Thus, the contour is given relatively accurately near its end "points" $(\rmin', \zedge')$ and $(r_0', \zinter')$.
 
-In the above expression for $p'(r',z')$, $p'(r_0', z_{edge}') = p_{ref}'$. Also, integration yields $p'(r',z_{edge}')$. (See page ?), and $T'(r',z_{edge}')$ is available from the expression $E'(r',z_{edge}') = E_{amb}'(z_{edge})$ (see page ?). Thus $\rho'(r',z_{edge}') = p'(r',z_{edge}')/[R' T'(r',z_{edge}')]$.
+We review some in-hand results. In the above expression for $p'(r',z')$, $p'(r_0', \zedge')$ is available from \eqref{eq:bulkdpambdz}. Also, integration yields $p'(r',\zedge')$ from \eqref{eq:bulkdpambdz}, and $T'(r',\zedge')$ is available from the expression $E'(r',\zedge') = E_{amb}'(\zedge)$ as given in the last of \eqref{eq:bulkpvknown}. Thus, $\rho'(r',\zedge') = p'(r',\zedge')/[R' T'(r',\zedge')]$.
 
 \item Also, 
 \begin{equation}
-	\frac{\rho'(r',z')}{c_p'} = \ln \cbfrac{ \left[ T'(r',z')/T_{ref}'\right] }{\left[ p(r',z')/p_{ref}' \right]^\frac{\gamma-1}{\gamma} }
+	\frac{S'(r',z')}{c_p'} = ln \cbfrac{ \left[ T'(r',z')/T_{ref}'\right] }{\left[ p'(r',z')/p_{ref}' \right]^\frac{\gamma-1}{\gamma} }
 \end{equation}
 
 or
 
 \begin{equation}
-	\frac{s'(r',z')}{R'} = \ln \cbfrac{ \left[ T'(r',z')/T_{ref}'\right]^\gogmo }{\left[ p(r',z')/p_{ref}' \right] }
+	\frac{S'(r',z')}{R'} = ln \cbfrac{ \left[ T'(r',z')/T_{ref}'\right]^\gogmo }{\left[ p'(r',z')/p_{ref}' \right] }
 \end{equation}
 
-\item To within $2 \frac{1}{3} \%$, with $L' =2.5 *10^6 \si{J.kg^{-1}}$ ...
+\item 
+%To within $2 \frac{1}{2} \%$, with $L' =2.5 *10^6 \si{J.kg^{-1}}$ ...
 
-I give more accurate expressions in the notebook. Nominally, freezing is at $273 \si{K}$, but in fact in the atmosphere, freezing occurs closer to $263$ or $253 \si{K}$.
+Accurate simple empirical expressions for $L'$ are available in the notebook. Nominally, in thermodynamic equilibrium, freezing is at $273\ \si{K}$, but in fact in the atmosphere, freezing occurs closer to $263$ or $253\ \si{K}$, owing to supercooling of condensate (as a consequence of scarcity of ice nuclei at temperatures near $273\ \si{K}$
 
-\item Notice that a reconnaissance flight at $10 \si{kft}$ flies in the core module.
+\item Notice that a reconnaissance flight at $10\ \si{kft}$ flies in the core module.
 
 \end{itemize}
 
-\section{Specifying the Position of, and Properties holding on, the Contour between the Bulk-Vortex Module and Core Module}
+\section{Specifying the Position of, and Properties Holding on, the Contour between the Bulk-Vortex Module and Core Module}
 
 \begin{figure}[h!]
 	\centering
@@ -522,19 +545,19 @@ I give more accurate expressions in the notebook. Nominally, freezing is at $273
 
 \begin{itemize}
 
-\item We seek to define the curve ("contour") between $(r_{min}', z_{edge}')$ and $(r_0', z_{interface}')$, given end points.
+\item We seek to define the ``curve" (``contour") between $(\rmin', \zedge')$ and $(r_0', \zinter')$, given the end ``points".
 
-\item The contour position is defined by continuity of pressure $p'(r',z')$ because the dynamics on each side is inviscid. The swirl $v'(r',z')$ is continuous across the contour, but the radial velocity component $u'(r',z')$ and axial velocity component $w'(r',z')$ are discontinuous, so the contour is a vortex sheet for the "secondary flow." The pressures $p'(r_{min}',z_{edge}')$ and $p'(r',z_{interface}')$ are known from the bulk-vortex analysis, with $p'(r_{min}',z_{edge}') > p'(r_0',z_{interface}')$ in cases of interest.
+\item The contour position is defined by continuity of pressure $p'(r',z')$ because the dynamics on each side is inviscid. The swirl $v'(r',z')$ is continuous across the contour, but the radial velocity component $u'(r',z')$ and axial velocity component $w'(r',z')$ are discontinuous, so the contour is a vortex sheet for the "secondary flow." The pressures $p'(\rmin',\zedge')$ and $p'(r',\zinter')$ are known from the bulk-vortex analysis, with $p'(\rmin',\zedge') > p'(r_0',\zinter')$ in cases of interest.
 
 \item The temperature and density are discontinuous across the contour, which is a contact surface. The air is unsaturated in the bulk-vortex module, and saturated in the core module.
 
-\item The contour is a streamline: there is no flow across it.
+\item The contour is a ``streamline": there is no flow across it.
 
-\item The entropy, angular momentum, and total stagnation energy are constant on streamlines on the core side, which is inviscid. The value of each variable varies from streamline to streamline
+\item The entropy, angular momentum, and total stagnation energy are constant on streamlines on the core side, which is inviscid. The value of each variable varies from streamline to streamline.
 
 \item Only the angular momentum is constant on streamlines on the bulk-vortex side, and for tractability, we examine only the special case for which the constant is invariant from streamline to streamline. Thus the model for the swirl in the bulk-vortex model is a potential vortex, generalized to the non-inertial coordinate system.
 
-\item We anticipate that the pressure $p'(r',z')$ on the contour decreases monotonically from $p'(r_{min}',z_{edge}')$ to $p'(r_0',z_{interface}')$, and that the curve $z_{contour}'(r')$ has monotonically decreasing but non-negative slope as one goes from $(r_{min}', z_{edge}')$ to $(r_0', z_{interface}')$. (The inverse representation $R_{contour}'(z')$ has a monotonically increasing and non-negative slope.) According to our model, $r_{min}'$ decreases, but $z_{edge}'$, $r_0'$, and $z_{interface}'$ do not change, as the vortex intensifies, so the contour shape is not anticipated to be a sensitive indicator of intensity for a fixed ambient. The position $r_{min}'$ is a sensitive indicator of intensity.
+\item We anticipate that the pressure $p'(r',z')$ on the contour decreases monotonically from $p'(\rmin',\zedge')$ to $p'(r_0',\zinter')$, and that the curve $z_{contour}'(r')$ has monotonically decreasing but non-negative slope as one goes from $(\rmin', \zedge')$ to $(r_0', \zinter')$. [The inverse representation $R_{contour}'(z')$ has a monotonically increasing and non-negative slope.] According to our model, $\rmin'$ decreases, but $\zedge'$, $r_0'$, and $\zinter'$ do not change, as the vortex intensifies, so the contour shape is not anticipated to be a sensitive indicator of intensity for a fixed ambient. The position $\rmin'$ is a sensitive indicator of intensity.
 \end{itemize}
 \subsection{Bulk-Vortex Module}
 
@@ -548,10 +571,11 @@ I give more accurate expressions in the notebook. Nominally, freezing is at $273
 \item Pressure field
 
 \begin{equation}
-	p'(r',z') - p'(r_0',z_{edge}') \doteq g' \int_{z_{edge}'}^{z'} \rho_{amb}'( \underline{z}') d \underline{z}' - \int_{r'}^{r_0'} \rho'(\underline{r}', z_{edge}')\left \{ 2 \Omega v'(\underline{r}') + \frac{v'^2(\underline{r}')}{\underline{r}'} \right \} d\underline{r}'
+	p'(r',z') - p'(r_0',\zedge') \doteq g' \int_{\zedge'}^{z'} \rho_{amb}'( \underline{z}') d \underline{z}' - \int_{r'}^{r_0'} \rho'(\underline{r}', \zedge')\left \{ 2 \Omega' v'(\underline{r}') + \frac{v'^2(\underline{r}')}{\underline{r}'} \right \} d\underline{r}'
+	\label{eq:bulkpint}
 \end{equation}
 
-The two integrals can be tabulated ahead of time. Recall that $\rho'(r',z_{edge}')$ is obtained in the bulk-vortex module equations. We much prefer this algebraic approximation for $p'(r',z')$ than to deal with a differential-equation/algebraic-equation mixture in defining the contour.
+The two integrals in \eqref{eq:bulkpint} can be tabulated ahead of time. Recall that $\rho'(r',\zedge')$ is obtained in the bulk-vortex module equations. We much prefer this algebraic approximation for $p'(r',z')$ than to deal with a differential-equation/algebraic-equation mixture in defining the contour.
 
 \end{itemize} 
 
@@ -561,34 +585,45 @@ The two integrals can be tabulated ahead of time. Recall that $\rho'(r',z_{edge}
 \end{equation}
 
 \begin{itemize}
-\item 4 eqs for 4 unknowns: $T_{core}'(r_{min}', z_{edge}')$, $T_{core}'(r_0', z_{interface}')$, $E_{core}'$, $S_{core}'$
+\item 4 eqs for 4 unknowns: $T_{core}'(\rmin', \zedge')$, $T_{core}'(r_0', \zinter')$, $E_{core}'$, $S_{core}'$
 
 \begin{equation}
-	E_{core}'(r_{min}', z_{edge}') \doteq c_p' T_{core}'(r_{min}', z_{edge}') + \frac{L' \sigma p'[T_{core}'(r_{min}', z_{edge}')]}{p'(r_{min}', z_{edge}')} + g' z_{edge}' + \frac{v'^2(r_{min}')}{2}
+	E_{core}'(\rmin', \zedge') \doteq c_p' T_{core}'(\rmin', \zedge') + \frac{L' \sigma P'[T_{core}'(\rmin', \zedge')]}{p'(\rmin', \zedge')} + g' \zedge' + \frac{v'^2(\rmin')}{2}
 \end{equation}
 
 \begin{equation}
-	E_{core}'(r_{min}',z_{edge}') = E_{core}'(r_0', z_{interface}') = c_p' T_{core}'(r_0', z_{interface}') + \frac{L' \sigma p'[ T_{core}'(r_0',z_{interface}')]}{p'(r_0',z_{interface}')} + g'z_{interface}' + \frac{v'^2(r_0')}{2}
+\begin{split}
+	E_{core}'(\rmin',\zedge') = E_{core}'(r_0', \zinter') &= c_p' T_{core}'(r_0', \zinter') + \frac{L' \sigma P'[ T_{core}'(r_0',\zinter')]}{p'(r_0',\zinter')}\\
+	& + g'\zinter' + \frac{v'^2(r_0')}{2}
+	\end{split}
 \end{equation}
 
 \begin{equation}
-	\frac{S_{core}'(r_{min}', z_{edge}')}{R'} = \ln  \pfrac{T_{core}'(r_{min}', z_{edge}')}{T_{ref}'} ^\gogmo - \ln \pfrac{p'(r_{min}', z_{edge}')}{P_{ref}} + \frac{L' \sigma p'[T_{core}'(r_{min}',z_{edge}')]}{R' T_{core}'(r_{min}', z_{edge}')p'(r_{min}', z_{edge}')}
+\begin{split}
+	\frac{S_{core}'(\rmin', \zedge')}{R'} &= ln  \pfrac{T_{core}'(\rmin', \zedge')}{T_{ref}'} ^\gogmo - ln \pfrac{p'(\rmin', \zedge')}{p_{ref}'} \\
+	&+ \frac{L' \sigma P'[T_{core}'(\rmin',\zedge')]}{R' T_{core}'(\rmin', \zedge')p'(\rmin', \zedge')}
+	\end{split}
 \end{equation}
 
 \begin{equation}
-	T_{ref}' = T'(r_0',0), \quad p_{ref}' = p'(r_0,0)
+	T_{ref}' = T'(r_0',0), \quad p_{ref}' = p'(r_0',0)
 \end{equation}
 
 \begin{equation}
-	\frac{S_{core}'(r_{in}', z_{edge}')}{R'} = \frac{S_{core}'(r_0', z_{interface}')}{R'} =  \ln \pfrac{T_{core}'(r_{min}', z_{edge}')}{T_{ref}'} ^\gogmo - \ln \frac{p'(r_{min}', z_{edge}')}{p_{ref}'} + \frac{L' \sigma p'[T_{core}'(r_0', z_{interface})]}{R'T_{core}'(r_0', z_{interface}') p'(r_0', z_{interface}')}
+\begin{split}
+	\frac{S_{core}'(\rmin', \zedge')}{R'} = \frac{S_{core}'(r_0', \zinter')}{R'} &=  ln \pfrac{T_{core}'(r_0', \zinter')}{T_{ref}'} ^\gogmo - ln \pfrac{p'(r_0', \zinter'}{p_{ref}'} \\
+	&+ \frac{L' \sigma P'[T_{core}'(r_0', \zinter)]}{R'T_{core}'(r_0', \zinter') p'(r_0', \zinter')}
+	\end{split}
 \end{equation}
 
 \item Pressure field
 \begin{equation}
-	E_{core}'(r_{min}', z_{edge}') = c_p' T_{core}'(r',z') + \frac{L' \sigma p'[T_{core}'(r',z')]}{p'(r',z')} + g'z' + \frac{v'^2(r')}{2}
+	E_{core}'(\rmin', \zedge') = c_p' T_{core}'(r',z') + \frac{L' \sigma P'[T_{core}'(r',z')]}{p'(r',z')} + g'z' + \frac{v'^2(r')}{2}
+	\label{eq:contour2}
 \end{equation}
 \begin{equation}
-	\frac{p'(r',z')}{p_{ref}'} =  \pfrac{T_{core}'(r',z')}{T_{ref}}^\gogmo -\exp \left[ - \frac{S_{core}'(r_{core}', z_{edge}')}{R'} + \frac{L' \sigma p'[T_{core}'(r',z')]}{R'T_{core}'(r',z')p'(r',z')}\right]
+	\frac{p'(r',z')}{p_{ref}'} =  \pfrac{T_{core}'(r',z')}{T_{ref}'}^\gogmo \exp \left[ - \frac{S_{core}'(\rmin', \zedge')}{R'} + \frac{L' \sigma P'[T_{core}'(r',z')]}{R'T_{core}'(r',z')p'(r',z')}\right]
+	\label{eq:contour3}
 \end{equation}
 
 \end{itemize}
@@ -596,7 +631,7 @@ The two integrals can be tabulated ahead of time. Recall that $\rho'(r',z_{edge}
 \subsection{Contour Solution}
 
 \begin{itemize}
-\item The three equations (*) are three coupled non-linear algebraic equations for $[r',z', T_{core}'(r',z')]$ where $r'$, $z'$ is the point on the contour where the pressure is $p'(r',z')$, an assigned value within the range $p'(r_{min}', z_{edge}')$, $p'(r_0', z_{interface}')$
+\item The three equations \eqref{eq:bulkpint}, \eqref{eq:contour2}, and \eqref{eq:contour3} are three coupled non-linear algebraic equations for $[r',z', T_{core}'(r',z')]$ where $r'$, $z'$ is the point on the contour where the pressure is $p'(r',z')$, an assigned value within the range $p'(\rmin', \zedge')$, $p'(r_0', \zinter')$
 
 \item This is a step-by-step progression, starting from one end point on the contour, and proceeding  to the other end point on the contour. The first guess at the next point in the progression is the triplet of results holding at the last converged point.
 
@@ -609,68 +644,73 @@ Of course, one of the other variables could have been selected as the parameter,
 
 \item In the bulk-vortex module
 \begin{equation}
-	\frac{S'(r',z')}{R'} = \ln  \pfrac{T'(r',z')}{T_{ref}'} ^\gogmo - \ln  \pfrac{p'(r',z')}{p_{ref}'}
+	\frac{S'(r',z')}{R'} = ln  \pfrac{T'(r',z')}{T_{ref}'} ^\gogmo - ln  \pfrac{p'(r',z')}{p_{ref}'}
 \end{equation}
-The core-side streamline at the contour spends so little time in the boundary layer no angular momentum is lost, but the onset of saturation changes density, temperature, vapor mass fraction, and entropy across the contour.
+The fluid particles of the core-side streamline at the contour spend so little time in the boundary layer that no angular momentum is lost, but the onset of saturation changes density, temperature, vapor mass fraction, and entropy across the contour.
 \end{itemize}
 
 \section{Core Module: Derivation of the Streamfunction Equation (for a Tropical-Storm Scenario: no eye)}
 
 \begin{itemize}
-\item The core model is stead, axisymmetric, inviscid, and saturated.
+\item The core model is steady, axisymmetric, inviscid, and saturated.
 
-\item so the vapor mass fraction $Y' \rightarrow Y_\rho'(T',p')$, where $p'(T')$ given,
+\item So the vapor mass fraction $Y' \rightarrow Y_s'(T',p')$, with $P'(T')$ known,
 \begin{equation}
-	Y_\rho'(T',p') = \sigma \frac{p'(T')}{p'} = 0.622 \frac{p'(T')}{p'}
+	Y_s'(T',p') = \sigma \frac{P'(T')}{p'} = 0.622 \frac{P'(T')}{p'}
 \end{equation}
-Note: Sometimes I write $p'(T')$ as $p_\rho'(T')$, an old habit. $Y'$ is a contradiction because prime denotes dimensional, and the vapor mass fraction is dimensionless, but I reserve the symbol $y$ for a normalized vapor mass fraction.
+Note: Introduction of the notation $Y'$ is a deviation because prime denotes dimensionality, and the vapor mass fraction is dimensionless, but in the core reserve the symbol $Y$ for a normalized vapor mass fraction.
 
-\item $y'$ is not conserved on streamlines $\eta'(r',z')$ owing to condensation.
+\item $Y'$ is not conserved on streamlines $\eta'(r',z')$ in the core, owing to condensation.
 
-\item So there are just three integrals that are constant on streamlines in the core:
+\item So there are three integrals that are constant on streamlines in the core, we present these as \eqref{eq:coree}, \eqref{eq:cores}, and \eqref{eq:coreang}.
 
 \begin{equation}
-E'(\eta') = c_p' T' + L' Y_\rho'(T',p') + g'z' + q'^2/2
+E'(\eta') = c_p' T' + L' Y_s'(T',p') + g'z' + q'^2/2
+\label{eq:coree}
 \end{equation}
-where we often approximate $q'^2/2 \rightarrow v'^2/2$ but more generally $q'^2 = u'^2 + v'^2 + w'^2$
+where we sometimes approximate $q'^2/2 \rightarrow v'^2/2$ but more generally $q'^2 = u'^2 + v'^2 + w'^2$.
 
 \begin{equation}
-	S'(\eta') = c_p \ln(T' / T_r') - R_a' \ln(p'/p_r') + L'Y_\rho'(T',p')/T'
+	S'(\eta') = c_p ln(T' / T_r') - R' ln(p'/p_r') + L'Y_s'(T',p')/T'
+	\label{eq:cores}
 \end{equation}
 where
 
 \begin{equation}
 \begin{split}
 	T_r' & \equiv T_{ref}' \equiv T'(r_0', 0) = T_{amb}'(0) \\
-	P_r' & \equiv p_{ref}' \equiv p'(r_0', 0) = p_{amb}'(0)
+	p_r' & \equiv p_{ref}' \equiv p'(r_0', 0) = p_{amb}'(0)
 \end{split}	
 \end{equation}
 
 \begin{equation}
 	\Gamma'(\eta') = r' v' + \Omega'r'^2
+	\label{eq:coreang}
 \end{equation}
 
-\item $p'/p_r' = (p'/p_r')(T/T_r')$
+\item $p'/p_r' = (p'/p_r')(T'/T_r')$
 
-\item Solving the $S'$ equation for $p'/p_r'$, and substituting for $L'Y_\rho'$ from the $E'$ equation gives $p'[r',z',\eta'(r',z'), T'[r',z',\eta'(r',z')]/p_r'$
+\item Solving the $S'$ equation for $p'/p_r'$, and substituting for $L'Y_s'$ from the $E'$ equation gives $p'\left[r',z',\eta'(r',z'), T'[r',z',\eta'(r',z')] \right]/p_r'$:
 
 \begin{equation}
 \begin{split}
-&p'[r',z',\eta'(r',z'), T'[r',z',\eta'(r',z')]/p_r' =  \\
-&\left( \frac{T'}{T_r'}\right)^\gogmo \exp \left[ -\frac{S'(\eta')}{R_a'}+ \frac{E'(\eta') - g'z' - q'^2/2}{R_a' T'} - \gogmo	\right] \\
+&p'\left[r',z',\eta'(r',z'), T'[r',z',\eta'(r',z')] \right]/p_r' =  \\
+&\left( \frac{T'}{T_r'}\right)^\gogmo \exp \left[ -\frac{S'(\eta')}{R'}+ \frac{E'(\eta') - g'z' - q'^2/2}{R' T'} - \gogmo	\right] \\
 \end{split}
+\label{eq:corep}
 \end{equation}
 
-Note: $E'(\eta')$ is an implicit algebraic equation for $T'[r',z',\eta'(r',z')$, once the streamfunction $\eta'(r',z')$ is found.
+Note: $E'(\eta')$ is an implicit algebraic equation for $T'[r',z',\eta'(r',z')]$, once the streamfunction $\eta'(r',z')$ is found.
 
-\item Since $p' = p'[r',z',\eta'(r',z'), T'[r',z',\eta'(r',z')]$, by the chain rule
+\item Since $p' = p'[r',z',\eta'(r',z'), T'[r',z',\eta'(r',z')]$, by the chain rule.
 
 \begin{equation}
 \begin{split}
-&\left \{ \pd{ p'}{ r'} [r',z',\eta'(r',z'), T'[r',z',\eta'(r',z')]\right \}_{z'} =\\
+&\left \{ \pd{ p'}{ r'} \left[r',z',\eta'(r',z'), T'[r',z',\eta'(r',z')] \right] \right \}_{z'} =\\
 & \tpd{ p'}{ \eta'}{T', r', z'}\tpd{ \eta'}{ r'}{z'}+\tpd{ p'}{ r'}{T', \eta', z'}+\\
 & \tpd{ p'}{ T'}{\eta', r',z'}\tpd{ T'}{ \eta'}{r',z'}\tpd{ \eta'}{ r'}{z'}+\tpd{ p'}{ T'}{\eta', r',z'} \tpd{ T'}{ r'}{\eta',z'}
 \end{split}
+\label{eq:pchain}
 \end{equation}
 
 We need this expression because we seek the streamfunction equation from the conservation of radial momentum:
@@ -687,55 +727,60 @@ There are three partial derivatives of $p'$ to be found.
 \item
 \begin{equation}
 \begin{split}
-	&c_p' T' + \frac{L' \sigma' p_s'(T')/p_r'}{\pfrac{T'}{T_r'}^\gogmo \exp \left\{ -\frac{S'(\eta')}{R_a'} + \frac{E'(\eta') - g'z' - q'^2/2}{R_a'T'} - \gogmo \right\}} \\
+	&c_p' T' + \frac{L' \sigma' P_s'(T')/p_r'}{\pfrac{T'}{T_r'}^\gogmo \exp \left\{ -\frac{S'(\eta')}{R'} + \frac{E'(\eta') - g'z' - q'^2/2}{R'T'} - \gogmo \right\}} \\
 	& = E'(\eta') - g'z' - q'^2/2
 	\end{split}
+	\label{eq:coree2}
 \end{equation}
-Where dimensionless
+so the following dimensionless expression is defined for convenience:
 \begin{equation}
-\Upsilon \equiv \pfrac{T'}{T_r'}^\gogmo \exp \left\{ -\frac{S'(\eta')}{R_a'} + \frac{E'(\eta') - g'z' - q'^2/2}{R_a'T'} - \gogmo \right\}
+\Upsilon \equiv \pfrac{T'}{T_r'}^\gogmo \exp \left\{ -\frac{S'(\eta')}{R'} + \frac{E'(\eta') - g'z' - q'^2/2}{R'T'} - \gogmo \right\}
 \end{equation}
 
-This is a useful form from which to obtain the two need partial derivatives of $T'$.
+Equation \eqref{eq:coree2} is a useful form from which to obtain two needed partial derivatives of $T'$ appearing in \eqref{eq:pchain}
 
 \item 
+From \eqref{eq:corep},
 \begin{equation}
 \tpd{p'}{r'}{T', \eta', z'} = \rho' \left[ -u' \pd{u'}{r'} - v'\pd{v'}{r'} - w'\pd{w'}{r'} \right]
 \end{equation}
 
 \item
+Also from \eqref{eq:corep},
 \begin{equation}
 \tpd{p'}{\eta'}{T', r', z'} = \rho' \left[ -T' \dd{S'(\eta')}{\eta'} + \dd{E'(\eta')}{\eta'} - v' \pd{v'}{\eta'} \right]
 \end{equation}
-
+where we note that
 \begin{equation}
 \Gamma'(\eta') = r'v' + \Omega'r'^2 \Rightarrow v' = \frac{\Gamma'(\eta') - \Omega'r'^2}{r'}
 \end{equation}
 
 \begin{equation}
-\begin{split}
-\tpd{v'}{\eta'}{r',z'} &= \dd{\Gamma'(\eta')}{\eta'}\frac{1}{r'} \\
-& = \rho' \left[ -T' \dd{S'(\eta')}{\eta'} + \dd{E'(\eta')}{\eta'} - \frac{v'}{r'} \dd{\Gamma'(\eta')}{\eta'} \right] \\
-\end{split}
+\tpd{v'}{\eta'}{r',z'} = \dd{\Gamma'(\eta')}{\eta'}\frac{1}{r'} \end{equation}
+Hence,
+\begin{equation}
+\tpd{p'}{\eta'}{\Gamma',r',z'} = \rho' \left[ -T' \dd{S'(\eta')}{\eta'} + \dd{E'(\eta')}{\eta'} - \frac{v'}{r'} \dd{\Gamma'(\eta')}{\eta'} \right] 
+\end{equation}
+
+\item
+From \ref{eq:coree2}
+\begin{equation}
+\tpd{p'}{T'}{\eta', r', z'} = \rho' \left[ c_p'- \frac{E'(\eta') -g'z' - q'^2/2}{T'} \right]
+\end{equation}
+
+\item
+From \ref{eq:coree2}
+\begin{equation}
+\tpd{T'}{\eta'}{r',z'} = \frac{\dd{E'(\eta')}{\eta'	}}{c_p' + R'T'[\chi]\left\{ \frac{\dd{P_s'(T')}{T'}}{P_s'(T')} - \gogmo \frac{1}{T'} + \frac{E'(\eta') - g'z'-q'^2/2}{R'T'^2}\right\} }
+\end{equation}
+So the following dimensionless expression is defined for convenience: 
+\begin{equation}
+\chi \equiv \frac{L'\sigma p_s'(T')/p_r'}{\Upsilon(R' T')} 
 \end{equation}
 
 \item
 \begin{equation}
-\tpd{p'}{T'}{\eta', r', z'} = \rho' \left[ c_p'- \frac{E'{\eta'} -g'z' - q'*2/2}{T'} \right]
-\end{equation}
-
-\item
-\begin{equation}
-\tpd{T'}{\eta'}{r',z'} = \frac{\dd{E'(\eta')}{\eta'	}}{c_p' + R_a'T'[\chi]\left\{ \frac{\dd{p_s'(T')}{T'}}{p_s'(T')} - \gogmo \frac{1}{T'} + \frac{E'(\eta') - g'z'-q'^2/w}{R_a'T'^2}\right\} }
-\end{equation}
-Where dimensionless 
-\begin{equation}
-\chi \equiv \frac{L'\sigma p_s'(T')/p_r'}{\Upsilon(R_a' T')} 
-\end{equation}
-
-\item
-\begin{equation}
-\tpd{T'}{r'}{\eta',z'} = \frac{-\left( u'\pd{u'}{r'} + v' \pd{v'}{r'} + w'\pd{w'}{r'}\right)\left[ 1 + \chi\right]}{c_p' + R_a'T'[\chi] \left\{ \frac{\dd{P_s'(T')}{T'}}{P_s'(T')} - \gogmo \frac{1}{T'} \frac{E'(\eta') - g'z'-q'^2/2}{R_a'T'^2}  \right\}}
+\tpd{T'}{r'}{\eta',z'} = \frac{-\left( u'\pd{u'}{r'} + v' \pd{v'}{r'} + w'\pd{w'}{r'}\right)\left[ 1 + \chi\right]}{c_p' + R'T'[\chi] \left\{ \frac{\dd{P_s'(T')}{T'}}{P_s'(T')} - \gogmo \frac{1}{T'} \frac{E'(\eta') - g'z'-q'^2/2}{R'T'^2}  \right\}}
 \end{equation}
 
 Substituting for the pressure gradient in the equation for conservation of radial momentum:
@@ -745,9 +790,9 @@ Substituting for the pressure gradient in the equation for conservation of radia
 &-\rho'\left[ -T' \dd{s'(\eta')}{\eta'} +\dd{E'(\eta')}{\eta'}- v' \pd{v'}{\eta'} \right] \rho' w' r' \\
 & - \rho' \left[ -u'\pd{u'}{r'} -v'\pd{v'}{r'} -w'\pd{w'}{r'}\right]_{T',\eta',z'} \\
 & - \rho' \left[ c_p' - \frac{E'(\eta') - g'z' - q'^2/2}{T'}\right]\rho' w' r' \quad \times \\
-&\left\{ \frac{\dd{E'(\eta')}{\eta'}\left[ 1+\chi\right] - v'\tpd{v'}{r'}{r',z'}\left[ 1 + \chi \right] - T' \dd{S'(\eta')}{\eta'}[\chi]}{c_p'+R_a'T'[\chi] \left\{ \frac{\dd{P_s'(T')}{T'}}{P_s'(T'} -\gogmo \frac{1}{T'} + \frac{E'(\eta') - g'z' - q'^2/2}{R_a'T'^2} \right\} }\right\} \\
+&\left\{ \frac{\dd{E'(\eta')}{\eta'}\left[ 1+\chi\right] - v'\tpd{v'}{r'}{r',z'}\left[ 1 + \chi \right] - T' \dd{S'(\eta')}{\eta'}[\chi]}{c_p'+R'T'[\chi] \left\{ \frac{\dd{P_s'(T')}{T'}}{P_s'(T'} -\gogmo \frac{1}{T'} + \frac{E'(\eta') - g'z' - q'^2/2}{R'T'^2} \right\} }\right\} \\
 &+ \rho' \left[ c_p' - \frac{E'(\eta') - g'z'-q'^2/2}{T'}\right] \quad \times \\
-& \left\{ \frac{ \left( u'\pd{u'}{r'} +v'\pd{v'}{r'} w'\pd{w'}{r'} \right)_{\eta',r'} [1+\chi] }{c_p' + R_a'T'[\chi] \left\{ \frac{\dd{P_s'(T')}{T'}}{P_s'(T')} -\gogmo \frac{1}{T'} + \frac{E'(\eta') - g'z' - q'^2/2}{R_a'T'^2}\right \} }	\right\}
+& \left\{ \frac{ \left( u'\pd{u'}{r'} +v'\pd{v'}{r'} w'\pd{w'}{r'} \right)_{\eta',r'} [1+\chi] }{c_p' + R'T'[\chi] \left\{ \frac{\dd{P_s'(T')}{T'}}{P_s'(T')} -\gogmo \frac{1}{T'} + \frac{E'(\eta') - g'z' - q'^2/2}{R'T'^2}\right \} }	\right\}
 \end{split}
 \end{equation}
 
@@ -773,8 +818,8 @@ Cancel $\rho'$ in all terms and divide each term by $w'$
 \begin{split}
 &\pd{u'}{z'} - \pd{w'}{r'} = \\
 &-\rho'r'\left[ -T' \dd{s'(\eta')}{\eta'} +\dd{E'(\eta')}{\eta'}- v' \pd{v'}{\eta'} \right] \\
-& - \rho' r' \left[ -\frac{L'}{T'}\frac{\sigma P_s'(T')}{P'} \right] \left\{ \frac{\dd{E'(\eta')}{\eta'}\left[ 1+\chi\right] - v'\tpd{v'}{r'}{r',z'}\left[ 1 + \chi \right] - T' \dd{S'(\eta')}{\eta'}[\chi]}{c_p'+R_a'T'[\chi] \left\{ \frac{\dd{P_s'(T')}{T'}}{P_s'(T'} -\gogmo \frac{1}{T'} + \frac{E'(\eta') - g'z' - q'^2/2}{R_a'T'^2} \right\} }\right\} \\
-&+ \frac{1}{w'} \left[ -\frac{L'}{T'}\frac{\sigma P_s'(T')}{P'} \right] \left\{ \frac{ \left( u'\pd{u'}{r'} +v'\pd{v'}{r'} w'\pd{w'}{r'} \right)_{\eta',r'} [1+\chi] }{c_p' + R_a'T'[\chi] \left\{ \frac{\dd{P_s'(T')}{T'}}{P_s'(T')} -\gogmo \frac{1}{T'} + \frac{E'(\eta') - g'z' - q'^2/2}{R_a'T'^2} \right \} }	\right\}
+& - \rho' r' \left[ -\frac{L'}{T'}\frac{\sigma P_s'(T')}{P'} \right] \left\{ \frac{\dd{E'(\eta')}{\eta'}\left[ 1+\chi\right] - v'\tpd{v'}{r'}{r',z'}\left[ 1 + \chi \right] - T' \dd{S'(\eta')}{\eta'}[\chi]}{c_p'+R'T'[\chi] \left\{ \frac{\dd{P_s'(T')}{T'}}{P_s'(T'} -\gogmo \frac{1}{T'} + \frac{E'(\eta') - g'z' - q'^2/2}{R'T'^2} \right\} }\right\} \\
+&+ \frac{1}{w'} \left[ -\frac{L'}{T'}\frac{\sigma P_s'(T')}{P'} \right] \left\{ \frac{ \left( u'\pd{u'}{r'} +v'\pd{v'}{r'} w'\pd{w'}{r'} \right)_{\eta',r'} [1+\chi] }{c_p' + R'T'[\chi] \left\{ \frac{\dd{P_s'(T')}{T'}}{P_s'(T')} -\gogmo \frac{1}{T'} + \frac{E'(\eta') - g'z' - q'^2/2}{R'T'^2} \right \} }	\right\}
 \end{split}
 \end{equation}
 \item
@@ -796,7 +841,7 @@ We take this to hold to good approximation, so terms involving $v'$ in the last 
 \begin{split}
 &-\pd{}{z'}\left( \frac{1}{\rho' r'} \pd{\eta'}{z'}\right) - \pd{}{r'}\left(\frac{1}{\rho'r'} \pd{\eta'}{r'}\right) =\\
 &-\rho'r'\left[ -T' \dd{s'(\eta')}{\eta'} +\dd{E'(\eta')}{\eta'}- \frac{v'}{r'} \pd{\Gamma(\eta')}{\eta'} \right] \\
-& - \rho' r' \left[ -\frac{L'Y_s'(T',p')}{T'} \right] \left\{ \frac{\dd{E'(\eta')}{\eta'}\left[ 1+\chi\right]  - T' \dd{S'(\eta')}{\eta'}[\chi]}{c_p'+R_a'T'[\chi] \left\{ \frac{\dd{P_s'(T')}{T'}}{P_s'(T'} +\frac{L'Y_s'(T',p')/T}{R_a T'} \right\} }\right\} \\
+& - \rho' r' \left[ -\frac{L'Y_s'(T',p')}{T'} \right] \left\{ \frac{\dd{E'(\eta')}{\eta'}\left[ 1+\chi\right]  - T' \dd{S'(\eta')}{\eta'}[\chi]}{c_p'+R'T'[\chi] \left\{ \frac{\dd{P_s'(T')}{T'}}{P_s'(T'} +\frac{L'Y_s'(T',p')/T}{R' T'} \right\} }\right\} \\
 \end{split}
 \end{equation}
 
@@ -807,17 +852,17 @@ Y_s'(T',p') \equiv \frac{\sigma P_s'(T')}{P'}
 \item
 Recall:
 \begin{equation}
-\chi \equiv \frac{L'\sigma p_s'(T')/p_r'}{\Upsilon(R_a' T')} 
+\chi \equiv \frac{L'\sigma p_s'(T')/p_r'}{\Upsilon(R' T')} 
 \end{equation}
 \begin{equation}
-\Upsilon \equiv \pfrac{T'}{T_r'}^\gogmo \exp \left\{ -\frac{S'(\eta')}{R_a'} +\frac{L'Y_s'(T',p')/T}{R_a T'} \right\}
+\Upsilon \equiv \pfrac{T'}{T_r'}^\gogmo \exp \left\{ -\frac{S'(\eta')}{R'} +\frac{L'Y_s'(T',p')/T}{R' T'} \right\}
 \end{equation}
 
 \begin{equation}
 \begin{split}
 &-\pd{}{z'}\left( \frac{1}{\rho' r'} \pd{\eta'}{z'}\right) - \pd{}{r'}\left(\frac{1}{\rho'r'} \pd{\eta'}{r'}\right) =\\
-&-\rho'r' \Bigg\{ -T' \dd{s'(\eta')}{\eta'} \left[ 1 - \frac{[\chi] L'Y_s'(T',p')/T'}{c_p' + R_a'T'[\chi] \left( \frac{\dd{P_s'(T')}{T'}}{P_s'(T')} +\frac{L'Y_s'(T',p')/T'}{R_a'T'} \right)}\right]  \\
-& + \dd{E'(\eta')}{\eta'} \left[1 - \frac{[1+\chi] L'Y_s'(T',p')/T'}{c_p' + R_a'T'[\chi] \left( \frac{\dd{P_s'(T')}{T'}}{P_s'(T')} +\frac{L'Y_s'(T',p')/T'}{R_a'T'} \right)} \right]  \\
+&-\rho'r' \Bigg\{ -T' \dd{s'(\eta')}{\eta'} \left[ 1 - \frac{[\chi] L'Y_s'(T',p')/T'}{c_p' + R'T'[\chi] \left( \frac{\dd{P_s'(T')}{T'}}{P_s'(T')} +\frac{L'Y_s'(T',p')/T'}{R'T'} \right)}\right]  \\
+& + \dd{E'(\eta')}{\eta'} \left[1 - \frac{[1+\chi] L'Y_s'(T',p')/T'}{c_p' + R'T'[\chi] \left( \frac{\dd{P_s'(T')}{T'}}{P_s'(T')} +\frac{L'Y_s'(T',p')/T'}{R'T'} \right)} \right]  \\
 &- \frac{v'}{r'}\dd{\Gamma'(\eta')}{\eta'} \Bigg\}
 \end{split}
 \end{equation}
@@ -844,16 +889,16 @@ p_\rho(T) &\equiv p_\rho'(T') / p_{ref}
 \begin{split}
 (\rh)_{amb,\rho} &\equiv \frac{(p_v')_{ref}}{p_\rho'(T_{ref}'}\\
 p_v &= p_v' / p_{ref}' \\
-S(\eta) &= S'(\eta)/R_a' \\
+S(\eta) &= S'(\eta)/R' \\
 \pi_1 &\equiv \frac{L'Y_{ref}'}{c_p' T_{ref}'} \\
 \Upsilon &= T^\gogmo \exp\left[ -S(\eta) + \pi_1 \gogmo \frac{\widetilde{Y}_\rho(T,p)}{T}\right] \\
 \chi &= \pi_1 \gogmo \frac{\widetilde{Y}_\rho(T,p) p}{T[\Upsilon]} \\
 \pi_2 &\equiv (\Omega'^2 r_o'^2)/(c_p'T_{ref}') \\
 \pi_4 &\equiv z_t'^2 / r_0'^2 \qquad \textit{($z_t'$ is an alternate for $z_{lid}$)} \\
-S &= S'/R_a' \qquad (R_a'/c_p') = \gogmo \\
+S &= S'/R' \qquad (R'/c_p') = \gogmo \\
 \eta &= \eta'/\eta_{ref}' \qquad \eta_{ref}' \equiv \rho_{ref}'\Omega r_o^3 (E/2)^{1/2} \qquad E \equiv \pfrac{\nu'}{\Omega' r_o'}\\
 r &= r'/r_o' \qquad z= z'/z_t' \qquad p= p'/p_{ref}' \qquad T=T'/T_{ref}' \qquad \rho = \rho'/\rho_{ref}' \\
-p_v &= p_v'/p_{ref}' \qquad p_\rho= p_\rho'/p_{ref}' \qquad p_{ref}' = \rho_{ref}'R_a'T_{ref}' \\
+p_v &= p_v'/p_{ref}' \qquad p_\rho= p_\rho'/p_{ref}' \qquad p_{ref}' = \rho_{ref}'R'T_{ref}' \\
 \Gamma &= \Gamma'/(\Omega'r_o'^2) = r v + \Omega^2 \qquad v = v'/(\Omega' r_o') 
 \end{split}
 \end{equation}
@@ -882,9 +927,9 @@ $\pi_4 \approx 10^{-3}$, $E=10^{-1}$, $\pi_2 = 10^{-2}$, typically
 	\input{figures/bulkvortex.pdf_tex}
 \end{figure}
 
-The boundary condition holding on $r'=r_o'$, $z_{lid}'\geq z' \geq z_{interface}'$ deserves discussion.
+The boundary condition holding on $r'=r_o'$, $z_{lid}'\geq z' \geq \zinter'$ deserves discussion.
 
-$\eta'(r_o',z')$ should decrease monotonically from $\eta' = \eta_{max}'$ at $z'=z_{interface}'$ to $\eta'=0$ at $z'=z_{lid}'$, but we really can't prescribe how.
+$\eta'(r_o',z')$ should decrease monotonically from $\eta' = \eta_{max}'$ at $z'=\zinter'$ to $\eta'=0$ at $z'=z_{lid}'$, but we really can't prescribe how.
 
 \begin{equation}
 -\rho' u'(r_o',z')r_o' = \pd{\eta'(r_o',z')}{z'}
@@ -899,5 +944,148 @@ $\eta'(r_o',z')$ should decrease monotonically from $\eta' = \eta_{max}'$ at $z'
 \pd{\eta'(r_o',z')}{r'} <0 \quad \Rightarrow \quad u'(r_o',z') > 0 \quad \text{(outflow)}
 \end{equation}
 
-We expect $\pd{\eta'(r_o',z')}{r'} =0$ at $z'=z_{interface}'$ and $z'=z_{lid}'$ because these are streamlines (no crossflow)
+We expect $\pd{\eta'(r_o',z')}{r'} =0$ at $z'=\zinter'$ and $z'=z_{lid}'$ because these are streamlines (no crossflow), but $\pd{\eta'(r_o',z')}{r'}$ might be discontinuous [vortex sheet: inflow below $z'=\zinter'$, outflow above $z=\zinter'$ ... though $\pd{\eta'(r_o',\zinter')}{z'}$ is not excluded (smooth transition)]. We might see whether it suffices to take
+\begin{equation}
+\pd{\eta'(r_o',z')}{r'} = 0 \qquad z_{lid}'\gg z'\gg \zinter'
+\end{equation}
+
+\section{Core Module : Finding the Dependent Variables after the Streamfunction $\eta'(r',z')$ is in Hand}
+\begin{itemize}
+\item
+\begin{equation}
+\begin{split}
+v'(r',z') &= \left[ \Gamma'(\eta'(r',z')) -\Omega'r'^2 \right]/r' \\
+v'(0,z') &= 0
+\end{split}
+\end{equation}
+\item
+Simultaneous nonlinear algebraic equations for $p'(r',z')$ and $T'(r',z')$:
+\begin{equation}
+Y'(r',z') = \sigma P'[T'(r',z')] /p'(r',z')
+\end{equation}
+\begin{equation}
+c_p'T'(r',z') + L'Y'(r',z') + g'z' + \frac{v'^2(r',z')}{2} = E'(\eta'(r',z'))
+\end{equation}
+\begin{equation}
+\log \sbfrac{T'(r',z')}{T_{ref}'}^\gogmo - \log \sbfrac{p'(r',z')}{p_{ref}'} + \frac{L'Y'(r',z')}{R'T'(r',z')} = \frac{S'[\eta'(r',z')]}{R'}
+\end{equation}
+
+\item
+\begin{equation}
+\rho'(r',z') = \frac{p'(r',z')}{R' T'(r',z')}
+\end{equation}
+
+\item
+\begin{equation}
+u'(r',z') = -\frac{1}{\rho'(r',z')}\frac{1}{r'}\pd{\eta'(r',z')}{z'}
+\end{equation}
+
+\item
+\begin{equation}
+w'(r',z') = \frac{1}{\rho'(r',z')}\frac{1}{r'}\pd{\eta'(r',z')}{r'}
+\end{equation}
+
+\end{itemize}
+
+\section{Notes on Starting Conditions for the Core Module}
+\begin{figure}[h!]
+	\centering
+	\def\svgwidth{0.7\columnwidth}
+	\input{figures/bulkvortex.pdf_tex}
+\end{figure}
+
+This sketch is a little more appropriate for the saucer-like proportion of a tropical cyclone, which has diameter readily 60 times its height, though the inner portion of the core has a diameter closer to 2.5-5 times its height:
+$z_{lid}' \approx 12 \si{km}$ while $\rmin' \approx 30-60\si{km}$ and $\zedge' \approx 1 \si{km}$
+
+The Prandtl condition that $\pd{p'}{z'} \approx	0$ across the boundary-layer module (aside from hydrostatic changes) does \underline{not} imply $\pd{p'}{r'} \approx 0$ across the lower core module. The average updraft in the lower core may average 100 times the downdrift speed into the boundary layer. The pressure drop from $r'=\rmin'$ to $r'=0$ may equal the pressure drop from $r'=r_o'$ to $r'=\rmin'$ in the lower vortex. Short lived core bbs(?) may have 20-30 mph updrafts.
+
+The case depicted is a tropical depression or tropical storm. There is no eye module, and the corner flow extends to the axis.
+
+\begin{itemize}
+\item
+We relate conditions at the exit from the corner $(0<r'<\rmin', z'=\zedge')$ to the conditions at the entry to the corner $(r'=\rmin'$ or $x=\xmin : 0 < z' < \zedge'$, or $0\leq \zeta \leq \zeta_{edge}$, where $\zeta = z'/ \pfrac{\nu'}{2\Omega'}^{1/2}$ , $x=r'^2/r_o'^2$) We conserve mass flux (total mass/time), and distribute the total stagnation energy over streamlines at the exit as the entry, so the total-stagnation-energy flux is conserved.
+
+\item
+We do not conserve total angular momentum in the corner flow because this would imply that those fluid elements to that approach closest to the axis of rotation may spin up the most. Instead, we suggest that the relative-swirl velocity component is distributed over streamlines at the exit as at the entry.
+
+\item
+In summary, whereas the dynamics is taken to be inviscid, and the energetics to be diffusive, in the bulk-vortex module, in contrast to the corner flow, the dynamics is taken to be dissipative, and the energetics inviscid. Saturation occurs in the corner flow. What holds along $0 < r'<\rmin'$, $z'=\zedge'$, is significant because the core flow is taken to be inviscid (and saturated). Thus, the total angular momentum, total stagnation enthalpy, and entropy remain constant on streamlines at the value holding at entry on each streamline.
+
+\item
+At $z'=\zedge'$, $0<r'\leq \rmin'$,
+\begin{equation}
+\pd{\eta'}{r'} = \rho' w' r'
+\end{equation}
+where $\eta'$ is the streamfunction. So
+\begin{equation}
+\eta'(\rmin',\zedge') - \eta'(0,\zedge') = \int_0^{\rmin'} \rho'(r',\zedge') w'(r',\zedge') r'dr'
+\end{equation}
+or, if $\rho'(r',\zedge')w'(r',\zedge')$ is const,
+\begin{equation}
+\eta_{max}' - 0 = \rho'(r',\zedge') w'(r',\zedge')\frac{\rmin'^2}{2}
+\end{equation}
+Hence,
+\begin{equation}
+\rho'(r',\zedge') = \frac{2 \eta_{max}'}{\rmin'^2}\pfrac{r'}{2}^2 \Rightarrow \frac{\eta'(r',\zedge')}{\eta_{max}'} = \frac{r'^2}{\rmin'^2}
+\end{equation}
+
+The magnitude of $\eta_{max}'$ is $[\rho_{ref}'\equiv \rho'(r_o',0)=\rho_{amb}'(0)]$
+\begin{equation}
+\rho_{ref}'\Omega'r_o'^3 (E/2)^{1/2} \int_{\xmin}^1 p(x,\zeta_{edge})[-W(x)]dx
+\end{equation}
+Ekman Number:
+\begin{equation}
+E = \nu'/(\Omega'r_o'^2)
+\end{equation}
+\begin{equation}
+\eta'(r',\zedge') \equiv \eta_{edge}'(r')
+\end{equation}
+
+\item
+We take
+\begin{equation}
+\Gamma'(r',\zedge') = r'v'(r',\zedge') + \Omega'r'^2
+\end{equation}
+
+We relate $v'(r',\zedge') = v_{edge}'[\eta_{edge}'(r')], \quad \eta_{edge}'(r') = \eta_{max}'\pfrac{r'^2}{\rmin'}$
+
+\begin{equation}
+v_{edge}'(\eta_{edge}'(r')) = \bar{v}_{bl}\left( \eta_{max}'\frac{\eta^*}{\eta_{edge}^*}\right) = v_{bl}'(\eta^*) = \Omega' r_o' \frac{\psi[\xmin, \zeta(\eta^*)}{\xmin^{1/2}}
+\end{equation}
+Where
+\begin{equation}
+\eta^*(\xmin,\zeta) = -\int_0^\zeta \phi(\xmin,\underline{\zeta}d \underline{\zeta}, \qquad \psi = \frac{r'}{r_o'}\frac{v_{bl}'}{r_o' \Omega'}= r v_{bl}
+\end{equation}
+\begin{equation}
+\phi(\xmin, \zeta) = \rmin v(\xmin,\zeta) = \xmin^{1/2} v(\xmin,\zeta) = \xmin^{1/2} v_{bl} (\zeta)
+\end{equation}
+where
+\begin{equation}
+0 \leq \eta^* \leq \eta_{max}^*, \qquad 0 \leq \zeta \leq \zeta_{edge}, \qquad 0 \leq v_{edge}' \leq v'(\rmin)
+\end{equation}
+
+\item
+We take
+\begin{equation}
+E'(r',\zedge') = c_p T'(r',\zedge') + L'\sigma'\frac{P'[T'(r',\zedge')]}{p'(r',\zedge')} + g'\zedge' + \frac{V'^2}{2}
+\end{equation}
+where
+\begin{equation}
+V' = \Omega'r_o' \frac{1 + \varepsilon - \xmin}{\xmin^{1/2}}
+\end{equation}
+\begin{equation}
+\begin{split}
+E'(r',\zedge') &= E_{edge}'[\eta_{edge}'(r')] \\
+&= \bar{E}_{bl}'\left( \eta_{max}' \frac{\eta^*}{\eta_{edge}^*}\right) \\
+&= E_{bl}'(\eta^*) \\
+&= c_p'T_{ref}' E[\xmin, \zeta(\eta^*)]
+\end{split}
+\end{equation}
+\item
+We take $S'(r',\zedge') = S_{edge}'(\eta_{edge}'(r'))$
+\begin{equation}
+\frac{S'(r',\zedge'}{R'} = \log \sbfrac{T'(r',\zedge')}{T_{ref}'}^\gogmo - \log \sbfrac{p'(r',\zedge')}{p_{ref}'} + \frac{L'\sigma P'[T'(r',\zedge')}{R'T'(r',\zedge')p'(r',\zedge')}
+\end{equation}
+\end{itemize}
+
 \end{document}
