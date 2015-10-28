@@ -1,6 +1,6 @@
 %% Creator: Inkscape inkscape 0.91, www.inkscape.org
 %% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
-%% Accompanies image file 'bulkvortex.pdf' (pdf, eps, ps)
+%% Accompanies image file 'streamfunction.pdf' (pdf, eps, ps)
 %%
 %% To include the image in your LaTeX document, write
 %%   \input{<filename>.pdf_tex}
@@ -49,21 +49,22 @@
   \global\let\svgscale\undefined%
   \makeatother%
   \begin{picture}(1,0.77272727)%
-    \put(0,0){\includegraphics[width=\unitlength,page=1]{bulkvortex.pdf}}%
-    \put(0.48852157,0.37052343){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{bulk vortex}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{streamfunction.pdf}}%
     \put(0.17401286,0.60330578){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$z'$}}}%
     \put(0.79338841,0.19329663){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$r'$}}}%
     \put(0.10697887,0.56978879){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$z_{lid}'$}}}%
-    \put(0.2006428,0.24701565){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{corner}}}%
-    \put(0.42791551,0.24931131){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{boundary layer}}}%
-    \put(0.24407714,0.47355373){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{core}}}%
-    \put(0.37645646,0.42328893){\color[rgb]{0,0,0}\rotatebox{15.91553423}{\makebox(0,0)[lb]{\smash{"contour"}}}}%
     \put(0.08402204,0.30991737){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$z_{edge}'$}}}%
-    \put(0.02029385,0.46280994){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$z_{interface}'$}}}%
+    \put(0.01827365,0.46280994){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$z_{interface}'$}}}%
     \put(0.28650137,0.14830121){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$r_{min}'$}}}%
     \put(0.75482091,0.14141416){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$r_0'$}}}%
-    \put(0.78512394,0.52488522){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{outflow  (properties to be found)}}}%
-    \put(0.79201099,0.44903585){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{position of the contour at the periphery}}}%
-    \put(0.79201099,0.35748398){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{inflow(properties given)}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{streamfunction.pdf}}%
+    \put(0.83296601,0.50716259){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\eta'=\eta_{max}'$}}}%
+    \put(0.79256197,0.38191006){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\eta_{max}'\geq \eta'(r_0',z') \geq 0$}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{streamfunction.pdf}}%
+    \put(0.83094581,0.28898077){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\eta'\approx 0$}}}%
+    \put(0.37438015,0.50716259){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\eta'=\eta_{max}'$}}}%
+    \put(0.21037647,0.40532604){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\eta'=\eta_{max}'$}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{streamfunction.pdf}}%
+    \put(0.37125802,0.23673097){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\eta_{max}'\geq \eta'(r',z_{edge}') \geq 0$}}}%
   \end{picture}%
 \endgroup%
