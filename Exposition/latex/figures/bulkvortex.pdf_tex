@@ -57,7 +57,7 @@
     \put(0.2006428,0.24701565){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{corner}}}%
     \put(0.42791551,0.24931131){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{boundary layer}}}%
     \put(0.24407714,0.47355373){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{core}}}%
-    \put(0.37645646,0.42328893){\color[rgb]{0,0,0}\rotatebox{15.91553423}{\makebox(0,0)[lb]{\smash{"contour"}}}}%
+    \put(0.37645646,0.42328893){\color[rgb]{0,0,0}\rotatebox{15.91553423}{\makebox(0,0)[lb]{\smash{``contour"}}}}%
     \put(0.08402204,0.30991737){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$z_{edge}'$}}}%
     \put(0.02029385,0.46280994){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$z_{interface}'$}}}%
     \put(0.28650137,0.14830121){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$r_{min}'$}}}%

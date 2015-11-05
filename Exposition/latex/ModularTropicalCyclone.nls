@@ -19,13 +19,13 @@
 
  \nomgroup{B}
 
-  \item [{\( \sigma \)}]\begingroup \nomdescr {ratio, molecular weights \hfill \break of water vapor and air\hfill \break }\DimensUnits {0.622}{ - }\nomeqref {0}
+  \item [{\( \sigma \)}]\begingroup \nomdescr {ratio, molecular weights \hfill \break of water vapor and air\hfill \break \ }\DimensUnits {0.622}{ - }\nomeqref {0}
 		\nompageref{2}
   \item [{\( c_p \)}]\begingroup \nomdescr {specific heat capacity, const $p$}\DimensUnits {10\(^3\)}{\si {m^2.s^{-2}.K^{-1}}}\nomeqref {0}
 		\nompageref{2}
   \item [{\( g \)}]\begingroup \nomdescr {gravity}\DimensUnits {9.81}{\si {m.s^{-2}}}\nomeqref {0}
 		\nompageref{2}
-  \item [{\( L \)}]\begingroup \nomdescr {specific latent heat, phase transition \hfill \break for water substance \hfill \break }\DimensUnits {2.5 \timesten {6} }{\si {m^2.s^{-2}}}\nomeqref {0}
+  \item [{\( L \)}]\begingroup \nomdescr {specific latent heat, phase transition \hfill \break for water substance \hfill \break \ }\DimensUnits {2.5 \timesten {6} }{\si {m^2.s^{-2}}}\nomeqref {0}
 		\nompageref{2}
   \item [{\( R \)}]\begingroup \nomdescr {gas constant for air}\DimensUnits {287.1}{\si {m^2.s^{-2}.K^{-1}}}\nomeqref {0}
 		\nompageref{2}
@@ -35,6 +35,8 @@
   \item [{amb}]\begingroup \nomlongdescr {ambient}\nomeqref {0}
 		\nompageref{2}
   \item [{eye}]\begingroup \nomlongdescr {eye}\nomeqref {0}
+		\nompageref{2}
+  \item [{min}]\begingroup \nomlongdescr {closest approach within the bulk-vortex module to the axis of rotation}\nomeqref {0}
 		\nompageref{2}
   \item [{moist}]\begingroup \nomlongdescr {moist adiabat}\nomeqref {0}
 		\nompageref{2}

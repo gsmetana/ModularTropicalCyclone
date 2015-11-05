@@ -13,6 +13,7 @@
 \nomenclatureentry{Camb@[{amb}]\begingroup \nomlongdescr {ambient}\nomeqref {0}|nompageref}{2}
 \nomenclatureentry{Cmoist@[{moist}]\begingroup \nomlongdescr {moist adiabat}\nomeqref {0}|nompageref}{2}
 \nomenclatureentry{Ceye@[{eye}]\begingroup \nomlongdescr {eye}\nomeqref {0}|nompageref}{2}
+\nomenclatureentry{Cmin@[{min}]\begingroup \nomlongdescr {closest approach within the bulk-vortex module to the axis of rotation}\nomeqref {0}|nompageref}{2}
 \nomenclatureentry{Ctrop@[{trop}]\begingroup \nomlongdescr {tropopause}\nomeqref {0}|nompageref}{2}
 \nomenclatureentry{Csat@[{sat}]\begingroup \nomlongdescr {saturated}\nomeqref {0}|nompageref}{2}
 \nomenclatureentry{Cv@[{v}]\begingroup \nomlongdescr {water vapor}\nomeqref {0}|nompageref}{2}
