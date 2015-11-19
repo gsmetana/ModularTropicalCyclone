@@ -1,0 +1,3546 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[    145014,       3537]
+NotebookOptionsPosition[    139721,       3386]
+NotebookOutlinePosition[    140082,       3402]
+CellTagsIndexPosition[    140039,       3399]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Tephigram.", "Chapter",
+ CellChangeTimes->{{3.6513309965722637`*^9, 3.651331005635054*^9}}],
+
+Cell[TextData[{
+ "Let us begin with the definitions and notations of the various variables:\n\
+\npressure\t\t\t: p (in Pascals (Pa))\ndensity\t\t\t\t: \[Rho] ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{"kg", "/", 
+     SuperscriptBox["m", "3"]}], ")"}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\ntemperature\t\t\t: T (Kelvin (K))\nWater-vapor mass fraction\t: y = ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["\[Rho]", "v"], "/", "\[Rho]"}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\nRelative humidity\t\t: rh = ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["p", "v"], "/", 
+    RowBox[{"P", "(", "T", ")"}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\nSaturated vapor pressure\t: vp\n\n",
+ StyleBox["Subscripts used:\n",
+  FontWeight->"Bold"],
+ "\t\t\t\nambient\t\t\t: amb\nmoist adiabat\t\t\t: moist\neye\t\t\t\t: eye\n\
+tropopause\t\t\t: trop\nsaturated\t\t\t: sat\nwater vapor\t\t\t: v\nlifting \
+condensation level\t: switch\nocean-surface value\t\t: s\nunderrunning moist \
+air\t\t: underrun.\nTropopause\t\t\t: trop\n\n",
+ StyleBox["Derived Subscripts used:\n\n",
+  FontWeight->"Bold"],
+ "staturated water vapor\t\t: vsat",
+ StyleBox["\n",
+  FontWeight->"Bold"],
+ "amibent ocean-surface value\t: ambs\nwater vapor ambient\t\t: vamb\n\nFor \
+the purposes of generating functions and code, we will not directly make use \
+of subscripts but rather CAPITAL letters to indicate the subscripts. So, for \
+example, rhAMB refers to ambient relative-humidity etc.\n\n\n",
+ StyleBox["Constants:\n\n",
+  FontWeight->"Bold"],
+ "gravity\t\t\t\t: g ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{"m", "/", 
+     SuperscriptBox["s", "2"]}], ")"}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\ngas constant for air\t\t: R ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      SuperscriptBox["m", "2"], "/", 
+      SuperscriptBox["s", "2"]}], "K"}], ")"}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\nMolecular weights ratio\t: \[Sigma]\nSpecific heat capacity \t\t: ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["C", "p"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{
+       SuperscriptBox["m", "2"], "/", 
+       SuperscriptBox["s", "2"]}], "K"}], ")"}], " "}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "(at constant pressure).\nSpecific latent heat\t\t: L ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      SuperscriptBox["m", "2"], "/", 
+      SuperscriptBox["s", "2"]}], ")"}], " "}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "(phase transition)\nTemperature at ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["0", "o"], "C"}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " in K\t: ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["T", "0"], "=", 
+    RowBox[{"273.16", " ", 
+     RowBox[{"K", "."}]}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\n\nLet us now define the various constants. The units are taken to be in \
+SI units."
+}], "Text",
+ CellChangeTimes->{{3.6513310163547487`*^9, 3.6513312671196623`*^9}, {
+  3.651331301792727*^9, 3.6513313402379847`*^9}, {3.6513313747996473`*^9, 
+  3.651331614270059*^9}, {3.6513319274627037`*^9, 3.651331936926682*^9}, {
+  3.6513320028775063`*^9, 3.6513320130617113`*^9}, {3.65133211254965*^9, 
+  3.6513321429185963`*^9}, {3.6513327650110407`*^9, 3.651332774293647*^9}, {
+  3.651332842969988*^9, 3.65133285201278*^9}, {3.651333760076992*^9, 
+  3.6513338429561987`*^9}, {3.6513340318830442`*^9, 3.65133411847258*^9}, {
+  3.6513344188199778`*^9, 3.6513344294198837`*^9}, {3.651335440290872*^9, 
+  3.6513354563575172`*^9}, {3.651338898751156*^9, 3.651338906709519*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Clear", "[", "\"\<Global`*\>\"", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"g", " ", "=", " ", "9.81"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"R", " ", "=", " ", "287.1"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"\[Sigma]", " ", "=", " ", "0.622"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"cp", " ", "=", " ", "1004"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"L", " ", "=", " ", 
+   RowBox[{"2.5", " ", 
+    RowBox[{"10", "^", "6"}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"T0", " ", "=", " ", "273.16"}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"pAMBS", " ", "=", " ", "101500.0"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"tAMBS", " ", "=", " ", "299.0"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.6513315492697773`*^9, 3.651331559515903*^9}, {
+   3.651331618876062*^9, 3.651331641786743*^9}, 3.651331676482914*^9, {
+   3.651332146051943*^9, 3.651332154579707*^9}, {3.6513338632773952`*^9, 
+   3.6513338649878283`*^9}, {3.651334186551491*^9, 3.651334205015154*^9}, {
+   3.6513342470625687`*^9, 3.6513342790716333`*^9}, {3.651334322973473*^9, 
+   3.651334327805539*^9}, {3.6513432714886208`*^9, 3.651343271680361*^9}}],
+
+Cell["\<\
+Using equation of state, we can obtain the density at the ocean surface level:\
+\>", "Text",
+ CellChangeTimes->{{3.6513342826611147`*^9, 3.6513343081331167`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"\[Rho]AMBS", " ", "=", " ", 
+  RowBox[{"pAMBS", "/", 
+   RowBox[{"(", 
+    RowBox[{"R", "*", "tAMBS"}], ")"}]}]}]], "Input",
+ CellChangeTimes->{{3.6513315492697773`*^9, 3.651331559515903*^9}, {
+   3.651331618876062*^9, 3.651331641786743*^9}, 3.651331676482914*^9, {
+   3.651332146051943*^9, 3.651332154579707*^9}, {3.6513338632773952`*^9, 
+   3.6513338649878283`*^9}, {3.651334186551491*^9, 3.651334205015154*^9}, {
+   3.6513342470625687`*^9, 3.6513342790716333`*^9}, {3.651334309839642*^9, 
+   3.6513343137355957`*^9}, {3.651342623411762*^9, 3.651342623556086*^9}}],
+
+Cell[BoxData["1.1823924867403128`"], "Output",
+ CellChangeTimes->{3.651342623991373*^9, 3.651343320432898*^9, 
+  3.6513448735675583`*^9, 3.651345321719305*^9, 3.656872899097754*^9}]
+}, Open  ]],
+
+Cell[TextData[{
+ "We now obtain relative humidity as a function of pressure ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      SubscriptBox["rh", "AMB"], "(", "p", ")"}], ")"}], " "}], 
+   TraditionalForm]]],
+ "and ambient temperature as a function of pressure ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      SubscriptBox["T", "AMB"], "(", "p", ")"}], ")"}], " "}], 
+   TraditionalForm]]],
+ "from discrete tabulated data. This data is interpolated to produce a \
+continuous function that will be used for further computations:"
+}], "Text",
+ CellChangeTimes->{{3.6513316531391973`*^9, 3.651331749528617*^9}, {
+  3.651331787873177*^9, 3.6513318194026003`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"rhAMB", "=", 
+    RowBox[{"Interpolation", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"101500", ",", "0.84"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"100000", ",", "0.81"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"95000", ",", "0.81"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"90000", ",", "0.79"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"85000", ",", "0.74"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"80000", ",", "0.70"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"75000", ",", "0.64"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"70000", ",", "0.60"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"65000", ",", "0.56"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"60000", ",", "0.54"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"55000", ",", "0.51"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"50000", ",", "0.49"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"45000", ",", "0.45"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"40000", ",", "0.44"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"30000", ",", "0.39"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"20000", ",", "0.37"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"10000", ",", "0.35"}], "}"}]}], "}"}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"tAMB", "=", 
+   RowBox[{"Interpolation", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"101500", ",", "299"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"100000", ",", "299"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"95000", ",", "296"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"90000", ",", "293"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"85000", ",", "290"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"80000", ",", "288"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"75000", ",", "285"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"70000", ",", "282"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"65000", ",", "278"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"60000", ",", "274"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"55000", ",", "271"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"50000", ",", "266"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"45000", ",", "261"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"40000", ",", "255"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"30000", ",", "240"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"20000", ",", "218"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"10000", ",", "210"}], "}"}]}], "}"}], "]"}]}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.651331765601959*^9, 3.651331781577291*^9}, {
+  3.6513318226893463`*^9, 3.6513318230411882`*^9}, {3.651331871496481*^9, 
+  3.6513318718565693`*^9}, {3.651333735689184*^9, 3.6513337419112577`*^9}, {
+  3.651333854134138*^9, 3.651333856228948*^9}, {3.656872902539194*^9, 
+  3.656872907484066*^9}}],
+
+Cell[TextData[{
+ "The saturated vapor pressure is computed using the following empirical \
+formula:\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["p", 
+     SubscriptBox["V", "SAT"]], "=", " ", 
+    RowBox[{"610.78", " ", 
+     SuperscriptBox["e", 
+      RowBox[{
+       RowBox[{"a", "(", "T", ")"}], 
+       FractionBox[
+        RowBox[{"(", 
+         RowBox[{"T", "-", 
+          SubscriptBox["T", "0"]}], ")"}], 
+        RowBox[{"T", "-", 
+         RowBox[{"b", "(", "T", ")"}]}]]}]]}]}], TraditionalForm]]],
+ ",\na(T) = If[T > ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      SubscriptBox["T", "0"], ",", " ", "17.2693882", ",", " ", 
+      "21.8745584"}], "]"}], ","}], TraditionalForm]]],
+ "\nb(T) = If[T > ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["T", "0"], TraditionalForm]]],
+ ", 35.86, 7.66].\n\nThese values are obtained by performing a curvefit to \
+data."
+}], "Text",
+ CellChangeTimes->{{3.6513318884225388`*^9, 3.65133191075835*^9}, {
+  3.651331944267281*^9, 3.651331995256077*^9}, {3.651332178571375*^9, 
+  3.651332317776293*^9}, {3.651332399888579*^9, 3.6513324117274446`*^9}, {
+  3.6513339042370872`*^9, 3.651333910589479*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"a", "[", "t_", "]"}], ":=", 
+   RowBox[{"If", "[", 
+    RowBox[{
+     RowBox[{"t", ">", "T0"}], ",", "17.2693882", ",", "21.8745584"}], 
+    "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"b", "[", "t_", "]"}], ":=", 
+   RowBox[{"If", "[", 
+    RowBox[{
+     RowBox[{"t", ">", "T0"}], ",", "35.86", ",", "7.66"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"pVSAT", "[", "t_", "]"}], " ", "=", " ", 
+   RowBox[{"610.78", "*", 
+    RowBox[{"Exp", "[", 
+     RowBox[{
+      RowBox[{"a", "[", "t", "]"}], "*", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"t", "-", "T0"}], ")"}], "/", 
+       RowBox[{"(", 
+        RowBox[{"t", "-", 
+         RowBox[{"b", "[", "t", "]"}]}], ")"}]}]}], "]"}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"dpVSAT", "[", "t_", "]"}], " ", ":=", " ", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"pVSAT", "[", "t", "]"}], ")"}], "*", 
+    RowBox[{"(", 
+     RowBox[{"a", "[", "t", "]"}], ")"}], "*", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"T0", "-", 
+       RowBox[{"b", "[", "t", "]"}]}], ")"}], "/", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"t", "-", 
+        RowBox[{"b", "[", "t", "]"}]}], ")"}], "^", "2"}]}]}]}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.651332321826693*^9, 3.651332377719727*^9}, {
+  3.651333872731518*^9, 3.6513338882201967`*^9}, {3.651334153555985*^9, 
+  3.651334153967959*^9}, {3.6513425475482283`*^9, 3.651342590282789*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["AMBIENT PROFILES:", "Subsubsection",
+ CellChangeTimes->{{3.65687325935104*^9, 3.6568732654059677`*^9}}],
+
+Cell[TextData[{
+ "The ambient profiles with altitudes can be computed using equation of \
+state:\np = \[Rho] R T \[Rule] \[Rho] = (RT)/p, \n\[Rho] ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["p", "v"], TraditionalForm]]],
+ "= ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[Rho]", "v"], TraditionalForm]]],
+ "R T \[Rule] ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["p", "v"], "=", " ", "y", " "}], TraditionalForm]]],
+ "R T,\ny = ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["\[Rho]", "v"], "/", "\[Rho]"}], TraditionalForm]]],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.651332487974264*^9, 3.651332518421926*^9}, {
+  3.651332661019925*^9, 3.65133275091451*^9}, {3.65133279285797*^9, 
+  3.651332831401499*^9}, {3.651332913010046*^9, 3.651332931752493*^9}, {
+  3.651334600704865*^9, 3.651334621656557*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"\[Rho]AMB", "[", "p_", "]"}], ":=", " ", 
+   RowBox[{"p", "/", 
+    RowBox[{"(", 
+     RowBox[{"R", "*", 
+      RowBox[{"tAMB", "[", "p", "]"}]}], ")"}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"pVAMB", "[", "p_", "]"}], " ", ":=", " ", 
+   RowBox[{
+    RowBox[{"\[Rho]AMB", "[", "p", "]"}], "*", 
+    RowBox[{
+     RowBox[{"pVSAT", "[", "p", "]"}], "/", 
+     RowBox[{"(", 
+      RowBox[{"R", "*", 
+       RowBox[{"tAMB", "[", "p", "]"}]}], ")"}]}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"\[Rho]VAMB", "[", "p_", "]"}], ":=", 
+   RowBox[{"\[Sigma]", "*", 
+    RowBox[{
+     RowBox[{"pVAMB", "[", "p", "]"}], "/", 
+     RowBox[{"(", 
+      RowBox[{"R", "*", 
+       RowBox[{"tAMB", "[", "p", "]"}]}], ")"}]}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"yAMB", "[", "p_", "]"}], " ", ":=", " ", 
+   RowBox[{
+    RowBox[{"\[Rho]VAMB", "[", "p", "]"}], "/", 
+    RowBox[{"\[Rho]AMB", "[", "p", "]"}]}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.651332938011022*^9, 3.651333047552943*^9}, {
+  3.651333089806501*^9, 3.651333107358355*^9}, {3.6513339187579527`*^9, 
+  3.651333943618895*^9}, {3.6513341742487707`*^9, 3.6513341823355494`*^9}, {
+  3.651334345968175*^9, 3.6513345112836246`*^9}, {3.6513345427316637`*^9, 
+  3.651334583409586*^9}}],
+
+Cell[TextData[{
+ "From the hydrostatic principles, using the relation ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox[
+     RowBox[{"\[PartialD]", "P"}], 
+     RowBox[{"\[PartialD]", "z"}]], "=", 
+    RowBox[{
+     RowBox[{"-", "\[Rho]"}], " ", "g"}]}], TraditionalForm]]],
+ ", we can compute the altitude (z) for the ambient case. The initial \
+condition is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"z", "(", 
+     SubscriptBox["P", "ambs"], ")"}], " ", "=", "0.", " "}], 
+   TraditionalForm]]],
+ ":"
+}], "Text",
+ CellChangeTimes->{{3.651334672393076*^9, 3.651334747911242*^9}, {
+  3.651334822365499*^9, 3.6513348509841623`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Remove", "[", "zAMB", "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"zAMB", "[", 
+    RowBox[{"p_", "?", "NumericQ"}], "]"}], "=", " ", 
+   RowBox[{"NDSolveValue", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"D", "[", 
+         RowBox[{
+          RowBox[{"zAMB", "[", "p", "]"}], ",", "p"}], "]"}], "\[Equal]", 
+        RowBox[{
+         RowBox[{"-", "1"}], "/", 
+         RowBox[{"(", 
+          RowBox[{"g", "*", 
+           RowBox[{"\[Rho]AMB", "[", "p", "]"}]}], ")"}]}]}], ",", 
+       RowBox[{
+        RowBox[{"zAMB", "[", "pAMBS", "]"}], "\[Equal]", "0"}]}], "}"}], ",", 
+     
+     RowBox[{"zAMB", "[", "p", "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"p", ",", "pAMBS", ",", "10000"}], "}"}], ",", 
+     RowBox[{"MaxStepSize", "\[Rule]", "100"}], ",", 
+     RowBox[{"StartingStepSize", "\[Rule]", "100"}]}], "]"}]}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.6513347522483597`*^9, 3.6513348160787697`*^9}, {
+  3.6513348582622623`*^9, 3.651334864622716*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["MOIST ADIABAT PROFILES:", "Subsubsection",
+ CellChangeTimes->{{3.6568732733509073`*^9, 3.656873278566071*^9}}],
+
+Cell[TextData[{
+ "We now consider the moist adiabat profiles. We start with the thermodynamic \
+relations between remperature and pressure:\n\n\[Gamma] = 1.4,\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox[
+     RowBox[{"(", 
+      FractionBox["T", 
+       SubscriptBox["T", "ref"]], ")"}], 
+     RowBox[{"\[Gamma]", "/", 
+      RowBox[{"(", 
+       RowBox[{"\[Gamma]", "-", "1"}], ")"}]}]], "=", 
+    RowBox[{
+     FractionBox["p", 
+      SubscriptBox["p", "ref"]], "=", 
+     FractionBox[
+      SubscriptBox["p", "v"], 
+      SubscriptBox["p", 
+       SubscriptBox["v", "ref"]]]}]}], TraditionalForm]]],
+ ", on a dry adiabat (since water vapor mass fraction (y) is constant).\n\n\
+Let T be the lifting-condensation level (LCL) state and left ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["T", "ref"], TraditionalForm]]],
+ " be the sea-level ambient state. \n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox[
+     RowBox[{"(", 
+      FractionBox[
+       SubscriptBox[
+        RowBox[{"(", 
+         SubscriptBox["T", "sat"], ")"}], "onset"], 
+       SubscriptBox["T", "ambs"]], ")"}], "3.5"], "=", 
+    FractionBox[
+     RowBox[{
+      SubscriptBox["p", "vsat"], "(", 
+      SubscriptBox[
+       RowBox[{"(", 
+        SubscriptBox["T", "sat"], ")"}], "onset"], ")"}], 
+     RowBox[{
+      RowBox[{
+       SubscriptBox["rh", "ambs"], "(", 
+       SubscriptBox["p", "ambs"], ")"}], 
+      RowBox[{
+       SubscriptBox["p", "vsat"], "(", 
+       SubscriptBox["T", "ambs"], ")"}]}]]}], TraditionalForm]],
+  FontSize->16],
+ ".\n\nThe Temperature ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox[
+    RowBox[{"(", 
+     SubscriptBox["T", "sat"], ")"}], "onset"], TraditionalForm]]],
+ " can be computed using a root-finder. This gives the temperature at which \
+the surface air would saturate if lifted dry adiabatically. The temperature \
+implies a certain pressure on the adiabat and can be computed from the above \
+equations."
+}], "Text",
+ CellChangeTimes->{{3.65133501994823*^9, 3.651335029587187*^9}, {
+  3.6513355735308933`*^9, 3.651335862408002*^9}, {3.651335906927786*^9, 
+  3.6513360088634453`*^9}, {3.6513360683022003`*^9, 3.651336231290524*^9}, {
+  3.651336407330735*^9, 3.6513364410585833`*^9}, {3.651336638404459*^9, 
+  3.651336639924821*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"tSWITCH", "=", 
+   RowBox[{"Block", "[", 
+    RowBox[{
+     RowBox[{"{", "t", "}"}], ",", 
+     RowBox[{"t", "/.", 
+      RowBox[{"FindRoot", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"pVSAT", "[", "t", "]"}], "/", 
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"t", "/", "tAMBS"}], ")"}], "^", "3.5"}], ")"}]}], 
+         "\[Equal]", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"rhAMB", "[", "pAMBS", "]"}], ")"}], "*", 
+          RowBox[{"(", 
+           RowBox[{"pVSAT", "[", "tAMBS", "]"}], ")"}]}]}], ",", 
+        RowBox[{"{", 
+         RowBox[{"t", ",", "315", ",", "200"}], "}"}]}], "]"}]}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"pSWITCH", " ", "=", " ", 
+   RowBox[{"pAMBS", "*", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"tSWITCH", "/", "tAMBS"}], ")"}], "^", "3.5"}]}]}], " ", 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Print", "[", 
+  RowBox[{"StringForm", "[", 
+   RowBox[{"\"\<pLCL = `` [Pa], TLCL = `` [K]\>\"", ",", 
+    RowBox[{"Sequence", "@@", 
+     RowBox[{"(", 
+      RowBox[{"StandardForm", "/@", 
+       RowBox[{"{", 
+        RowBox[{"pSWITCH", ",", "tSWITCH"}], "}"}]}], ")"}]}]}], "]"}], 
+  "]"}], "\[IndentingNewLine]"}], "Input",
+ CellChangeTimes->{{3.651336036431493*^9, 3.651336037716769*^9}, {
+  3.6513362333181963`*^9, 3.651336300554399*^9}, {3.651336383036252*^9, 
+  3.651336383561563*^9}, {3.651336523880768*^9, 3.651336536936308*^9}, {
+  3.651336601968576*^9, 3.651336607245635*^9}, {3.651336652281043*^9, 
+  3.651336665085266*^9}}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"pLCL = \\!\\(\\*TagBox[FormBox[\\\"97269.47095929731`\
+\\\", StandardForm], StandardForm, Rule[Editable, True]]\\) [Pa], TLCL = \
+\\!\\(\\*TagBox[FormBox[\\\"295.38502706181663`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [K]\"\>",
+  StringForm["pLCL = `` [Pa], TLCL = `` [K]", 
+   StandardForm[97269.47095929731], 
+   StandardForm[295.38502706181663`]],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.651336666470413*^9, 3.651342661268178*^9, 
+  3.6513433363283463`*^9, 3.6513448832768583`*^9, 3.651345329917429*^9, 
+  3.656872917390636*^9}]
+}, Open  ]],
+
+Cell[TextData[{
+ "Once saturated, the moist adiabat follows the following locus of the \
+thrmodynamic states to rough approximation (the condensate falls out):\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       SubscriptBox["c", "p"], " ", "dT"}], " ", "+", " ", 
+      RowBox[{"L", " ", "\[Sigma]", " ", 
+       RowBox[{"d", "(", 
+        RowBox[{
+         RowBox[{
+          SubscriptBox["p", "vsat"], "(", "T", ")"}], "/", "p"}], ")"}]}], 
+      " ", "-", " ", 
+      RowBox[{"dp", "/", "\[Rho]"}]}], " ", "=", " ", "0"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       SubscriptBox["c", "p"], " ", 
+       FractionBox["dT", "dp"]}], " ", "+", " ", 
+      RowBox[{"L", " ", "\[Sigma]", " ", 
+       FractionBox[
+        RowBox[{"d", "(", 
+         RowBox[{
+          SubscriptBox["p", "vsat"], "/", "p"}], ")"}], "dp"]}], " ", "-", 
+      " ", 
+      FractionBox["RT", "p"]}], " ", "=", " ", "0"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       SubscriptBox["c", "p"], " ", 
+       FractionBox["dT", "dp"]}], " ", "+", " ", 
+      RowBox[{
+       RowBox[{"(", 
+        FractionBox["L\[Sigma]", 
+         SuperscriptBox["p", "2"]], ")"}], " ", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{
+          FractionBox[
+           SubscriptBox["dp", "vsat"], "dT"], " ", 
+          FractionBox["dT", "dp"], "p"}], "-", 
+         SubscriptBox["p", "vsat"]}], ")"}]}], "-", " ", 
+      FractionBox["RT", "p"]}], " ", "=", " ", "0"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{
+         SubscriptBox["c", "p"], "+", 
+         RowBox[{
+          RowBox[{"(", 
+           FractionBox["L\[Sigma]", "p"], ")"}], 
+          FractionBox[
+           SubscriptBox["dp", "vsat"], "dT"]}]}], ")"}], 
+       FractionBox["dT", "dp"]}], " ", "-", " ", 
+      RowBox[{
+       RowBox[{"(", 
+        FractionBox["L\[Sigma]", 
+         SuperscriptBox["p", "2"]], ")"}], 
+       SubscriptBox["p", "vsat"]}], " ", "-", " ", 
+      FractionBox["RT", "p"]}], "=", "0."}]}], TraditionalForm]]],
+ "\n\nand ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"T", "(", 
+     SubscriptBox["p", "onset"], ")"}], " ", "=", " ", 
+    SubscriptBox[
+     RowBox[{"(", 
+      SubscriptBox["T", "sat"], ")"}], "onset"]}], TraditionalForm]]]
+}], "Text",
+ CellChangeTimes->{{3.6513366762611094`*^9, 3.651336727195188*^9}, {
+  3.651336775132524*^9, 3.651336872388548*^9}, {3.651337066031823*^9, 
+  3.651337112014495*^9}, {3.6513381791553707`*^9, 3.651338458691093*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Remove", "[", "tmoist1", "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"tmoist1", "[", 
+    RowBox[{"p_", "?", "NumericQ"}], "]"}], "=", 
+   RowBox[{"NDSolveValue", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"cp", " ", "+", " ", 
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{"L", "*", 
+               RowBox[{"\[Sigma]", "/", "p"}]}], ")"}], "*", 
+             RowBox[{"dpVSAT", "[", 
+              RowBox[{"tmoist1", "[", "p", "]"}], "]"}]}]}], ")"}], "*", 
+          RowBox[{"D", "[", 
+           RowBox[{
+            RowBox[{"tmoist1", "[", "p", "]"}], ",", "p"}], "]"}]}], " ", "-",
+          " ", 
+         RowBox[{"(", 
+          RowBox[{"L", "*", "\[Sigma]", "*", 
+           RowBox[{
+            RowBox[{"pVSAT", "[", 
+             RowBox[{"tmoist1", "[", "p", "]"}], "]"}], "/", 
+            RowBox[{"p", "^", "2"}]}]}], ")"}], " ", "-", " ", 
+         RowBox[{"R", "*", 
+          RowBox[{
+           RowBox[{"tmoist1", "[", "p", "]"}], "/", "p"}]}]}], " ", 
+        "\[Equal]", " ", "0"}], ",", 
+       RowBox[{
+        RowBox[{"tmoist1", "[", "pSWITCH", "]"}], "\[Equal]", "tSWITCH"}]}], 
+      "}"}], ",", 
+     RowBox[{"tmoist1", "[", "p", "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"p", ",", "pSWITCH", ",", "10000"}], "}"}], ",", 
+     RowBox[{"MaxStepSize", "\[Rule]", "100"}], ",", " ", 
+     RowBox[{"StartingStepSize", "\[Rule]", "100"}]}], "]"}]}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.65133726190136*^9, 3.651337269108706*^9}, {
+   3.651338463820445*^9, 3.6513387421999063`*^9}, {3.6513424276125174`*^9, 
+   3.6513425033316917`*^9}, {3.651342666121723*^9, 3.651342687617679*^9}, {
+   3.651342732092215*^9, 3.651342743163518*^9}, 3.6513448912502947`*^9}],
+
+Cell["\<\
+The location at which the moist adiabat temperature matches/crosses the \
+ambient temperature is defined as the TROPOPAUSE. The pressure at the \
+tropopause can be found by idenfitying the pressure at which the moist \
+adiabat temperature matches the ambient temperature. Once the pressure at the \
+tropopause is known, the temperature and density can be computed using the \
+ambient relationships derived earlier. The height of the tropopause can also \
+be computed from the altitude (z) function derived earlier. \
+\>", "Text",
+ CellChangeTimes->{{3.65133876584661*^9, 3.651338822006181*^9}, {
+  3.651338856045273*^9, 3.651338892773179*^9}, {3.6513389331577063`*^9, 
+  3.651339099690686*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"pTROP", "=", 
+   RowBox[{"Block", "[", 
+    RowBox[{
+     RowBox[{"{", "p", "}"}], ",", 
+     RowBox[{"p", "/.", 
+      RowBox[{"FindRoot", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"tmoist1", "[", "p", "]"}], ")"}], "-", 
+          RowBox[{"tAMB", "[", "p", "]"}]}], "\[Equal]", "0"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"p", ",", "10000", ",", "50000"}], "}"}]}], "]"}]}]}], 
+    "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"tTROP", "=", 
+   RowBox[{"tAMB", "[", "pTROP", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"zTROP", "=", 
+   RowBox[{"zAMB", "[", "pTROP", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"\[Rho]TROP", "=", 
+    RowBox[{"\[Rho]AMB", "[", "pTROP", "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{"Print", "[", 
+  RowBox[{"StringForm", "[", 
+   RowBox[{
+   "\"\<\\n zTROP = `` [m], pTROP = `` [Pa], tTROP = `` [K], \[Rho]TROP = `` \
+[kg/m^3]\>\"", ",", 
+    RowBox[{"Sequence", "@@", 
+     RowBox[{"(", 
+      RowBox[{"StandardForm", "/@", 
+       RowBox[{"{", 
+        RowBox[{"zTROP", ",", "pTROP", ",", "tTROP", ",", "\[Rho]TROP"}], 
+        "}"}]}], ")"}]}]}], "]"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.6513388289272957`*^9, 3.6513388310626373`*^9}, {
+  3.6513389257741528`*^9, 3.651338925981018*^9}, {3.651339102462019*^9, 
+  3.6513392258896017`*^9}}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"\\n zTROP = \
+\\!\\(\\*TagBox[FormBox[\\\"12692.61603991305`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [m], pTROP = \
+\\!\\(\\*TagBox[FormBox[\\\"18935.533937594504`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [Pa], tTROP = \\!\\(\\*TagBox[FormBox[\
+\\\"216.11427541242935`\\\", StandardForm], StandardForm, Rule[Editable, \
+True]]\\) [K], \[Rho]TROP = \\!\\(\\*TagBox[FormBox[\\\"0.3051834006874508`\\\
+\", StandardForm], StandardForm, Rule[Editable, True]]\\) [kg/m^3]\"\>",
+  StringForm[
+  "\n zTROP = `` [m], pTROP = `` [Pa], tTROP = `` [K], \[Rho]TROP = `` \
+[kg/m^3]", 
+   StandardForm[12692.61603991305], 
+   StandardForm[18935.533937594504`], 
+   StandardForm[216.11427541242935`], 
+   StandardForm[0.3051834006874508]],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.6513427891814623`*^9, 3.651343343085236*^9, 
+  3.6513448936364822`*^9, 3.651345333726164*^9, 3.6568729217735786`*^9}]
+}, Open  ]],
+
+Cell[TextData[{
+ "We now note that the moist-adiabat locus is based on the total energy ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       SubscriptBox["c", "p"], "T"}], " ", "+", " ", "Ly", " ", "+", " ", 
+      "gz", " ", "+", " ", 
+      RowBox[{
+       SuperscriptBox["q", "2"], "/", "2"}]}], " ", "=", " ", 
+     RowBox[{"Const", "."}]}], ")"}], TraditionalForm]]],
+ ", where ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["q", "2"], "/", "2"}], TraditionalForm]]],
+ " is the kinetic energy and is about 1.5% of the contribution to the total. \
+Therefore the KE is discarded. \n\nIntegrating from the tropopause seaward \
+would now allow the computation of the thermodynamic states holding at the \
+base z=0. The equation to be integrated are:\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     FractionBox["dp", "dz"], "=", 
+     RowBox[{"-", "\[Rho]g"}]}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       SubscriptBox["c", "p"], 
+       FractionBox["dT", "dz"]}], "+", 
+      RowBox[{"\[Sigma]", " ", "L", " ", 
+       FractionBox["d", "dZ"], 
+       RowBox[{"(", 
+        FractionBox[
+         RowBox[{
+          SubscriptBox["p", "vsat"], "(", "T", ")"}], "p"], ")"}]}], " ", "-",
+       " ", 
+      RowBox[{
+       RowBox[{"(", 
+        FractionBox["1", "\[Rho]"], ")"}], " ", 
+       FractionBox["dp", "dz"]}]}], "=", "0."}]}], TraditionalForm]]],
+ "\n\nSince we will be integrating with respect to pressure, the equations \
+are written as:\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     FractionBox["dz", "dp"], " ", "=", " ", 
+     RowBox[{"-", 
+      RowBox[{"(", 
+       FractionBox["RT", "pg"], ")"}]}]}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       SubscriptBox["c", "p"], 
+       FractionBox["dT", "dp"]}], "+", 
+      RowBox[{"\[Sigma]", " ", "L", " ", 
+       FractionBox["d", "dp"], 
+       RowBox[{"(", 
+        FractionBox[
+         RowBox[{
+          SubscriptBox["p", "vsat"], "(", "T", ")"}], "p"], ")"}]}], " ", "-",
+       " ", 
+      RowBox[{"(", 
+       FractionBox["RT", "p"], ")"}]}], " ", "=", "0."}]}], TraditionalForm]]],
+ "\n\nNow, we must also take into account that when pressure reaches the \
+pressure at lifting condensation level (LCL), the terms associated with \
+latent heat (L) drop out. In other words, when the pressure reaches the \
+lifting condensation level, we have to switch over to dry-adiabat conditions. \
+Taking this into account, the final form of the equations to be integrated \
+are:\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     FractionBox["dz", "dp"], " ", "=", " ", 
+     RowBox[{"-", 
+      RowBox[{"(", 
+       FractionBox["RT", "pg"], ")"}]}]}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{
+         SubscriptBox["c", "p"], "+", 
+         RowBox[{
+          RowBox[{"(", 
+           FractionBox[
+            RowBox[{
+             RowBox[{"H", "(", 
+              RowBox[{
+               SubscriptBox["p", "LCL"], "-", "p"}], ")"}], "L\[Sigma]"}], 
+            "p"], ")"}], 
+          FractionBox[
+           SubscriptBox["dp", "vsat"], "dT"]}]}], ")"}], 
+       FractionBox["dT", "dp"]}], " ", "-", " ", 
+      RowBox[{
+       RowBox[{"(", 
+        FractionBox[
+         RowBox[{"L", " ", 
+          RowBox[{"H", "(", 
+           RowBox[{
+            SubscriptBox["p", "LCL"], "-", "p"}], ")"}], "\[Sigma]"}], 
+         SuperscriptBox["p", "2"]], ")"}], 
+       SubscriptBox["p", "vsat"]}], " ", "-", " ", 
+      FractionBox["RT", "p"]}], "=", "0"}], ","}], TraditionalForm]]],
+ "\n\nwhere ",
+ Cell[BoxData[
+  FormBox["H", TraditionalForm]]],
+ " denotes the step function. However, rather than producing a discontinuous \
+jump, an approximation of the unit step function is used to facilitate a \
+smooth transition between the layers. The approximation used here is\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{"H", "(", "x", ")"}], " ", "\[TildeTilde]", " ", 
+     RowBox[{
+      FractionBox["1", 
+       RowBox[{"1", " ", "+", " ", 
+        SuperscriptBox["e", 
+         RowBox[{
+          RowBox[{"-", "2"}], " ", "k", " ", "x"}]]}]], " ", "and", " ", "k", 
+      " ", "is", " ", "a", " ", "large", " ", 
+      RowBox[{"number", ".", "  ", "Here"}], " ", "k"}]}], " ", "=", " ", 
+    "500."}], TraditionalForm]]],
+ "\n\nThe intial conditions for altitude (z) and temperature (T) are taken to \
+be the values at the tropopause."
+}], "Text",
+ CellChangeTimes->{{3.651339268008595*^9, 3.651339391694199*^9}, {
+  3.6513395347271633`*^9, 3.651339614046039*^9}, {3.651340047703238*^9, 
+  3.651340335617917*^9}, {3.651340514233552*^9, 3.651340530689452*^9}, {
+  3.651340573770431*^9, 3.651340585216391*^9}, {3.651340637087569*^9, 
+  3.6513409449801607`*^9}, {3.651341002330783*^9, 3.651341009443109*^9}, {
+  3.6513411082781897`*^9, 3.651341356107336*^9}, {3.65134280498578*^9, 
+  3.651342805049796*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Remove", "[", 
+   RowBox[{"h", ",", "zMOIST", ",", "tMOIST", ",", "temp"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"h", "[", "x_", "]"}], ":=", " ", 
+   RowBox[{"1", "/", 
+    RowBox[{"(", 
+     RowBox[{"1", "+", 
+      RowBox[{"Exp", "[", 
+       RowBox[{
+        RowBox[{"-", "2"}], "*", "500", "*", "x"}], "]"}]}], ")"}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"temp", " ", "=", " ", 
+   RowBox[{"NDSolveValue", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"D", "[", 
+         RowBox[{
+          RowBox[{"zMOIST", "[", "p", "]"}], ",", "p"}], "]"}], "\[Equal]", 
+        RowBox[{
+         RowBox[{"-", 
+          RowBox[{"(", 
+           RowBox[{"R", " ", 
+            RowBox[{"tMOIST", "[", "p", "]"}]}], ")"}]}], "/", 
+         RowBox[{"(", 
+          RowBox[{"p", " ", "g"}], ")"}]}]}], ",", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"cp", " ", "+", " ", 
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{"L", "*", "\[Sigma]", "*", 
+               RowBox[{
+                RowBox[{"h", "[", 
+                 RowBox[{"pSWITCH", "-", "p"}], "]"}], "/", "p"}]}], ")"}], 
+             "*", 
+             RowBox[{"D", "[", 
+              RowBox[{
+               RowBox[{"pVSAT", "[", 
+                RowBox[{"tMOIST", "[", "p", "]"}], "]"}], ",", 
+               RowBox[{"tMOIST", "[", "p", "]"}]}], "]"}]}]}], ")"}], "*", 
+          RowBox[{"D", "[", 
+           RowBox[{
+            RowBox[{"tMOIST", "[", "p", "]"}], ",", "p"}], "]"}]}], " ", "-", 
+         " ", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"L", "*", "\[Sigma]", "*", 
+            RowBox[{
+             RowBox[{"h", "[", 
+              RowBox[{"pSWITCH", "-", "p"}], "]"}], "/", 
+             RowBox[{"p", "^", "2"}]}]}], ")"}], "*", 
+          RowBox[{"pVSAT", "[", 
+           RowBox[{"tMOIST", "[", "p", "]"}], "]"}]}], " ", "-", " ", 
+         RowBox[{"R", "*", 
+          RowBox[{
+           RowBox[{"tMOIST", "[", "p", "]"}], "/", "p"}]}]}], " ", "\[Equal]",
+         " ", "0"}], ",", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"zMOIST", "[", "pTROP", "]"}], " ", "==", " ", "zTROP"}], ",",
+        " ", 
+       RowBox[{
+        RowBox[{"tMOIST", "[", "pTROP", "]"}], "==", "tTROP"}]}], "}"}], ",", 
+     
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"zMOIST", "[", "p", "]"}], ",", 
+       RowBox[{"tMOIST", "[", "p", "]"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"p", ",", "pTROP", ",", "pAMBS"}], "}"}], ",", " ", 
+     RowBox[{"MaxStepSize", "\[Rule]", "100"}], ",", 
+     RowBox[{"StartingStepSize", "\[Rule]", "100"}], ",", 
+     RowBox[{"AccuracyGoal", "\[Rule]", "Infinity"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"zMOIST", "[", 
+    RowBox[{"p_", "?", "NumericQ"}], "]"}], " ", "=", " ", 
+   RowBox[{"temp", "[", 
+    RowBox[{"[", "1", "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"tMOIST", "[", 
+    RowBox[{"p_", "?", "NumericQ"}], "]"}], " ", "=", " ", 
+   RowBox[{"temp", "[", 
+    RowBox[{"[", "2", "]"}], "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.651341364682858*^9, 3.651341681855566*^9}, {
+  3.651341721041089*^9, 3.6513417602064877`*^9}, {3.651342810095963*^9, 
+  3.651342810175445*^9}}],
+
+Cell[TextData[{
+ "From these new results, we now find out the pressure at which ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["z", "Moist"], " ", "=", " ", "0.", " "}], TraditionalForm]]],
+ "This  pressure and from it the temperature and pressure should be used as \
+the next iterate to refine the results. We need to do this because we started \
+with an assumption on the values of the pressure and temperature at the \
+sea-level. However, these values are typically not relevant to a vertical \
+column in the core. \n\nTo this end, we now set up an iteration scheme to \
+test the convergence (or divergence) of the system. The iteration scheme is \
+set so that the average relative error between the ambient pressure and \
+temperature at ocean surface is less than 10^-4."
+}], "Text",
+ CellChangeTimes->{{3.651341944091167*^9, 3.651342099288417*^9}, {
+  3.6513443366328382`*^9, 3.651344365656971*^9}, {3.6568730191049757`*^9, 
+  3.6568730696083317`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+  "Print", "[", 
+   "\"\<................... starting iterations.....................\>\"", 
+   "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"pAMBS", " ", "=", " ", "101500.0"}], ";"}], "\[IndentingNewLine]", 
+
+ RowBox[{
+  RowBox[{
+   RowBox[{"tAMBS", " ", "=", " ", "299.0"}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Do", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"\[Rho]AMBS", " ", "=", " ", 
+       RowBox[{"pAMBS", "/", 
+        RowBox[{"(", 
+         RowBox[{"R", "*", "tAMBS"}], ")"}]}]}], ";", "\[IndentingNewLine]", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Print", "[", 
+       RowBox[{"StringForm", "[", 
+        RowBox[{
+        "\"\<pAMBS = `` [Pa], tAMBS = `` [K], \[Rho]AMBS = `` [kg/m^3]\>\"", 
+         ",", " ", 
+         RowBox[{"Sequence", "@@", 
+          RowBox[{"(", 
+           RowBox[{"StandardForm", "/@", 
+            RowBox[{"{", 
+             RowBox[{"pAMBS", ",", "tAMBS", ",", "\[Rho]AMBS"}], "}"}]}], 
+           ")"}]}]}], "]"}], "]"}], ";", "\[IndentingNewLine]", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Clear", "[", "zAMB", "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"zAMB", "[", 
+        RowBox[{"p_", "?", "NumericQ"}], "]"}], "=", " ", 
+       RowBox[{"NDSolveValue", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"D", "[", 
+             RowBox[{
+              RowBox[{"zAMB", "[", "p", "]"}], ",", "p"}], "]"}], "\[Equal]", 
+            
+            RowBox[{
+             RowBox[{"-", "1"}], "/", 
+             RowBox[{"(", 
+              RowBox[{"g", "*", 
+               RowBox[{"\[Rho]AMB", "[", "p", "]"}]}], ")"}]}]}], ",", 
+           RowBox[{
+            RowBox[{"zAMB", "[", "pAMBS", "]"}], "\[Equal]", "0"}]}], "}"}], 
+         ",", 
+         RowBox[{"zAMB", "[", "p", "]"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"p", ",", "pAMBS", ",", "10000"}], "}"}], ",", 
+         RowBox[{"MaxStepSize", "\[Rule]", "100"}], ",", 
+         RowBox[{"StartingStepSize", "\[Rule]", "100"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"tSWITCH", "=", 
+       RowBox[{"Block", "[", 
+        RowBox[{
+         RowBox[{"{", "t", "}"}], ",", 
+         RowBox[{"t", "/.", 
+          RowBox[{"FindRoot", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{
+              RowBox[{"pVSAT", "[", "t", "]"}], "/", 
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{"t", "/", "tAMBS"}], ")"}], "^", "3.5"}], ")"}]}], 
+             "\[Equal]", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{"rhAMB", "[", "pAMBS", "]"}], ")"}], "*", 
+              RowBox[{"(", 
+               RowBox[{"pVSAT", "[", "tAMBS", "]"}], ")"}]}]}], ",", 
+            RowBox[{"{", 
+             RowBox[{"t", ",", "315", ",", "200"}], "}"}]}], "]"}]}]}], 
+        "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"pSWITCH", " ", "=", " ", 
+       RowBox[{"pAMBS", "*", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"tSWITCH", "/", "tAMBS"}], ")"}], "^", "3.5"}]}]}], " ", 
+      ";", "\[IndentingNewLine]", 
+      RowBox[{"Print", "[", 
+       RowBox[{"StringForm", "[", 
+        RowBox[{"\"\<pLCL = `` [Pa], TLCL = `` [K]\>\"", ",", 
+         RowBox[{"Sequence", "@@", 
+          RowBox[{"(", 
+           RowBox[{"StandardForm", "/@", 
+            RowBox[{"{", 
+             RowBox[{"pSWITCH", ",", "tSWITCH"}], "}"}]}], ")"}]}]}], "]"}], 
+       "]"}], ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"Clear", "[", "tmoist1", "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"tmoist1", "[", 
+        RowBox[{"p_", "?", "NumericQ"}], "]"}], "=", 
+       RowBox[{"NDSolveValue", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{
+            RowBox[{
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{"cp", " ", "+", " ", 
+                RowBox[{
+                 RowBox[{"(", 
+                  RowBox[{"L", "*", 
+                   RowBox[{"\[Sigma]", "/", "p"}]}], ")"}], "*", 
+                 RowBox[{"dpVSAT", "[", 
+                  RowBox[{"tmoist1", "[", "p", "]"}], "]"}]}]}], ")"}], "*", 
+              RowBox[{"D", "[", 
+               RowBox[{
+                RowBox[{"tmoist1", "[", "p", "]"}], ",", "p"}], "]"}]}], " ", 
+             "-", " ", 
+             RowBox[{"(", 
+              RowBox[{"L", "*", "\[Sigma]", "*", 
+               RowBox[{
+                RowBox[{"pVSAT", "[", 
+                 RowBox[{"tmoist1", "[", "p", "]"}], "]"}], "/", 
+                RowBox[{"p", "^", "2"}]}]}], ")"}], " ", "-", " ", 
+             RowBox[{"R", "*", 
+              RowBox[{
+               RowBox[{"tmoist1", "[", "p", "]"}], "/", "p"}]}]}], " ", 
+            "\[Equal]", " ", "0"}], ",", 
+           RowBox[{
+            RowBox[{"tmoist1", "[", "pSWITCH", "]"}], "\[Equal]", 
+            "tSWITCH"}]}], "}"}], ",", 
+         RowBox[{"tmoist1", "[", "p", "]"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"p", ",", "pSWITCH", ",", "10000"}], "}"}], ",", 
+         RowBox[{"MaxStepSize", "\[Rule]", "100"}], ",", " ", 
+         RowBox[{"StartingStepSize", "\[Rule]", "100"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"pTROP", "=", 
+       RowBox[{"Block", "[", 
+        RowBox[{
+         RowBox[{"{", "p", "}"}], ",", 
+         RowBox[{"p", "/.", 
+          RowBox[{"FindRoot", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{"tmoist1", "[", "p", "]"}], ")"}], "-", 
+              RowBox[{"tAMB", "[", "p", "]"}]}], "\[Equal]", "0"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"p", ",", "10000", ",", "50000"}], "}"}]}], "]"}]}]}], 
+        "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"tTROP", "=", 
+       RowBox[{"tAMB", "[", "pTROP", "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"zTROP", "=", 
+       RowBox[{"zAMB", "[", "pTROP", "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"\[Rho]TROP", "=", 
+       RowBox[{"\[Rho]AMB", "[", "pTROP", "]"}]}], ";", "\[IndentingNewLine]",
+       "\[IndentingNewLine]", 
+      RowBox[{"Print", "[", 
+       RowBox[{"StringForm", "[", 
+        RowBox[{
+        "\"\<zTROP = `` [m], pTROP = `` [Pa], tTROP = `` [K], \[Rho]TROP = `` \
+[kg/m^3]\>\"", ",", 
+         RowBox[{"Sequence", "@@", 
+          RowBox[{"(", 
+           RowBox[{"StandardForm", "/@", 
+            RowBox[{"{", 
+             RowBox[{"zTROP", ",", "pTROP", ",", "tTROP", ",", "\[Rho]TROP"}],
+              "}"}]}], ")"}]}]}], "]"}], "]"}], ";", "\[IndentingNewLine]", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Clear", "[", 
+       RowBox[{"zMOIST", ",", "tMOIST"}], "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"temp", " ", "=", " ", 
+       RowBox[{"NDSolveValue", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"D", "[", 
+             RowBox[{
+              RowBox[{"zMOIST", "[", "p", "]"}], ",", "p"}], "]"}], 
+            "\[Equal]", 
+            RowBox[{
+             RowBox[{"-", 
+              RowBox[{"(", 
+               RowBox[{"R", " ", 
+                RowBox[{"tMOIST", "[", "p", "]"}]}], ")"}]}], "/", 
+             RowBox[{"(", 
+              RowBox[{"p", " ", "g"}], ")"}]}]}], ",", "\[IndentingNewLine]", 
+           
+           RowBox[{
+            RowBox[{
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{"cp", " ", "+", " ", 
+                RowBox[{
+                 RowBox[{"(", 
+                  RowBox[{"L", "*", "\[Sigma]", "*", 
+                   RowBox[{
+                    RowBox[{"h", "[", 
+                    RowBox[{"pSWITCH", "-", "p"}], "]"}], "/", "p"}]}], ")"}],
+                  "*", 
+                 RowBox[{"dpVSAT", "[", 
+                  RowBox[{"tMOIST", "[", "p", "]"}], "]"}]}]}], ")"}], "*", 
+              RowBox[{"D", "[", 
+               RowBox[{
+                RowBox[{"tMOIST", "[", "p", "]"}], ",", "p"}], "]"}]}], " ", 
+             "-", " ", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{"L", "*", "\[Sigma]", "*", 
+                RowBox[{
+                 RowBox[{"h", "[", 
+                  RowBox[{"pSWITCH", "-", "p"}], "]"}], "/", 
+                 RowBox[{"p", "^", "2"}]}]}], ")"}], "*", 
+              RowBox[{"pVSAT", "[", 
+               RowBox[{"tMOIST", "[", "p", "]"}], "]"}]}], " ", "-", " ", 
+             RowBox[{"R", "*", 
+              RowBox[{
+               RowBox[{"tMOIST", "[", "p", "]"}], "/", "p"}]}]}], " ", 
+            "\[Equal]", " ", "0"}], ",", "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{"zMOIST", "[", "pTROP", "]"}], " ", "==", " ", "zTROP"}], 
+           ",", " ", 
+           RowBox[{
+            RowBox[{"tMOIST", "[", "pTROP", "]"}], "==", "tTROP"}]}], "}"}], 
+         ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"zMOIST", "[", "p", "]"}], ",", 
+           RowBox[{"tMOIST", "[", "p", "]"}]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"p", ",", "pTROP", ",", "pAMBS"}], "}"}], ",", " ", 
+         RowBox[{"MaxStepSize", "\[Rule]", "100"}], ",", 
+         RowBox[{"StartingStepSize", "\[Rule]", "100"}], ",", 
+         RowBox[{"AccuracyGoal", "\[Rule]", "Infinity"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"zMOIST", "[", 
+        RowBox[{"p_", "?", "NumericQ"}], "]"}], " ", "=", " ", 
+       RowBox[{"temp", "[", 
+        RowBox[{"[", "1", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"tMOIST", "[", 
+        RowBox[{"p_", "?", "NumericQ"}], "]"}], " ", "=", " ", 
+       RowBox[{"temp", "[", 
+        RowBox[{"[", "2", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+      "\[IndentingNewLine]", 
+      RowBox[{"pAMBS1", " ", "=", " ", 
+       RowBox[{"Block", "[", 
+        RowBox[{
+         RowBox[{"{", "p", "}"}], ",", 
+         RowBox[{"p", "/.", 
+          RowBox[{"Quiet", "@", 
+           RowBox[{"FindRoot", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"zMOIST", "[", "p", "]"}], "\[Equal]", "0"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"p", ",", "pAMBS"}], "}"}]}], "]"}]}]}]}], "]"}]}], ";",
+       "\[IndentingNewLine]", 
+      RowBox[{"tAMBS1", " ", "=", " ", 
+       RowBox[{"tMOIST", "[", "pAMBS1", "]"}]}], ";", "\[IndentingNewLine]", 
+      "\[IndentingNewLine]", 
+      RowBox[{"avgRelativeError", " ", "=", " ", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"Abs", "[", 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"pAMBS1", "-", "pAMBS"}], ")"}], "/", "pAMBS"}], "]"}], 
+          "+", " ", 
+          RowBox[{"Abs", "[", 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"tAMBS1", "-", "tAMBS"}], ")"}], "/", "tAMBS"}], "]"}]}],
+          ")"}], "/", "2"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"Print", "[", 
+       RowBox[{"\"\<average err ->\>\"", ",", " ", "avgRelativeError"}], 
+       "]"}], ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{"avgRelativeError", " ", "<", " ", 
+         RowBox[{"10", "^", 
+          RowBox[{"-", "4"}]}]}], ",", " ", 
+        RowBox[{"Break", "[", "]"}]}], "]"}], ";", "\[IndentingNewLine]", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Print", "[", 
+       RowBox[{"\"\<err pAMBS->\>\"", ",", 
+        RowBox[{"Abs", "[", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"pAMBS1", "-", "pAMBS"}], ")"}], "/", "pAMBS"}], "]"}]}], 
+       "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"Print", "[", 
+       RowBox[{"\"\<err tAMBS ->\>\"", ",", " ", 
+        RowBox[{"Abs", "[", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"tAMBS1", "-", "tAMBS"}], ")"}], "/", "tAMBS"}], "]"}]}], 
+       "]"}], ";", " ", "\[IndentingNewLine]", 
+      RowBox[{"pAMBS", " ", "=", " ", "pAMBS1"}], ";", "\[IndentingNewLine]", 
+      
+      RowBox[{"tAMBS", " ", "=", " ", "tAMBS1"}], ";", "\[IndentingNewLine]", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Print", "[", 
+       RowBox[{"StringForm", "[", 
+        RowBox[{
+        "\"\<............... iteration ->  `1` done....................\>\"", 
+         ",", " ", "iter"}], "]"}], "]"}], ";"}], "\[IndentingNewLine]", ",", 
+     
+     RowBox[{"{", 
+      RowBox[{"iter", ",", "30"}], "}"}]}], "\[IndentingNewLine]", "]"}], 
+   ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Print", "[", "\"\<final result -->\>\"", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Print", "[", 
+   RowBox[{"StringForm", "[", 
+    RowBox[{
+    "\"\<pAMBS = `` [Pa], tAMBS = `` [K], \[Rho]AMBS = `` [kg/m^3]\>\"", ",", 
+     " ", 
+     RowBox[{"Sequence", "@@", 
+      RowBox[{"(", 
+       RowBox[{"StandardForm", "/@", 
+        RowBox[{"{", 
+         RowBox[{"pAMBS", ",", "tAMBS", ",", "\[Rho]AMBS"}], "}"}]}], 
+       ")"}]}]}], "]"}], "]"}], ";"}], "\[IndentingNewLine]"}], "Input",
+ CellChangeTimes->{{3.651342102049574*^9, 3.651342125664496*^9}, {
+  3.651342830850233*^9, 3.651342831034186*^9}, {3.651344383992853*^9, 
+  3.651344820142105*^9}, {3.651344861967648*^9, 3.651344864926525*^9}, {
+  3.651344922807674*^9, 3.651344988459662*^9}, {3.651345019700791*^9, 
+  3.65134504049117*^9}, {3.6513451057224483`*^9, 3.6513452355046*^9}, {
+  3.651345408134873*^9, 3.651345546612052*^9}, {3.651345616612739*^9, 
+  3.651345625690474*^9}, {3.651345669254635*^9, 3.651345719161829*^9}, {
+  3.651345979739006*^9, 3.651345990294588*^9}, {3.651398043352968*^9, 
+  3.651398103838996*^9}, {3.6513981442868223`*^9, 3.651398185748912*^9}, {
+  3.651398259675934*^9, 3.6513983417379704`*^9}, {3.651398389395864*^9, 
+  3.651398389459364*^9}, {3.656873080613347*^9, 3.656873114170659*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["\<\"................... starting \
+iterations.....................\"\>"], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115234796*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"pAMBS = \\!\\(\\*TagBox[FormBox[\\\"101500.`\\\", \
+StandardForm], StandardForm, Rule[Editable, True]]\\) [Pa], tAMBS = \
+\\!\\(\\*TagBox[FormBox[\\\"299.`\\\", StandardForm], StandardForm, \
+Rule[Editable, True]]\\) [K], \[Rho]AMBS = \
+\\!\\(\\*TagBox[FormBox[\\\"1.1823924867403128`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [kg/m^3]\"\>",
+  StringForm["pAMBS = `` [Pa], tAMBS = `` [K], \[Rho]AMBS = `` [kg/m^3]", 
+   StandardForm[101500.], 
+   StandardForm[299.], 
+   StandardForm[1.1823924867403128`]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115237295*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"pLCL = \\!\\(\\*TagBox[FormBox[\\\"97269.47095929731`\
+\\\", StandardForm], StandardForm, Rule[Editable, True]]\\) [Pa], TLCL = \
+\\!\\(\\*TagBox[FormBox[\\\"295.38502706181663`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [K]\"\>",
+  StringForm["pLCL = `` [Pa], TLCL = `` [K]", 
+   StandardForm[97269.47095929731], 
+   StandardForm[295.38502706181663`]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.6568731152409277`*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"zTROP = \
+\\!\\(\\*TagBox[FormBox[\\\"12692.61603991305`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [m], pTROP = \
+\\!\\(\\*TagBox[FormBox[\\\"18935.533937594504`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [Pa], tTROP = \\!\\(\\*TagBox[FormBox[\
+\\\"216.11427541242935`\\\", StandardForm], StandardForm, Rule[Editable, \
+True]]\\) [K], \[Rho]TROP = \\!\\(\\*TagBox[FormBox[\\\"0.3051834006874508`\\\
+\", StandardForm], StandardForm, Rule[Editable, True]]\\) [kg/m^3]\"\>",
+  StringForm[
+  "zTROP = `` [m], pTROP = `` [Pa], tTROP = `` [K], \[Rho]TROP = `` [kg/m^3]", 
+   StandardForm[12692.61603991305], 
+   StandardForm[18935.533937594504`], 
+   StandardForm[216.11427541242935`], 
+   StandardForm[0.3051834006874508]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115242414*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"average err ->\"\>", "\[InvisibleSpace]", 
+   "0.01063069626066811`"}],
+  SequenceForm["average err ->", 0.01063069626066811],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.6568731152583427`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"err pAMBS->\"\>", "\[InvisibleSpace]", 
+   "0.016519645875303208`"}],
+  SequenceForm["err pAMBS->", 0.016519645875303208`],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115265821*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"err tAMBS ->\"\>", "\[InvisibleSpace]", 
+   "0.004741746646033012`"}],
+  SequenceForm["err tAMBS ->", 0.004741746646033012],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.6568731152672*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"............... iteration ->  \
+\\!\\(\\*RowBox[{\\\"1\\\"}]\\) done....................\"\>",
+  StringForm["............... iteration ->  `1` done....................", 1],
+  
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115268588*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"pAMBS = \
+\\!\\(\\*TagBox[FormBox[\\\"99823.25594365672`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [Pa], tAMBS = \\!\\(\\*TagBox[FormBox[\
+\\\"297.58221775283613`\\\", StandardForm], StandardForm, Rule[Editable, \
+True]]\\) [K], \[Rho]AMBS = \\!\\(\\*TagBox[FormBox[\\\"1.1684000385377047`\\\
+\", StandardForm], StandardForm, Rule[Editable, True]]\\) [kg/m^3]\"\>",
+  StringForm["pAMBS = `` [Pa], tAMBS = `` [K], \[Rho]AMBS = `` [kg/m^3]", 
+   StandardForm[99823.25594365672], 
+   StandardForm[297.58221775283613`], 
+   StandardForm[1.1684000385377047`]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.6568731152700768`*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"pLCL = \\!\\(\\*TagBox[FormBox[\\\"94801.32470411231`\
+\\\", StandardForm], StandardForm, Rule[Editable, True]]\\) [Pa], TLCL = \
+\\!\\(\\*TagBox[FormBox[\\\"293.22569613767115`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [K]\"\>",
+  StringForm["pLCL = `` [Pa], TLCL = `` [K]", 
+   StandardForm[94801.32470411231], 
+   StandardForm[293.22569613767115`]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115271656*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"zTROP = \
+\\!\\(\\*TagBox[FormBox[\\\"11640.939026463317`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [m], pTROP = \
+\\!\\(\\*TagBox[FormBox[\\\"21814.71778675331`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [Pa], tTROP = \\!\\(\\*TagBox[FormBox[\
+\\\"221.5668351464288`\\\", StandardForm], StandardForm, Rule[Editable, \
+True]]\\) [K], \[Rho]TROP = \\!\\(\\*TagBox[FormBox[\\\"0.3429348741610378`\\\
+\", StandardForm], StandardForm, Rule[Editable, True]]\\) [kg/m^3]\"\>",
+  StringForm[
+  "zTROP = `` [m], pTROP = `` [Pa], tTROP = `` [K], \[Rho]TROP = `` [kg/m^3]", 
+   StandardForm[11640.939026463317`], 
+   StandardForm[21814.71778675331], 
+   StandardForm[221.5668351464288], 
+   StandardForm[0.3429348741610378]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115286392*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"average err ->\"\>", "\[InvisibleSpace]", 
+   "0.0030775164211977466`"}],
+  SequenceForm["average err ->", 0.0030775164211977466`],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.6568731153047028`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"err pAMBS->\"\>", "\[InvisibleSpace]", 
+   "0.004794228338358837`"}],
+  SequenceForm["err pAMBS->", 0.004794228338358837],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115319029*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"err tAMBS ->\"\>", "\[InvisibleSpace]", 
+   "0.0013608045040366561`"}],
+  SequenceForm["err tAMBS ->", 0.0013608045040366561`],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115321578*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"............... iteration ->  \
+\\!\\(\\*RowBox[{\\\"2\\\"}]\\) done....................\"\>",
+  StringForm["............... iteration ->  `1` done....................", 2],
+  
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.6568731153239*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"pAMBS = \\!\\(\\*TagBox[FormBox[\\\"99344.6804611844`\
+\\\", StandardForm], StandardForm, Rule[Editable, True]]\\) [Pa], tAMBS = \\!\
+\\(\\*TagBox[FormBox[\\\"297.17726653059685`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [K], \[Rho]AMBS = \
+\\!\\(\\*TagBox[FormBox[\\\"1.1643829595381707`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [kg/m^3]\"\>",
+  StringForm["pAMBS = `` [Pa], tAMBS = `` [K], \[Rho]AMBS = `` [kg/m^3]", 
+   StandardForm[99344.6804611844], 
+   StandardForm[297.17726653059685`], 
+   StandardForm[1.1643829595381707`]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.65687311532628*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"pLCL = \\!\\(\\*TagBox[FormBox[\\\"94225.59760980064`\
+\\\", StandardForm], StandardForm, Rule[Editable, True]]\\) [Pa], TLCL = \
+\\!\\(\\*TagBox[FormBox[\\\"292.71912159291605`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [K]\"\>",
+  StringForm["pLCL = `` [Pa], TLCL = `` [K]", 
+   StandardForm[94225.59760980064], 
+   StandardForm[292.71912159291605`]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115328739*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"zTROP = \
+\\!\\(\\*TagBox[FormBox[\\\"11274.257307994743`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [m], pTROP = \
+\\!\\(\\*TagBox[FormBox[\\\"22928.688995671786`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [Pa], tTROP = \\!\\(\\*TagBox[FormBox[\
+\\\"223.93055996179083`\\\", StandardForm], StandardForm, Rule[Editable, \
+True]]\\) [K], \[Rho]TROP = \\!\\(\\*TagBox[FormBox[\\\"0.3566421464849272`\\\
+\", StandardForm], StandardForm, Rule[Editable, True]]\\) [kg/m^3]\"\>",
+  StringForm[
+  "zTROP = `` [m], pTROP = `` [Pa], tTROP = `` [K], \[Rho]TROP = `` [kg/m^3]", 
+   StandardForm[11274.257307994743`], 
+   StandardForm[22928.688995671786`], 
+   StandardForm[223.93055996179083`], 
+   StandardForm[0.3566421464849272]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.6568731153312063`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"average err ->\"\>", "\[InvisibleSpace]", 
+   "0.0015223505878725252`"}],
+  SequenceForm["average err ->", 0.0015223505878725252`],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115350395*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"err pAMBS->\"\>", "\[InvisibleSpace]", 
+   "0.002377153225800513`"}],
+  SequenceForm["err pAMBS->", 0.002377153225800513],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.6568731153723392`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"err tAMBS ->\"\>", "\[InvisibleSpace]", 
+   "0.0006675479499445371`"}],
+  SequenceForm["err tAMBS ->", 0.0006675479499445371],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115374651*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"............... iteration ->  \
+\\!\\(\\*RowBox[{\\\"3\\\"}]\\) done....................\"\>",
+  StringForm["............... iteration ->  `1` done....................", 3],
+  
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115376904*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"pAMBS = \
+\\!\\(\\*TagBox[FormBox[\\\"99108.52293355997`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [Pa], tAMBS = \\!\\(\\*TagBox[FormBox[\
+\\\"296.97888645555423`\\\", StandardForm], StandardForm, Rule[Editable, \
+True]]\\) [K], \[Rho]AMBS = \\!\\(\\*TagBox[FormBox[\\\"1.1623909945552868`\\\
+\", StandardForm], StandardForm, Rule[Editable, True]]\\) [kg/m^3]\"\>",
+  StringForm["pAMBS = `` [Pa], tAMBS = `` [K], \[Rho]AMBS = `` [kg/m^3]", 
+   StandardForm[99108.52293355997], 
+   StandardForm[296.97888645555423`], 
+   StandardForm[1.1623909945552868`]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115379408*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"pLCL = \\!\\(\\*TagBox[FormBox[\\\"93958.929362323`\\\
+\", StandardForm], StandardForm, Rule[Editable, True]]\\) [Pa], TLCL = \\!\\(\
+\\*TagBox[FormBox[\\\"292.4857643639706`\\\", StandardForm], StandardForm, \
+Rule[Editable, True]]\\) [K]\"\>",
+  StringForm["pLCL = `` [Pa], TLCL = `` [K]", 
+   StandardForm[93958.929362323], 
+   StandardForm[292.4857643639706]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.65687311538103*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"zTROP = \
+\\!\\(\\*TagBox[FormBox[\\\"11060.031153379183`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [m], pTROP = \
+\\!\\(\\*TagBox[FormBox[\\\"23613.157698015`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [Pa], tTROP = \\!\\(\\*TagBox[FormBox[\
+\\\"225.43309228823423`\\\", StandardForm], StandardForm, Rule[Editable, \
+True]]\\) [K], \[Rho]TROP = \
+\\!\\(\\*TagBox[FormBox[\\\"0.36484063814655676`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [kg/m^3]\"\>",
+  StringForm[
+  "zTROP = `` [m], pTROP = `` [Pa], tTROP = `` [K], \[Rho]TROP = `` [kg/m^3]", 
+   StandardForm[11060.031153379183`], 
+   StandardForm[23613.157698015], 
+   StandardForm[225.43309228823423`], 
+   StandardForm[0.36484063814655676`]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115382444*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"average err ->\"\>", "\[InvisibleSpace]", 
+   "0.0008458729025554424`"}],
+  SequenceForm["average err ->", 0.0008458729025554424],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115399251*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"err pAMBS->\"\>", "\[InvisibleSpace]", 
+   "0.001325456272512676`"}],
+  SequenceForm["err pAMBS->", 0.001325456272512676],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.6568731154185677`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"err tAMBS ->\"\>", "\[InvisibleSpace]", 
+   "0.00036628953259820876`"}],
+  SequenceForm["err tAMBS ->", 0.00036628953259820876`],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115419957*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"............... iteration ->  \
+\\!\\(\\*RowBox[{\\\"4\\\"}]\\) done....................\"\>",
+  StringForm["............... iteration ->  `1` done....................", 4],
+  
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.6568731154213247`*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"pAMBS = \
+\\!\\(\\*TagBox[FormBox[\\\"98977.15892017822`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [Pa], tAMBS = \\!\\(\\*TagBox[FormBox[\
+\\\"296.8701061980429`\\\", StandardForm], StandardForm, Rule[Editable, \
+True]]\\) [K], \[Rho]AMBS = \\!\\(\\*TagBox[FormBox[\\\"1.1612756592388815`\\\
+\", StandardForm], StandardForm, Rule[Editable, True]]\\) [kg/m^3]\"\>",
+  StringForm["pAMBS = `` [Pa], tAMBS = `` [K], \[Rho]AMBS = `` [kg/m^3]", 
+   StandardForm[98977.15892017822], 
+   StandardForm[296.8701061980429], 
+   StandardForm[1.1612756592388815`]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115422802*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"pLCL = \\!\\(\\*TagBox[FormBox[\\\"93815.17140351857`\
+\\\", StandardForm], StandardForm, Rule[Editable, True]]\\) [Pa], TLCL = \
+\\!\\(\\*TagBox[FormBox[\\\"292.36151833229883`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [K]\"\>",
+  StringForm["pLCL = `` [Pa], TLCL = `` [K]", 
+   StandardForm[93815.17140351857], 
+   StandardForm[292.36151833229883`]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.6568731154244843`*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"zTROP = \
+\\!\\(\\*TagBox[FormBox[\\\"10923.913819730411`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [m], pTROP = \
+\\!\\(\\*TagBox[FormBox[\\\"24062.06572299794`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [Pa], tTROP = \\!\\(\\*TagBox[FormBox[\
+\\\"226.43525837446904`\\\", StandardForm], StandardForm, Rule[Editable, \
+True]]\\) [K], \[Rho]TROP = \
+\\!\\(\\*TagBox[FormBox[\\\"0.37013117349666363`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [kg/m^3]\"\>",
+  StringForm[
+  "zTROP = `` [m], pTROP = `` [Pa], tTROP = `` [K], \[Rho]TROP = `` [kg/m^3]", 
+   StandardForm[10923.913819730411`], 
+   StandardForm[24062.06572299794], 
+   StandardForm[226.43525837446904`], 
+   StandardForm[0.37013117349666363`]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115428423*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"average err ->\"\>", "\[InvisibleSpace]", 
+   "0.0005006355192846098`"}],
+  SequenceForm["average err ->", 0.0005006355192846098],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.65687311543967*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"err pAMBS->\"\>", "\[InvisibleSpace]", 
+   "0.0007886872599524512`"}],
+  SequenceForm["err pAMBS->", 0.0007886872599524512],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115446188*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"err tAMBS ->\"\>", "\[InvisibleSpace]", 
+   "0.00021258377861676838`"}],
+  SequenceForm["err tAMBS ->", 0.00021258377861676838`],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115447568*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"............... iteration ->  \
+\\!\\(\\*RowBox[{\\\"5\\\"}]\\) done....................\"\>",
+  StringForm["............... iteration ->  `1` done....................", 5],
+  
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.6568731154489927`*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"pAMBS = \
+\\!\\(\\*TagBox[FormBox[\\\"98899.09689591159`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [Pa], tAMBS = \\!\\(\\*TagBox[FormBox[\
+\\\"296.80699642910895`\\\", StandardForm], StandardForm, Rule[Editable, \
+True]]\\) [K], \[Rho]AMBS = \
+\\!\\(\\*TagBox[FormBox[\\\"1.160606502036837`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [kg/m^3]\"\>",
+  StringForm["pAMBS = `` [Pa], tAMBS = `` [K], \[Rho]AMBS = `` [kg/m^3]", 
+   StandardForm[98899.09689591159], 
+   StandardForm[296.80699642910895`], 
+   StandardForm[1.160606502036837]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.6568731154505577`*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"pLCL = \
+\\!\\(\\*TagBox[FormBox[\\\"93731.2002701323`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [Pa], TLCL = \
+\\!\\(\\*TagBox[FormBox[\\\"292.29047521676745`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [K]\"\>",
+  StringForm["pLCL = `` [Pa], TLCL = `` [K]", 
+   StandardForm[93731.2002701323], 
+   StandardForm[292.29047521676745`]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.6568731154522047`*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"zTROP = \
+\\!\\(\\*TagBox[FormBox[\\\"10835.611777658336`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [m], pTROP = \
+\\!\\(\\*TagBox[FormBox[\\\"24359.033814872695`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [Pa], tTROP = \\!\\(\\*TagBox[FormBox[\
+\\\"227.10440117605`\\\", StandardForm], StandardForm, Rule[Editable, \
+True]]\\) [K], \[Rho]TROP = \\!\\(\\*TagBox[FormBox[\\\"0.3735952235315752`\\\
+\", StandardForm], StandardForm, Rule[Editable, True]]\\) [kg/m^3]\"\>",
+  StringForm[
+  "zTROP = `` [m], pTROP = `` [Pa], tTROP = `` [K], \[Rho]TROP = `` [kg/m^3]", 
+   StandardForm[10835.611777658336`], 
+   StandardForm[24359.033814872695`], 
+   StandardForm[227.10440117605], 
+   StandardForm[0.3735952235315752]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.6568731154666843`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"average err ->\"\>", "\[InvisibleSpace]", 
+   "0.0003109187953566578`"}],
+  SequenceForm["average err ->", 0.0003109187953566578],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115485282*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"err pAMBS->\"\>", "\[InvisibleSpace]", 
+   "0.0004936337692087889`"}],
+  SequenceForm["err pAMBS->", 0.0004936337692087889],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115487252*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"err tAMBS ->\"\>", "\[InvisibleSpace]", 
+   "0.00012820382150452664`"}],
+  SequenceForm["err tAMBS ->", 0.00012820382150452664`],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.6568731154888*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"............... iteration ->  \
+\\!\\(\\*RowBox[{\\\"6\\\"}]\\) done....................\"\>",
+  StringForm["............... iteration ->  `1` done....................", 6],
+  
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115490449*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"pAMBS = \
+\\!\\(\\*TagBox[FormBox[\\\"98850.27696193951`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [Pa], tAMBS = \\!\\(\\*TagBox[FormBox[\
+\\\"296.76894463791746`\\\", StandardForm], StandardForm, Rule[Editable, \
+True]]\\) [K], \[Rho]AMBS = \\!\\(\\*TagBox[FormBox[\\\"1.1601823272826681`\\\
+\", StandardForm], StandardForm, Rule[Editable, True]]\\) [kg/m^3]\"\>",
+  StringForm["pAMBS = `` [Pa], tAMBS = `` [K], \[Rho]AMBS = `` [kg/m^3]", 
+   StandardForm[98850.27696193951], 
+   StandardForm[296.76894463791746`], 
+   StandardForm[1.1601823272826681`]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115492383*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"pLCL = \\!\\(\\*TagBox[FormBox[\\\"93679.19928825398`\
+\\\", StandardForm], StandardForm, Rule[Editable, True]]\\) [Pa], TLCL = \
+\\!\\(\\*TagBox[FormBox[\\\"292.247893363779`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [K]\"\>",
+  StringForm["pLCL = `` [Pa], TLCL = `` [K]", 
+   StandardForm[93679.19928825398], 
+   StandardForm[292.247893363779]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115501626*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"zTROP = \
+\\!\\(\\*TagBox[FormBox[\\\"10778.315589383148`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [m], pTROP = \
+\\!\\(\\*TagBox[FormBox[\\\"24553.79095867375`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [Pa], tTROP = \\!\\(\\*TagBox[FormBox[\
+\\\"227.54559205655417`\\\", StandardForm], StandardForm, Rule[Editable, \
+True]]\\) [K], \[Rho]TROP = \
+\\!\\(\\*TagBox[FormBox[\\\"0.37585205983082587`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [kg/m^3]\"\>",
+  StringForm[
+  "zTROP = `` [m], pTROP = `` [Pa], tTROP = `` [K], \[Rho]TROP = `` [kg/m^3]", 
+   StandardForm[10778.315589383148`], 
+   StandardForm[24553.79095867375], 
+   StandardForm[227.54559205655417`], 
+   StandardForm[0.37585205983082587`]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115513535*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"average err ->\"\>", "\[InvisibleSpace]", 
+   "0.00020224955897399155`"}],
+  SequenceForm["average err ->", 0.00020224955897399155`],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115531991*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"err pAMBS->\"\>", "\[InvisibleSpace]", 
+   "0.0003246521213531259`"}],
+  SequenceForm["err pAMBS->", 0.0003246521213531259],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.6568731155337276`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"err tAMBS ->\"\>", "\[InvisibleSpace]", 
+   "0.00007984699659485721`"}],
+  SequenceForm["err tAMBS ->", 0.00007984699659485721],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115535184*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"............... iteration ->  \
+\\!\\(\\*RowBox[{\\\"7\\\"}]\\) done....................\"\>",
+  StringForm["............... iteration ->  `1` done....................", 7],
+  
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115536544*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"pAMBS = \
+\\!\\(\\*TagBox[FormBox[\\\"98818.18500982747`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [Pa], tAMBS = \\!\\(\\*TagBox[FormBox[\
+\\\"296.7452485290055`\\\", StandardForm], StandardForm, Rule[Editable, \
+True]]\\) [K], \[Rho]AMBS = \\!\\(\\*TagBox[FormBox[\\\"1.1598982860234537`\\\
+\", StandardForm], StandardForm, Rule[Editable, True]]\\) [kg/m^3]\"\>",
+  StringForm["pAMBS = `` [Pa], tAMBS = `` [K], \[Rho]AMBS = `` [kg/m^3]", 
+   StandardForm[98818.18500982747], 
+   StandardForm[296.7452485290055], 
+   StandardForm[1.1598982860234537`]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115538018*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"pLCL = \\!\\(\\*TagBox[FormBox[\\\"93645.20885378249`\
+\\\", StandardForm], StandardForm, Rule[Editable, True]]\\) [Pa], TLCL = \
+\\!\\(\\*TagBox[FormBox[\\\"292.22136887049675`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [K]\"\>",
+  StringForm["pLCL = `` [Pa], TLCL = `` [K]", 
+   StandardForm[93645.20885378249], 
+   StandardForm[292.22136887049675`]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115546691*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"zTROP = \
+\\!\\(\\*TagBox[FormBox[\\\"10741.403512135586`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [m], pTROP = \
+\\!\\(\\*TagBox[FormBox[\\\"24679.671048192384`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [Pa], tTROP = \\!\\(\\*TagBox[FormBox[\
+\\\"227.83165825094667`\\\", StandardForm], StandardForm, Rule[Editable, \
+True]]\\) [K], \[Rho]TROP = \
+\\!\\(\\*TagBox[FormBox[\\\"0.37730460267081406`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [kg/m^3]\"\>",
+  StringForm[
+  "zTROP = `` [m], pTROP = `` [Pa], tTROP = `` [K], \[Rho]TROP = `` [kg/m^3]", 
+   StandardForm[10741.403512135586`], 
+   StandardForm[24679.671048192384`], 
+   StandardForm[227.83165825094667`], 
+   StandardForm[0.37730460267081406`]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115564129*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"average err ->\"\>", "\[InvisibleSpace]", 
+   "0.0001384130241329188`"}],
+  SequenceForm["average err ->", 0.0001384130241329188],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.6568731155793943`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"err pAMBS->\"\>", "\[InvisibleSpace]", 
+   "0.00022538022443888147`"}],
+  SequenceForm["err pAMBS->", 0.00022538022443888147`],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115597556*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"err tAMBS ->\"\>", "\[InvisibleSpace]", 
+   "0.000051445823826956136`"}],
+  SequenceForm["err tAMBS ->", 0.000051445823826956136`],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115599195*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"............... iteration ->  \
+\\!\\(\\*RowBox[{\\\"8\\\"}]\\) done....................\"\>",
+  StringForm["............... iteration ->  `1` done....................", 8],
+  
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115600613*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"pAMBS = \
+\\!\\(\\*TagBox[FormBox[\\\"98795.91334511132`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [Pa], tAMBS = \\!\\(\\*TagBox[FormBox[\
+\\\"296.7299822252282`\\\", StandardForm], StandardForm, Rule[Editable, \
+True]]\\) [K], \[Rho]AMBS = \\!\\(\\*TagBox[FormBox[\\\"1.1596965294307693`\\\
+\", StandardForm], StandardForm, Rule[Editable, True]]\\) [kg/m^3]\"\>",
+  StringForm["pAMBS = `` [Pa], tAMBS = `` [K], \[Rho]AMBS = `` [kg/m^3]", 
+   StandardForm[98795.91334511132], 
+   StandardForm[296.7299822252282], 
+   StandardForm[1.1596965294307693`]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115602106*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"pLCL = \\!\\(\\*TagBox[FormBox[\\\"93621.69327539676`\
+\\\", StandardForm], StandardForm, Rule[Editable, True]]\\) [Pa], TLCL = \
+\\!\\(\\*TagBox[FormBox[\\\"292.20418638790244`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [K]\"\>",
+  StringForm["pLCL = `` [Pa], TLCL = `` [K]", 
+   StandardForm[93621.69327539676], 
+   StandardForm[292.20418638790244`]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115603664*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"zTROP = \
+\\!\\(\\*TagBox[FormBox[\\\"10717.75222997984`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [m], pTROP = \
+\\!\\(\\*TagBox[FormBox[\\\"24760.018778963524`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [Pa], tTROP = \\!\\(\\*TagBox[FormBox[\
+\\\"228.0145991717853`\\\", StandardForm], StandardForm, Rule[Editable, \
+True]]\\) [K], \[Rho]TROP = \\!\\(\\*TagBox[FormBox[\\\"0.3782292596326332`\\\
+\", StandardForm], StandardForm, Rule[Editable, True]]\\) [kg/m^3]\"\>",
+  StringForm[
+  "zTROP = `` [m], pTROP = `` [Pa], tTROP = `` [K], \[Rho]TROP = `` [kg/m^3]", 
+   StandardForm[10717.75222997984], 
+   StandardForm[24760.018778963524`], 
+   StandardForm[228.0145991717853], 
+   StandardForm[0.3782292596326332]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115605309*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"average err ->\"\>", "\[InvisibleSpace]", 
+   "0.00010044731599108944`"}],
+  SequenceForm["average err ->", 0.00010044731599108944`],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.6568731156231127`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"err pAMBS->\"\>", "\[InvisibleSpace]", 
+   "0.00016633665827120065`"}],
+  SequenceForm["err pAMBS->", 0.00016633665827120065`],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115630045*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"err tAMBS ->\"\>", "\[InvisibleSpace]", 
+   "0.00003455797371097822`"}],
+  SequenceForm["err tAMBS ->", 0.00003455797371097822],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.6568731156315327`*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"............... iteration ->  \
+\\!\\(\\*RowBox[{\\\"9\\\"}]\\) done....................\"\>",
+  StringForm["............... iteration ->  `1` done....................", 9],
+  
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115633047*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"pAMBS = \
+\\!\\(\\*TagBox[FormBox[\\\"98779.47996303464`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [Pa], tAMBS = \\!\\(\\*TagBox[FormBox[\
+\\\"296.7197278383032`\\\", StandardForm], StandardForm, Rule[Editable, \
+True]]\\) [K], \[Rho]AMBS = \\!\\(\\*TagBox[FormBox[\\\"1.1595437008661864`\\\
+\", StandardForm], StandardForm, Rule[Editable, True]]\\) [kg/m^3]\"\>",
+  StringForm["pAMBS = `` [Pa], tAMBS = `` [K], \[Rho]AMBS = `` [kg/m^3]", 
+   StandardForm[98779.47996303464], 
+   StandardForm[296.7197278383032], 
+   StandardForm[1.1595437008661864`]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115634695*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"pLCL = \\!\\(\\*TagBox[FormBox[\\\"93604.36991800524`\
+\\\", StandardForm], StandardForm, Rule[Editable, True]]\\) [Pa], TLCL = \
+\\!\\(\\*TagBox[FormBox[\\\"292.1925270602616`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [K]\"\>",
+  StringForm["pLCL = `` [Pa], TLCL = `` [K]", 
+   StandardForm[93604.36991800524], 
+   StandardForm[292.1925270602616]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115636341*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"zTROP = \
+\\!\\(\\*TagBox[FormBox[\\\"10702.572768378051`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [m], pTROP = \
+\\!\\(\\*TagBox[FormBox[\\\"24810.987639170402`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [Pa], tTROP = \\!\\(\\*TagBox[FormBox[\
+\\\"228.13078305794983`\\\", StandardForm], StandardForm, Rule[Editable, \
+True]]\\) [K], \[Rho]TROP = \
+\\!\\(\\*TagBox[FormBox[\\\"0.37881482657469767`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [kg/m^3]\"\>",
+  StringForm[
+  "zTROP = `` [m], pTROP = `` [Pa], tTROP = `` [K], \[Rho]TROP = `` [kg/m^3]", 
+   StandardForm[10702.572768378051`], 
+   StandardForm[24810.987639170402`], 
+   StandardForm[228.13078305794983`], 
+   StandardForm[0.37881482657469767`]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.6568731156494427`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"average err ->\"\>", "\[InvisibleSpace]", 
+   "0.00007758768059323742`"}],
+  SequenceForm["average err ->", 0.00007758768059323742],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115669091*^9}],
+
+Cell[BoxData["\<\"final result -->\"\>"], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115670582*^9}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"pAMBS = \
+\\!\\(\\*TagBox[FormBox[\\\"98779.47996303464`\\\", StandardForm], \
+StandardForm, Rule[Editable, True]]\\) [Pa], tAMBS = \\!\\(\\*TagBox[FormBox[\
+\\\"296.7197278383032`\\\", StandardForm], StandardForm, Rule[Editable, \
+True]]\\) [K], \[Rho]AMBS = \\!\\(\\*TagBox[FormBox[\\\"1.1595437008661864`\\\
+\", StandardForm], StandardForm, Rule[Editable, True]]\\) [kg/m^3]\"\>",
+  StringForm["pAMBS = `` [Pa], tAMBS = `` [K], \[Rho]AMBS = `` [kg/m^3]", 
+   StandardForm[98779.47996303464], 
+   StandardForm[296.7197278383032], 
+   StandardForm[1.1595437008661864`]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.65134540934303*^9, 3.65134544997223*^9, 3.651345529100021*^9, 
+   3.651345568812072*^9, 3.651345626187957*^9, {3.6513456825082483`*^9, 
+   3.6513457195942297`*^9}, 3.6513459940259047`*^9, 3.651398104816865*^9, {
+   3.6513981798042307`*^9, 3.651398186181327*^9}, 3.651398286899225*^9, 
+   3.651398343116798*^9, 3.651398389790925*^9, 3.656873115671933*^9}]
+}, Open  ]]
+}, Open  ]],
+
+Cell["\<\
+From the above iteration scheme it can be seen that the solution converges in \
+10 iterations. \
+\>", "Text",
+ CellChangeTimes->{{3.656873152584282*^9, 3.6568731821585817`*^9}, {
+  3.6568732124480953`*^9, 3.6568732276624813`*^9}, {3.6568732997746153`*^9, 
+  3.65687335162813*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["EYE ADIABAT PROFILES:", "Subsubsection",
+ CellChangeTimes->{{3.656873357445627*^9, 3.656873363556382*^9}}],
+
+Cell[TextData[{
+ "Let us assume that the underrun happens at a certain pressure, say, p = \
+80000.00 Pa. The following equations are integrated from the tropopause to \
+the surface and the height at which the underrun is computed:\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     FractionBox["dz", "dp"], " ", "=", " ", 
+     RowBox[{"-", 
+      RowBox[{"(", 
+       FractionBox["RT", "pg"], ")"}]}]}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       SubscriptBox["c", "p"], 
+       FractionBox["dT", "dp"]}], "+", 
+      RowBox[{"\[Sigma]", " ", "L", " ", "RH", " ", 
+       FractionBox["d", "dp"], 
+       RowBox[{"(", 
+        FractionBox[
+         RowBox[{
+          SubscriptBox["p", "vsat"], "(", "T", ")"}], "p"], ")"}]}], " ", "-",
+       " ", 
+      RowBox[{"(", 
+       FractionBox["RT", "p"], ")"}]}], " ", "=", "0"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"p", "(", "ztrop", ")"}], " ", "=", " ", "ptrop"}], ",", " ", 
+    RowBox[{
+     RowBox[{"T", "(", "ztrop", ")"}], " ", "=", " ", 
+     RowBox[{"Ttrop", "."}]}]}], TraditionalForm]]],
+ "\n\nIn the above system, we have a new term RH (relative humiidty) which \
+takes on a value ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"0", "\[LessEqual]", " ", "RH", " ", "\[LessEqual]", "1"}], 
+   TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ ". \n\nIf RH=0, then the eye is totally dry. In this case, the pressure at \
+sea-level is quite decremented from the ambient pressure at the surface. \nIf \
+RH=1, all the heating in the eyewall owing to condensation is revered in the \
+eye owing to evaporation. "
+}], "Text",
+ CellChangeTimes->{{3.6568796222618113`*^9, 3.6568799249850693`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Remove", "[", "eyeProfiles", "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"eyeProfiles", "[", 
+    RowBox[{
+     RowBox[{"pUnderrun_", "?", "NumericQ"}], ",", " ", 
+     RowBox[{"RH_", "?", "NumericQ"}]}], "]"}], ":=", " ", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "temp", ",", " ", "p", ",", " ", "zEYE", ",", "tEYE", ",", 
+       "\[Rho]EYE"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"temp", " ", "=", " ", 
+       RowBox[{"NDSolveValue", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"D", "[", 
+             RowBox[{
+              RowBox[{"zEYE", "[", "p", "]"}], ",", "p"}], "]"}], "\[Equal]", 
+            
+            RowBox[{
+             RowBox[{"-", 
+              RowBox[{"(", 
+               RowBox[{"R", " ", 
+                RowBox[{"tEYE", "[", "p", "]"}]}], ")"}]}], "/", 
+             RowBox[{"(", 
+              RowBox[{"p", " ", "g"}], ")"}]}]}], ",", "\[IndentingNewLine]", 
+           
+           RowBox[{
+            RowBox[{
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{"cp", " ", "+", " ", 
+                RowBox[{
+                 RowBox[{"(", 
+                  RowBox[{"L", "*", "\[Sigma]", "*", 
+                   RowBox[{"RH", "/", "p"}]}], ")"}], "*", 
+                 RowBox[{"dpVSAT", "[", 
+                  RowBox[{"tEYE", "[", "p", "]"}], "]"}]}]}], ")"}], "*", 
+              RowBox[{"D", "[", 
+               RowBox[{
+                RowBox[{"tEYE", "[", "p", "]"}], ",", "p"}], "]"}]}], " ", 
+             "-", " ", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{"L", "*", "\[Sigma]", "*", 
+                RowBox[{"RH", "/", 
+                 RowBox[{"p", "^", "2"}]}]}], ")"}], "*", 
+              RowBox[{"pVSAT", "[", 
+               RowBox[{"tEYE", "[", "p", "]"}], "]"}]}], " ", "-", " ", 
+             RowBox[{"R", "*", 
+              RowBox[{
+               RowBox[{"tEYE", "[", "p", "]"}], "/", "p"}]}]}], " ", 
+            "\[Equal]", " ", "0"}], ",", "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{"zEYE", "[", "pTROP", "]"}], " ", "==", " ", "zTROP"}], 
+           ",", " ", 
+           RowBox[{
+            RowBox[{"tEYE", "[", "pTROP", "]"}], "==", "tTROP"}]}], "}"}], 
+         ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"zEYE", "[", "p", "]"}], ",", 
+           RowBox[{"tEYE", "[", "p", "]"}]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"p", ",", "pTROP", ",", "pAMBS"}], "}"}], ",", " ", 
+         RowBox[{"MaxStepSize", "\[Rule]", "100"}], ",", 
+         RowBox[{"StartingStepSize", "\[Rule]", "100"}], ",", 
+         RowBox[{"AccuracyGoal", "\[Rule]", "Infinity"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"zEYE", "=", " ", 
+       RowBox[{"Function", "@@", 
+        RowBox[{"List", "[", 
+         RowBox[{"p", ",", 
+          RowBox[{"temp", "[", 
+           RowBox[{"[", "1", "]"}], "]"}]}], "]"}]}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"tEYE", " ", "=", " ", 
+       RowBox[{"Function", "@@", 
+        RowBox[{"List", "[", 
+         RowBox[{"p", ",", " ", 
+          RowBox[{"temp", "[", 
+           RowBox[{"[", "2", "]"}], "]"}]}], "]"}]}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"\[Rho]EYE", "=", " ", 
+       RowBox[{"Function", "@@", 
+        RowBox[{"List", "[", 
+         RowBox[{"p", ",", " ", 
+          RowBox[{"p", "/", 
+           RowBox[{"(", 
+            RowBox[{"R", "*", 
+             RowBox[{"tEYE", "[", "p", "]"}]}], ")"}]}]}], "]"}]}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{"zEYE", ",", "tEYE", ",", "\[Rho]EYE"}], "}"}]}]}], 
+    "\[IndentingNewLine]", "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.6568776503766413`*^9, 3.6568776613850527`*^9}, 
+   3.656877796973941*^9, {3.656878115588224*^9, 3.656878268175886*^9}, {
+   3.656878311737171*^9, 3.656878401621703*^9}, {3.656878432855173*^9, 
+   3.656878468093544*^9}, 3.656878653757237*^9, {3.656878840205782*^9, 
+   3.656878846665906*^9}, 3.656879748788836*^9, {3.656879944161676*^9, 
+   3.656879957786388*^9}, {3.6568800159116497`*^9, 3.656880020896521*^9}, {
+   3.6568800693911257`*^9, 3.656880153998344*^9}, {3.6568802933010902`*^9, 
+   3.6568803444438887`*^9}}],
+
+Cell["Let us look at the case when RH = 0.", "Text",
+ CellChangeTimes->{{3.656880159141159*^9, 3.6568801787571993`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Remove", "[", 
+   RowBox[{"zEYE", ",", "tEYE", ",", "\[Rho]EYE"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"zEYE", ",", "tEYE", ",", "\[Rho]EYE"}], "}"}], " ", "=", " ", 
+   RowBox[{"eyeProfiles", "[", 
+    RowBox[{"80000.0", ",", " ", "0."}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"StringForm", "[", 
+  RowBox[{
+  "\"\<Ambient surface pressure = `1` Pa.,\\nPressure when RH=0 at z=0 -> `2` \
+Pa\>\"", ",", " ", "pAMBS", ",", 
+   RowBox[{"p", "/.", 
+    RowBox[{"FindRoot", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"zEYE", "[", "p", "]"}], "\[Equal]", "0"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"p", ",", "pAMBS"}], "}"}]}], "]"}]}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.656880024084628*^9, 3.65688003143106*^9}, {
+  3.656880181789198*^9, 3.656880231659588*^9}, {3.656880511944146*^9, 
+  3.656880528538328*^9}, {3.65688057753621*^9, 3.656880706646497*^9}}],
+
+Cell[BoxData[
+ InterpretationBox["\<\"Ambient surface pressure = \
+\\!\\(\\*RowBox[{\\\"98779.47996303464`\\\"}]\\) Pa.,\\nPressure when RH=0 at \
+z=0 -> \\!\\(\\*RowBox[{\\\"92837.12160844794`\\\"}]\\) Pa\"\>",
+  StringForm[
+  "Ambient surface pressure = `1` Pa.,\nPressure when RH=0 at z=0 -> `2` Pa", 
+   98779.47996303464, 92837.12160844794],
+  Editable->False]], "Output",
+ CellChangeTimes->{
+  3.656880529257938*^9, {3.6568806549319677`*^9, 3.6568807071296177`*^9}}]
+}, Open  ]],
+
+Cell["\<\
+We can clearly see that the pressure is decremented for this case. Now let us \
+look at the case when RH = \
+\>", "Text",
+ CellChangeTimes->{{3.656880712997052*^9, 3.6568807250215187`*^9}, {
+  3.65688076134107*^9, 3.656880768116824*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"zEYE", ",", "tEYE", ",", "\[Rho]EYE"}], "}"}], " ", "=", " ", 
+   RowBox[{"eyeProfiles", "[", 
+    RowBox[{"80000.0", ",", " ", "0.65"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"zEYE", "[", "pAMBS", "]"}]}], "Input",
+ CellChangeTimes->{{3.656880463816421*^9, 3.6568804770725603`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"-", "96.09345734789692`"}]], "Output",
+ CellChangeTimes->{3.656880477622056*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ParametricPlot", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"zEYE", "[", "p", "]"}], ",", "p"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"p", ",", "pAMBS", ",", "pTROP"}], "}"}], ",", 
+   RowBox[{"AxesLabel", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"\"\<zeyem [m]\>\"", ",", "\"\<p [Pa]\>\""}], "}"}]}], ",", " ", 
+   
+   RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
+   RowBox[{"AspectRatio", "\[Rule]", "1"}], ",", 
+   RowBox[{"ScalingFunctions", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"Identity", ",", "\"\<Reverse\>\""}], "}"}]}], ",", " ", 
+   RowBox[{"PlotStyle", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"{", 
+      RowBox[{"Blue", ",", "DotDashed"}], "}"}], "}"}]}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.6568785104225273`*^9, 3.656878531244546*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[{{}, {}, 
+   {RGBColor[0, 0, 1], AbsoluteThickness[1.6], Opacity[1.], 
+    Dashing[{0, Small, Small, Small}], FaceForm[Opacity[0.3]], 
+    LineBox[CompressedData["
+1:eJwVxX0803kcAPDFrqMkSpGy8lCd1Z20umrovuQSehCTenU5D6/o6FDRedjG
+nFbGuEjmMuZZtJTlYZ76pAl3l4dTDGujdk3kYdh+uxPu7o/3620eEO55UQuH
+w534z/+rLsZ4uCpE6NjH2P1PyWI4UKFPspeL0FLeti2hSAzbnS/fthkVIcHp
+F1rGR8XA2Z35ynhYhAh1hj1hp8VA3/MgbKpLhOYZ5SGES2Jgepi2CWpFKN+4
+P5+WJYYJeWkOlylCaifbVfYzYqhIXEN+t1OEinMU0vqSQXAuabNs8XuOErN5
+OWSbYfDqEfRO8ltRhqVvbnmeBJKlrFNN+FaUQ2fHj66UQpHhPIfq9QxZEHUj
+C9kyMAmsXZsoADT12Fm8kzYCNG7iYu5qQHoYMb7VaRRyRGYr+gdaUKml291W
+/Fsg6tzafLW2GZ3NDu2tF76FJ33SD143mpA7ibRhjvYOiFuHvLdGNCKfjYtU
+y/1ywGInR4yDG5BsZJkiHJODw493yPknhai8r3x/ZuVfQJ4oZtqeqkfJayjk
+QP/3oL0paMULVIcqw0tcftqhgDi7usgYh1rkKrRpm1EoYJCTx5R51CCcW1OQ
+X+4YZPFNaPe9nyCN1rSBkd8HCDFgc/ARAqSjbSVr3jgOaZrj7D3UanRu13JN
+pWQcDrCOKHi3H6MddusXl/Im4OYtI9ZEwyOkl2F96RjlI1z3Kz/T/6AKkQzf
+D782mQQFrXVkWPchujZQfO1czyQsvRtt1rn+AH11IzfOKWkKHOv7mAHtFYh4
+npwa7jINLtNrO7+2v48ORw9BxuI0fPo+ec/s3TLU6WuwTPWfgdAMXjgJV4ps
+Vd3ega0zYNqtpf+YVYx2VP3SItqiBCe14GrXQiGyoxXv6qAr4dD6m7hV7AIk
+CRNWHB1Sgr/P8zupRB6yezU+ipFmQaYsHqz35aLGE+Fm7lmzEMLos1tX8itq
+H58P2TQzC9rmFoccGrPR/L2XTcmec4Dw+1Ju6WUhfkTZtqiHc+AoZfNmojKQ
+lZBrn6kzD3NmdJ3goHTUuEHxnVfIPPxj0SEZp7CQLMs2Pa1tHjKbSYktk0nI
+ktjdFvqFCsrPnHVxuRyPtu9NfhKXrILKg3y16UAUElxwrlkpV4G5vlt1+4Fg
+FMD1bCAdVcPGUseiWK4j4uICeocL1JAcaNAxlX4e7g6webULarga7BN5vCgC
+qlr1IkkXMOBEWMurCmLAuzf13K56DMw7u0J4nTEwQ5GyngkxIBZ8o5uujAGW
+2KbJpxEDOi8wLcgxFkD2JyGpBYNOas/TpZFY2D1lIpeIMPhjbmG6bysV8KtL
+wtJ6MZBsi9Ndn0sHgXPzz8pxDB4RbFUvntPhZId+zc2PGJyhcJejJ+gw5u73
+3mwKg5MW164MkOOB4KXt6qbEoJ+wpps2GA8sf1f9IgwDwbe9HgdTEiCA/ppD
+wWtA53crV+38BFhcsfO38c80cJvP9HxZnQCcG9ELCZ9roKt8lOM7lABdqZt9
++as0YP3DmDrKmgHke/6WKw01YPWmMPaQAwNeEwSU3HUaaI47YvDJgwERhXjm
+XiMNVDcUXqFHM6D0ftmYr7EGpEbZDodTGeD45d+bVCYaKFv9ZvNiPgMkj9zc
+U0w1kHI5Xa9RwIDr+3Kp5ls0EIPvXBvdzgDD+kl+nZkG/gXZ3Z14
+     "]]}},
+  AspectRatio->1,
+  Axes->{True, True},
+  AxesLabel->{
+    FormBox["\"zeyem [m]\"", TraditionalForm], 
+    FormBox["\"p [Pa]\"", TraditionalForm]},
+  AxesOrigin->{0, -100000.},
+  DisplayFunction->Identity,
+  FrameLabel->{{None, None}, {None, None}},
+  FrameTicks->{{
+     Charting`ScaledTicks[{-#& , -#& }], 
+     Charting`ScaledFrameTicks[{-#& , -#& }]}, {Automatic, Automatic}},
+  GridLinesStyle->Directive[
+    GrayLevel[0.5, 0.4]],
+  Method->{"ScalingFunctions" -> None},
+  PlotRange->{All, All},
+  PlotRangeClipping->True,
+  PlotRangePadding->{{
+     Scaled[0.05], 
+     Scaled[0.05]}, {
+     Scaled[0.05], 
+     Scaled[0.05]}},
+  Ticks->FrontEndValueCache[{Automatic, 
+     Charting`ScaledTicks[{-#& , -#& }]}, {Automatic, {{-40000., 
+       FormBox["40000", TraditionalForm], {0.01, 0.}, {
+        AbsoluteThickness[0.1]}}, {-60000., 
+       FormBox["60000", TraditionalForm], {0.01, 0.}, {
+        AbsoluteThickness[0.1]}}, {-80000., 
+       FormBox["80000", TraditionalForm], {0.01, 0.}, {
+        AbsoluteThickness[0.1]}}, {-100000., 
+       FormBox["100000", TraditionalForm], {0.01, 0.}, {
+        AbsoluteThickness[0.1]}}, {-20000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {-25000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {-30000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {-35000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {-45000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {-50000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {-55000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {-65000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {-70000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {-75000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {-85000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {-90000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {-95000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {-105000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {-110000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {-115000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {-120000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}}}]]], "Output",
+ CellChangeTimes->{3.656878532304371*^9, 3.656878655607912*^9, 
+  3.656878859657723*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ParametricPlot", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"tEYE", "[", "p", "]"}], ",", "p"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"p", ",", "pAMBS", ",", "pTROP"}], "}"}], ",", 
+   RowBox[{"AxesLabel", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"\"\<zeyem [m]\>\"", ",", "\"\<T [K]\>\""}], "}"}]}], ",", " ", 
+   RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
+   RowBox[{"AspectRatio", "\[Rule]", "1"}], ",", 
+   RowBox[{"ScalingFunctions", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"Identity", ",", "\"\<Reverse\>\""}], "}"}]}], ",", " ", 
+   RowBox[{"PlotStyle", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"{", 
+      RowBox[{"Blue", ",", "DotDashed"}], "}"}], "}"}]}], ",", 
+   RowBox[{"AxesOrigin", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"200", ",", "10000"}], "}"}]}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.656878554134241*^9, 3.656878554219767*^9}, {
+  3.6568786200996304`*^9, 3.6568786226670437`*^9}, {3.6568786905325003`*^9, 
+  3.6568786908447247`*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[{{}, {}, 
+   {RGBColor[0, 0, 1], AbsoluteThickness[1.6], Opacity[1.], 
+    Dashing[{0, Small, Small, Small}], FaceForm[Opacity[0.3]], 
+    LineBox[CompressedData["
+1:eJwV03k4llkbAHAj4SvKUhghW5Qle4m+HGQfWWKkotIo8Vqfh4ioSYQkjPJm
+ydibRozIbu6EMJM1pYjIliwvD8/7lvCd749znet3nes697nvc99yHv6Ontxc
+XFwFeP1/j0ynzmhEM5Dl7BW9vw0GIIESfCMew0Dr2bJSPmgAxtxgfSOWgZ46
+tHKLmw/AFD/X6a4EBpKpEu72cxiArEimlXcqAy1fL/aW8RqAgCN2gsm5DPRQ
+/M3Dq2kDQFb9KZoHDESbaG05zBoAe0Zzy8gqA+Uzp4arC97BJnevg16hvujX
++zlMA41BSK/T/nJo2helKLhnFmcPQYluXCyfox9iRiZGjfIOQ1GXT9Uw+CF5
+lf+QuYkjMBFaovpZ0R/N/3V0QPnqR0hp1Z+YTPRHAmyVqCaTUUCyv66+WPRH
+hQrW95p4xuAvEbOR3UoB6MR9n57qmjE4G7Wg0+ccgGx0dHZSVz+Bfs2Pvvuu
+ByAXsbUIBb1x6DF+55z+RwAa+bjhVDM9DtciN0wD3wSg4r5ivdTHE9C77Lh4
+Zj0AxQk6GZw/Nwk7/G49KNwbiB77F1hcVpoCuzM6GpoOgciqRqOFNTUF339R
+dlMPCURc1vUXzmZOg9E3AhFZgYjDvSC04+xn2Cpjv+76PBDxb1IcaRCbAQ3v
+L16hU4HIVXWj8vHQDCQhG5aCQBBSMhRdW8/+AuZp8vMV6kFIIGWfl6XTLISx
+/mb5OgQhHeHJwX6JOUiMsRTYHxSEiLf5hGv3HAg3Wn9pTA5C+29mhptEz8Oa
+oE2K19MgpHLK4La/xQK82uVp9lNvEDoS+h5S1hbAwea7lgEVhNrdhTYizrFg
+Uj3w+mZRAmmtdDmfb2IBlw9qOKhJIKXSu43NUovAd4D9wtOOQIZX81XbIhdh
+c4qbmDCDQEN+NX+Yv18E6fO6ta2x+Pz1zChbZwnmlU2Z3gUEqrP1l7ZJW4KR
+VblPT4BAL2eWvX9kLcFscY694nMC3bY9rJa3uAR1z+yrmNj2ZTfm1KglKG60
+DIhuItD7YJEARC/BvpXyu67NBJrl0gy++H0J7LhNb3O3EUhE3Ceqkp+CjyvD
+pF0XgdxNR1Md5Cgw8z61pRlboXCv86A8Bd5Kykz9bgJN8weIeSpScGtPWa5c
+D4ECO9fTQ5UpyF3/3ZPqJVC0q1T2Q3UKbvj3Pk57Q6BH/i7Fc4couBrZatT/
+gUDLGa/q4xwp2F6a/7PxMIEsNrl5fz1OgUhP68US7Afes+KXnCnof/0u9OYI
+gdChrYTlCQqeHbX7WW+UQAlvLPfxuVPATJDcSB0nkLxwc1r0JQpomaTaDezg
+0OOmy94ULKLjAT4TBGobGWOdZ1BwWeRVh8kkgfye/PCTqT8FEyIZhotTBKqx
+MeLmDqZAzSSn/fQ0gQSedpYGhlAQA98c2rDdJd3dRi9ToHir3OHhZwLxfI6o
+hisU3Lc0FrT9gusdU+sXdY0CCQ6PXzV23pyV1MJ1CvifKLQrzBKIdnrX7n6D
+glrZbJkkbKt6r8ud0RQc5A32+4adqcBRPBJDQeSOR9WecwRaiI/tLYmlYOUi
+up+GbbIkdk06joI+gzsnK7B/cy1UT4ynIK1maFcf9hToDX5PoICtrja4iG2w
+t+UWI5GC1U8R6ULzuD+SnA4M3aGg0UhB8Bi2tjuRXJdMAReRMNyGHblaZnHl
+PgVhQ7OJU9g9HmjlczoFcS8dDHkXCKTY0ZXr+oCCYWPlu6bYHenza/pZFHRm
+8Ms3YosdUKtg51Kw0+PTZDmLQCUBRbLBTyiQdjT70I3daSXO/FBKAbQ19cxj
+s+Rjhc3/oiDLSbhSZZFAuv0XuMUrKBDS5PHMxa4/pDReXUPBgW3h3slLOB53
+QdH3Zgp8HMMF/ZZx//2Wuz96EN+nz98kx8Hvq8k6nMq/DInM0QohLhLV7Zw6
+fdx7GeIEV3RP8pFoJE0r6U7LMnTo1ejJbieRgkpXi8/eFejQ5QjniZFoj3Zc
+RXjcClj+Gy4dL02ip25HK3nHV8BG3Xz1syKJPLIca3XMadglsslu8x4SLbx/
+cjLXgob6Gd3fZbEjJLauClnR4GnAQS7Y91JfGM7b0JBYwO3XjN0Rp9tQ7ECD
+h4xDZLYSibRCxEDajQYJZ6Uwh70k4rJ738JH0hDjO5LBwE68feBCSDANoVGi
+DbHYkh0pvBMhNNgem/vWgK1rZmPRFEbDx3bGLyr7SHTRsL4tIoqG06XN89wq
+JOpUzv5nMZ6GKTH5sXJVEmVxefQM/k6Db/XqT6+wOaXZh03zaBDd7flsCtvp
+zGDRH/k0vJmZipZSI5FAo1NkWBENImblQjHYEeEWquIlNOzRuPbphDqJTtNq
+Nx2raWhgeh8ksKsLLrFqamjI/HUqLhF7h3PhKbk6GiIimCpN2P8+3a3NaqBB
+55+xk6r7SWQYKDKS+IIG4WTNy2vYkrNs/fZOGlylXCrENUgUkqGbr9lNg/Zb
+EZYWdq914Pb0Hhrexlifv4Ad/2hm4sJrGgx6Wh9cw548oezQ2Y/rQw90P8A2
+4f+lXu8tDU2y1zdXYmdX5ShnDdDgEP63fhf21wsfUnje03C9MMNMRhPnLya5
+7jNIw5i6zZYw7LKWny/1DdGQo10bu1+LRF6K3Ua5IzQkdXxyZGqTaGC0adZo
+goYz7rBKYesmb7gUTdJwV7Ag55gOie6iwy+2TdOwePHW8CZdElk+rGR+mKGh
+8FmTip8eiapOF5uHs2hobfTYbKKP++VtYs6zVRr8xD9L5WOb9A2mHl7D+YX9
+o8F7CPdb577YpnUayolCiw5sy9YW384f2KC48cLI0RDnU7FmMMnHBrNlEcdz
+R/D/pPj279zBBo07RdwRR0kkb2u7JViNDZKn7pfl2ZOotEmA1HFjA+q791L+
+Iomce267qlazwZbv+ZMYbJbTcPzzGjb8u00peQY7fkCj3qWODd9e5lqUe5EI
+RnplohvZYKESEm7sTSK1eYnxoWY2HMlYX3f3JRHP1gK/Oz1ssPM6G3aPwPN0
+tOHG4gwbuo2X2r5iH2vbVhk7ywbasFvUjSTRtM3ZSel5NhyvDMpQCCaRzPFN
+VtaLbIj482xQWQiOf85qWx6bDeMfXYzaw/A8RvanO/Fw4EbpF1O1KyRa+0G5
+Y2YzB47IvjZNwk6/Gbp6jY8D4zwFes7heB5u73Iv2cKB2hzn0Y8RJDLIOKfA
+K8wBe/MsML1Kon6Zp06ZIhxgtvw3oxA7IJcnRnsHByR8EkwYkSQqfFQ07S7O
+AdHsQ9u7sI3Vv/64IsEB82aTt1pRJBoqs7ZJkOTAy/NFD37DDtHNjJCT4kAx
+t5crG1u4eq6kSpoD/wOzu2X9
+     "]]}},
+  AspectRatio->1,
+  Axes->{True, True},
+  AxesLabel->{
+    FormBox["\"zeyem [m]\"", TraditionalForm], 
+    FormBox["\"T [K]\"", TraditionalForm]},
+  AxesOrigin->{200, 10000},
+  DisplayFunction->Identity,
+  FrameLabel->{{None, None}, {None, None}},
+  FrameTicks->{{
+     Charting`ScaledTicks[{-#& , -#& }], 
+     Charting`ScaledFrameTicks[{-#& , -#& }]}, {Automatic, Automatic}},
+  GridLinesStyle->Directive[
+    GrayLevel[0.5, 0.4]],
+  Method->{"ScalingFunctions" -> None},
+  PlotRange->{All, All},
+  PlotRangeClipping->True,
+  PlotRangePadding->{{
+     Scaled[0.05], 
+     Scaled[0.05]}, {
+     Scaled[0.05], 
+     Scaled[0.05]}},
+  Ticks->FrontEndValueCache[{Automatic, 
+     Charting`ScaledTicks[{-#& , -#& }]}, {Automatic, {{0., 
+       FormBox["0", TraditionalForm], {0.01, 0.}, {
+        AbsoluteThickness[0.1]}}, {-25000., 
+       FormBox["25000", TraditionalForm], {0.01, 0.}, {
+        AbsoluteThickness[0.1]}}, {-50000., 
+       FormBox["50000", TraditionalForm], {0.01, 0.}, {
+        AbsoluteThickness[0.1]}}, {-75000., 
+       FormBox["75000", TraditionalForm], {0.01, 0.}, {
+        AbsoluteThickness[0.1]}}, {-100000., 
+       FormBox["100000", TraditionalForm], {0.01, 0.}, {
+        AbsoluteThickness[0.1]}}, {25000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {20000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {15000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {10000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {5000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {-5000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {-10000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {-15000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {-20000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {-30000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {-35000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {-40000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {-45000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {-55000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {-60000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {-65000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {-70000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {-80000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {-85000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {-90000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {-95000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {-105000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {-110000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {-115000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {-120000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}, {-125000., 
+       FormBox[
+        InterpretationBox[
+         StyleBox[
+          
+          GraphicsBox[{}, ImageSize -> {0., 0.}, BaselinePosition -> 
+           Baseline], "CacheGraphics" -> False], 
+         Spacer[{0., 0.}]], TraditionalForm], {0.005, 0.}, {
+        AbsoluteThickness[0.1]}}}}]]], "Output",
+ CellChangeTimes->{3.656878557126855*^9, 3.656878625434394*^9, 
+  3.656878656542076*^9, 3.656878691295374*^9, 3.6568788605069637`*^9}]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1104, 934},
+WindowMargins->{{-3049, Automatic}, {Automatic, 36}},
+FrontEndVersion->"10.4 for Mac OS X x86 (32-bit, 64-bit Kernel) (October 17, \
+2015)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 97, 1, 65, "Chapter"],
+Cell[680, 25, 3848, 105, 840, "Text"],
+Cell[4531, 132, 1307, 31, 182, "Input"],
+Cell[5841, 165, 172, 3, 30, "Text"],
+Cell[CellGroupData[{
+Cell[6038, 172, 590, 10, 28, "Input"],
+Cell[6631, 184, 181, 2, 28, "Output"]
+}, Open  ]],
+Cell[6827, 189, 717, 21, 51, "Text"],
+Cell[7547, 212, 3119, 86, 131, "Input"],
+Cell[10669, 300, 1188, 36, 166, "Text"],
+Cell[11860, 338, 1535, 48, 80, "Input"],
+Cell[CellGroupData[{
+Cell[13420, 390, 109, 1, 35, "Subsubsection"],
+Cell[13532, 393, 829, 25, 91, "Text"],
+Cell[14364, 420, 1375, 40, 80, "Input"],
+Cell[15742, 462, 651, 21, 40, "Text"],
+Cell[16396, 485, 1070, 30, 63, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[17503, 520, 116, 1, 35, "Subsubsection"],
+Cell[17622, 523, 2275, 65, 286, "Text"],
+Cell[CellGroupData[{
+Cell[19922, 592, 1632, 45, 80, "Input"],
+Cell[21557, 639, 601, 11, 22, "Print"]
+}, Open  ]],
+Cell[22173, 653, 2624, 79, 238, "Text"],
+Cell[24800, 734, 1873, 48, 80, "Input"],
+Cell[26676, 784, 704, 11, 87, "Text"],
+Cell[CellGroupData[{
+Cell[27405, 799, 1474, 41, 131, "Input"],
+Cell[28882, 842, 971, 18, 38, "Print"]
+}, Open  ]],
+Cell[29868, 863, 5016, 138, 607, "Text"],
+Cell[34887, 1003, 3434, 96, 165, "Input"],
+Cell[38324, 1101, 968, 17, 127, "Text"],
+Cell[CellGroupData[{
+Cell[39317, 1122, 14029, 346, 1066, "Input"],
+Cell[CellGroupData[{
+Cell[53371, 1472, 475, 7, 22, "Print"],
+Cell[53849, 1481, 972, 17, 22, "Print"],
+Cell[54824, 1500, 820, 14, 22, "Print"],
+Cell[55647, 1516, 1202, 21, 22, "Print"],
+Cell[56852, 1539, 586, 11, 22, "Print"],
+Cell[57441, 1552, 581, 11, 22, "Print"],
+Cell[58025, 1565, 580, 11, 21, "Print"],
+Cell[58608, 1578, 623, 11, 21, "Print"],
+Cell[59234, 1591, 1023, 17, 22, "Print"],
+Cell[60260, 1610, 818, 14, 22, "Print"],
+Cell[61081, 1626, 1199, 21, 22, "Print"],
+Cell[62283, 1649, 591, 11, 22, "Print"],
+Cell[62877, 1662, 580, 11, 22, "Print"],
+Cell[63460, 1675, 585, 11, 21, "Print"],
+Cell[64048, 1688, 621, 11, 21, "Print"],
+Cell[64672, 1701, 1018, 17, 22, "Print"],
+Cell[65693, 1720, 818, 14, 22, "Print"],
+Cell[66514, 1736, 1207, 21, 22, "Print"],
+Cell[67724, 1759, 589, 11, 22, "Print"],
+Cell[68316, 1772, 582, 11, 22, "Print"],
+Cell[68901, 1785, 584, 11, 21, "Print"],
+Cell[69488, 1798, 623, 11, 21, "Print"],
+Cell[70114, 1811, 1021, 17, 22, "Print"],
+Cell[71138, 1830, 810, 14, 22, "Print"],
+Cell[71951, 1846, 1203, 22, 22, "Print"],
+Cell[73157, 1870, 588, 11, 22, "Print"],
+Cell[73748, 1883, 582, 11, 22, "Print"],
+Cell[74333, 1896, 587, 11, 21, "Print"],
+Cell[74923, 1909, 625, 11, 21, "Print"],
+Cell[75551, 1922, 1018, 17, 22, "Print"],
+Cell[76572, 1941, 820, 14, 22, "Print"],
+Cell[77395, 1957, 1207, 22, 22, "Print"],
+Cell[78605, 1981, 587, 11, 22, "Print"],
+Cell[79195, 1994, 582, 11, 22, "Print"],
+Cell[79780, 2007, 587, 11, 21, "Print"],
+Cell[80370, 2020, 625, 11, 21, "Print"],
+Cell[80998, 2033, 1022, 18, 22, "Print"],
+Cell[82023, 2053, 820, 15, 22, "Print"],
+Cell[82846, 2070, 1200, 21, 22, "Print"],
+Cell[84049, 2093, 588, 11, 22, "Print"],
+Cell[84640, 2106, 582, 11, 22, "Print"],
+Cell[85225, 2119, 585, 11, 21, "Print"],
+Cell[85813, 2132, 623, 11, 21, "Print"],
+Cell[86439, 2145, 1021, 17, 22, "Print"],
+Cell[87463, 2164, 813, 14, 22, "Print"],
+Cell[88279, 2180, 1207, 22, 22, "Print"],
+Cell[89489, 2204, 591, 11, 22, "Print"],
+Cell[90083, 2217, 584, 11, 22, "Print"],
+Cell[90670, 2230, 586, 11, 21, "Print"],
+Cell[91259, 2243, 623, 11, 21, "Print"],
+Cell[91885, 2256, 1018, 17, 22, "Print"],
+Cell[92906, 2275, 818, 14, 22, "Print"],
+Cell[93727, 2291, 1210, 22, 22, "Print"],
+Cell[94940, 2315, 590, 11, 22, "Print"],
+Cell[95533, 2328, 585, 11, 22, "Print"],
+Cell[96121, 2341, 589, 11, 21, "Print"],
+Cell[96713, 2354, 623, 11, 21, "Print"],
+Cell[97339, 2367, 1018, 17, 22, "Print"],
+Cell[98360, 2386, 818, 14, 22, "Print"],
+Cell[99181, 2402, 1199, 21, 22, "Print"],
+Cell[100383, 2425, 593, 11, 22, "Print"],
+Cell[100979, 2438, 585, 11, 22, "Print"],
+Cell[101567, 2451, 588, 11, 21, "Print"],
+Cell[102158, 2464, 623, 11, 21, "Print"],
+Cell[102784, 2477, 1018, 17, 22, "Print"],
+Cell[103805, 2496, 815, 14, 22, "Print"],
+Cell[104623, 2512, 1212, 22, 22, "Print"],
+Cell[105838, 2536, 590, 11, 22, "Print"],
+Cell[106431, 2549, 429, 6, 21, "Print"],
+Cell[106863, 2557, 1018, 17, 22, "Print"]
+}, Open  ]]
+}, Open  ]],
+Cell[107908, 2578, 290, 6, 30, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[108235, 2589, 112, 1, 35, "Subsubsection"],
+Cell[108350, 2592, 1714, 44, 248, "Text"],
+Cell[110067, 2638, 4382, 109, 199, "Input"],
+Cell[114452, 2749, 120, 1, 30, "Text"],
+Cell[CellGroupData[{
+Cell[114597, 2754, 976, 25, 80, "Input"],
+Cell[115576, 2781, 472, 9, 46, "Output"]
+}, Open  ]],
+Cell[116063, 2793, 247, 5, 30, "Text"],
+Cell[CellGroupData[{
+Cell[116335, 2802, 363, 9, 46, "Input"],
+Cell[116701, 2813, 104, 2, 28, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[116842, 2820, 814, 21, 46, "Input"],
+Cell[117659, 2843, 8231, 202, 331, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[125927, 3050, 1019, 25, 46, "Input"],
+Cell[126949, 3077, 12732, 304, 317, "Output"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
