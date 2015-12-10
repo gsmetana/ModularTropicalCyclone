@@ -360,6 +360,7 @@ the angular velocity of the earth is $\mathbf{\Omega_E'}$, the normal to the loc
 Non-dimensionalization is introduced by letting
 \begin{equation}
 \mathbf{q}=\mathbf{q'}/(\Psi_o' \Omega')^{1/2}, \qquad p=\tilde{p}' /(\Psi_o' \Omega'), \qquad \mathbf{r} = \mathbf{r}/(\Psi_o'/\Omega')^{1/2} \qquad and \qquad E = \nu' / \Psi_0'
+\label{eq:bl3}
 \end{equation}
 where the Ekman number $E \ll 1$ for circumstances of interest, and $\Psi_0'$ has the
 dimensions of a circulation. If $\Psi_0'$ is ascribed the value of the maximum swirl speed times the radius at which the maximum occurs, non-dimensionalization would employ unknown outputs, rather than prescribed inputs. Thus, we set $\Psi_0' = \Omega' r_0'$ where $r_0$ denotes the radial extent of the cylindrical domain.
@@ -384,8 +385,7 @@ At the top edge of the boundary layer, the gradient-wind equation is adopted as 
 \label{eq:blgradwind}
 \end{equation}
 
-where, in the bulk vortex, $p(r, z) \rightarrow \pi(r)$, and $v(r, z) \rightarrow V(r)$, at the top edge of the
-boundary layer. For consistency with the boundary-layer solution, it is anticipated that the axial velocity component in the bulk vortex $\tilde{w}(r,z) \rightarrow E^{1/2} W(r)$ at the top edge of the boundary layer. This modest magnitude, in conjunction with continuity, suggests that, near the top edge of the boundary layer, the nonlinear convective terms in the radial-momentum equation are small relative to the terms retained in \eqref{eq:blgradwind}, at least at smaller radius where higher swirl holds.
+where, in the bulk vortex, $p(r, z) \rightarrow \pi(r)$, and $v(r, z) \rightarrow V(r)$, at the top edge of the boundary layer. For consistency with the boundary-layer solution, it is anticipated that the axial velocity component in the bulk vortex $\tilde{w}(r,z) \rightarrow E^{1/2} W(r)$ at the top edge of the boundary layer. This modest magnitude, in conjunction with continuity, suggests that, near the top edge of the boundary layer, the nonlinear convective terms in the radial-momentum equation are small relative to the terms retained in \eqref{eq:blgradwind}, at least at smaller radius where higher swirl holds.
 
 If $\tilde{\zeta} = z/E^{1/2}$ (which implies that the boundary layer is $O(E^{1/2} )$ in thickness relative
 to $r_0'$), and if in the boundary layer
@@ -394,10 +394,10 @@ u = u_b(r,\tilde{\zeta})+..., \quad
 v = v_b(r,\tilde{\zeta})+..., \quad 
 \tilde{w} = E^{1/2}w_b(r,\tilde{\zeta})+..., \quad 
 p = p_b(r,\tilde{\zeta})+... 
+\label{eq:bl8}
 \end{equation}
 
-then the axial component of the momentum-conservation equation \eqref{eq:blradmom} takes the
-conventional form $\ppd{p_b}{\tilde{\zeta}}=0$ and the pressure field in the boundary layer is found from \eqref{eq:blgradwind} if $V(r)$ is known. If
+then the axial component of the momentum-conservation equation \eqref{eq:blradmom} takes the conventional form $\ppd{p_b}{\tilde{\zeta}}=0$ and the pressure field in the boundary layer is found from \eqref{eq:blgradwind} if $V(r)$ is known. If
 \begin{equation}
 \psi = r v_b, \quad
 \Psi = rV, \quad
@@ -405,6 +405,7 @@ conventional form $\ppd{p_b}{\tilde{\zeta}}=0$ and the pressure field in the bou
 w=2^{-1/2} w_b, \quad
 x=r^2, \quad
 \zeta = 2^{1/2} \tilde{\zeta}
+\label{eq:bl9}
 \end{equation}
 then, in terms of dimensional quantities,
 \begin{equation}
@@ -413,46 +414,58 @@ then, in terms of dimensional quantities,
 w=w'/(2\Omega'\nu')^{1/2}, \quad
 \zeta= z'/(\nu'/2\Omega')^{1/2}, \quad
 x = r'^2/r_0'^2
+\label{eq:bl10}
 \end{equation}
 
-the boundary-layer thickness being $O(\nu'/ \Omega')^{1/2}$ . Introduction of (3.8) and (3.9) into
-\eqref{eq:blcon} and \eqref{eq:blradmom} gives
+the boundary-layer thickness being $O(\nu'/ \Omega')^{1/2}$ . Introduction of \eqref{eq:bl8} and \eqref{eq:bl9} into \eqref{eq:blcon} and \eqref{eq:blradmom} gives
 
 \begin{equation}
 \phi_x + w_\zeta =0
+\label{eq:bl11}
 \end{equation}
 \begin{equation}
 \phi \phi_x w \phi_\zeta + (\Psi^2 - \psi^2 - \phi^2)/2x -(\psi - \Psi) - \phi_{\zeta\zeta} = 0
+\label{eq:bl12}
 \end{equation}
 \begin{equation}
 \phi \psi_x + w \psi_\zeta + \phi - \psi_{\zeta\zeta}=0
+\label{eq:bl13}
 \end{equation}
-Patching to the bulk vortex gives, with $\Phi(x)$ taken as known and $\zeta_{edge}$ anticipated to
-be `large',
+Patching to the bulk vortex gives, with $\Phi(x)$ taken as known and $\zeta_{edge}$ anticipated to be `large',
 
 \begin{equation}
 \zeta \rightarrow \zeta_{edge}: \phi \rightarrow 0; \qquad \phi \rightarrow \Phi(x)
+\label{eq:bl14}
 \end{equation}
 
-For the modest flow speeds holding in the vicinity of the periphery at $x = 1$, the nonlinear terms in (3.11)–(3.13) may be discarded as negligible relative to the linear terms. The solution to the linear balance of Coriolis `force', pressure force, and friction, in which $x$ enters parametrically only, was given by Ekman:
+On $\zeta =0$, no-slip conditions at a boundary impervious to convection are adopted:
 \begin{equation}
-\phi \approx
+\zeta=0:\phi=\psi=w=0
+\label{eq:blnonslip}
+\end{equation}
+
+For the modest flow speeds holding in the vicinity of the periphery at $x = 1$, the nonlinear terms in \eqref{eq:bl11}-\eqref{eq:bl13} may be discarded as negligible relative to the linear terms. The solution to the linear balance of Coriolis `force', pressure force, and friction, in which $x$ enters parametrically only, was given by Ekman:
+\begin{equation}
+\phi \approx -[\Psi(x)]\sin(2^{-1/2}\zeta)\exp(-2^{-1/2}\zeta)
+\label{eq:bl16}
 \end{equation}
 \begin{equation}
-\psi \approx
+\psi \approx [\Psi(x)][1-\cos( 2^{-1/2}\zeta)\exp(-2^{-1/2}\zeta)
 \end{equation}
 \begin{equation}
-w \approx
+w \approx 2^{-1/2} [\Psi(x)]\{1-[\sin(2^{-1/2}\zeta) + \cos(2^{-1/2} \zeta)][\exp(-2^{-1/2}\zeta)]   \}
+\label{eq:bl18}
 \end{equation}
 
 Of particular interest is the boundary-layer exchange with the overlying vortex,
-$w(x, \zeta \rightarrow \zeta_{edge} ) \equiv W(r)$ for $\Psi(x)$ of interest. For $x \rightarrow 1$, from (3.18)
+$w(x, \zeta \rightarrow \zeta_{edge} ) \equiv W(r)$ for $\Psi(x)$ of interest. For $x \rightarrow 1$, from \eqref{eq:bl18}
 \begin{equation}
 w(x\rightarrow 1, \zeta \rightarrow \zeta_{edge}) \equiv W(x) \rightarrow 2^{1/2} \Psi_x(x)
+\label{eq:bl19}
 \end{equation}
 
-It is possible that (3.19) approximates adequately the
-exchange even for values of $x$ sufficiently smaller than unity that (3.16)–(3.18) do not approximate adequately the solution to (3.11)–(3.15). We shall check this suggestion. In any case, dependence on the parameter $\nu'$ is displayed mainly in (3.10), since $\nu'$ does not appear in the boundary-value problem for $\phi, \psi, w, \Psi, \zeta$, and $x$, except implicitly in the quantity $\zeta_{edge}$. 
+It is possible that \eqref{eq:bl19} approximates adequately the
+exchange even for values of $x$ sufficiently smaller than unity that \eqref{eq:bl16}-\eqref{eq:bl18} do not approximate adequately the solution to \eqref{eq:bl11}-\eqref{eq:blnonslip}. We shall check this suggestion. In any case, dependence on the parameter $\nu'$ is displayed mainly in \eqref{eq:bl10}, since $\nu'$ does not appear in the boundary-value problem for $\phi, \psi, w, \Psi, \zeta$, and $x$, except implicitly in the quantity $\zeta_{edge}$. 
 
 Since the absolute angular momentum is taken to be invariant along and across streamlines in module I, according to prior discussion, then, dimensionally, in the bulk
 vortex
@@ -461,21 +474,23 @@ vortex
 r'v'(r') + \Omega' r'^2 = r_0' v_0' + \Omega' r_0'^2
 \end{equation}
 
-where $v'(r_0')$,  denoted $v_0'$, is regarded as known. Hence, under the non- dimensionalization discussed in (3.3) and thereafter, and in (3.9),
+where $v'(r_0')$,  denoted $v_0'$, is regarded as known. Hence, under the non- dimensionalization discussed in \eqref{eq:bl3} and thereafter, and in \eqref{eq:bl8},
 
 \begin{equation}
 \Psi(r) = rV(r) = 1 + \varepsilon -x, \qquad \varepsilon \equiv v_0'/(\Omega' r_0')
+\label{eq:bl21}
 \end{equation}
 
-where $0 < \varepsilon \ll 1$ for parameter values of practical interest. Thus, $\varepsilon$, which may be characterized as a Rossby number, is significant near $x = 1$ only, and is not used to scale variables. The circulation in module I above the boundary layer is stable. There is downflow into the boundary layer as $x \rightarrow 1$. For values of $(2\Omega' \nu')^{1/2}$ of physical interest, the downflow is a very modest downdrift, according to (3.10).
+where $0 < \varepsilon \ll 1$ for parameter values of practical interest. Thus, $\varepsilon$, which may be characterized as a Rossby number, is significant near $x = 1$ only, and is not used to scale variables. The circulation in module I above the boundary layer is stable. There is downflow into the boundary layer as $x \rightarrow 1$. For values of $(2\Omega' \nu')^{1/2}$ of physical interest, the downflow is a very modest downdrift, according to \eqref{eq:bl10}.
 
-However, accumulatively over $x$, the downdrift implicit in (3.19) and (3.21) implies a significant radial inflow $\phi$ within the boundary layer. Very little of this radial inflow stems from influx over $\zeta$ at $x = 1$, from (3.16) and (3.21) for $\varepsilon \rightarrow 0$. Moreover, as $x$ decreases, the peak value $\Psi$ of relative angular momentum $\psi$ increases appreciably, from (3.14) and (3.21). Thus, on the left-hand sides of both (3.12) and (3.13), the nonlinear acceleration terms dominate the Coriolis term as $x$ decreases. However, whereas, in the conservation of angular momentum equation (3.13), friction balances nonlinear advection across the entire boundary layer as $x$ decreases, the presence of $x$ in the denominator of some nonlinear terms suggests that an analytically convenient, purely inviscid balance approximates the conservation of radial momentum equation (3.12) over the majority of the thickness of the boundary layer as $x$ decreases:
+However, accumulatively over $x$, the downdrift implicit in \eqref{eq:bl19} and \eqref{eq:bl21} implies a significant radial inflow $\phi$ within the boundary layer. Very little of this radial inflow stems from influx over $\zeta$ at $x = 1$, from (3.16) and \eqref{eq:bl21} for $\varepsilon \rightarrow 0$. Moreover, as $x$ decreases, the peak value $\Psi$ of relative angular momentum $\psi$ increases appreciably, from \eqref{eq:bl14} and \eqref{eq:bl21}. Thus, on the left-hand sides of both \eqref{eq:bl12} and \eqref{eq:bl13}, the nonlinear acceleration terms dominate the Coriolis term as $x$ decreases. However, whereas, in the conservation of angular momentum equation \eqref{eq:bl13}, friction balances nonlinear advection across the entire boundary layer as $x$ decreases, the presence of $x$ in the denominator of some nonlinear terms suggests that an analytically convenient, purely inviscid balance approximates the conservation of radial momentum equation \eqref{eq:bl12} over the majority of the thickness of the boundary layer as $x$ decreases:
 
 \begin{equation}
 \phi^2 + \psi^2 \approx \Phi^2
+\label{eq:blinvapprox}
 \end{equation}
 
-Thus, at any fixed small value of $x$ at which (3.21) holds, ψ monotonically decreases to zero, from a peak value near $(1 + \varepsilon)$, as ζ decreases, whereas φ monotonically increases from zero to a peak value approaching $(1 + \varepsilon)$. However, for small $x$, a two-layer substructure must develop because, in the immediate proximity of the sea surface $\zeta = 0$, the inflow φ must rapidly decrease from its peak value to zero within a relatively thin, swirl-free, frictional sublayer, to comply with the no-slip constraint (3.15). The evolution of the boundary-layer structure, from Ekman-layer profiles to a substantially different, two-layer, partially inviscid character, has noteworthy implications for the boundary layer (and, as it turns out, for other modules of the tropical cyclone). Selecting a uniformly suitable set of basis functions for a method-of-weighted-residuals integration is challenging in view of this change of behaviour with $x$. Wherever (3.22) holds to good approximation, turbulent diffusion plays a diminished role, and the details of the eddy-diffusion coefficient are of reduced importance. The plausibility argument just given for (3.22) is supported by more quantitative argument (Carrier et al. 1994, Appendix B.2).
+Thus, at any fixed small value of $x$ at which \eqref{eq:bl21} holds, $\psi$ monotonically decreases to zero, from a peak value near $(1 + \varepsilon)$, as $\zeta$ decreases, whereas $\phi$ monotonically increases from zero to a peak value approaching $(1 + \varepsilon)$. However, for small $x$, a two-layer substructure must develop because, in the immediate proximity of the sea surface $\zeta = 0$, the inflow $\phi$ must rapidly decrease from its peak value to zero within a relatively thin, swirl-free, frictional sublayer, to comply with the no-slip constraint \eqref{eq:blnonslip}. The evolution of the boundary-layer structure, from Ekman-layer profiles to a substantially different, two-layer, partially inviscid character, has noteworthy implications for the boundary layer (and, as it turns out, for other modules of the tropical cyclone). Selecting a uniformly suitable set of basis functions for a method-of-weighted-residuals integration is challenging in view of this change of behaviour with $x$. Wherever \eqref{eq:blinvapprox} holds to good approximation, turbulent diffusion plays a diminished role, and the details of the eddy-diffusion coefficient are of reduced importance. The plausibility argument just given for \eqref{eq:blinvapprox} is supported by more quantitative argument (Carrier et al. 1994, Appendix B.2).
 
 \subsection{Energetics}
 
@@ -495,19 +510,21 @@ For an incompressible model of the steady axisymmetric boundary-layer dynamics, 
 
 \begin{equation}
 u' \ppd{E'}{r"} + w' \ppd{E'}{z'} = \nu'\left( \frac{\partial^2 E'}{\partial z'^2}\right )
+\label{eq:bltrans1}
 \end{equation}
 
 where, for a perfect gas with constant heat capacity $c_p'$ over the range of temperatures of interest, the total stagnation energy $E'$ is given by
 \begin{equation}
 E'\equiv c_p'T'+L'Y' + g'z' + q'^2 /2
 \end{equation}
-Here, T 0 denotes temperature; L 0 the relevant latent heat of phase transition for water substance; and Y 0 the mass fraction (or, to the accuracy being pursued here, alternatively regarded as the mixing ratio) of water vapour. To be sure, Y 0 is inherently dimensionless, but we make this one exception in notation because we wish to emphasize the dependence on dimensional arguments. In (3.24), we have followed Carrier et al. (1971) in neglecting dissipation as a minor contributor to the total energy balance in a low-Mach-number, high-Reynolds-number flow. We depart from Carrier et al. (1971) in also ignoring radiative transfer because our steady model is being applied to a lower-atmospheric phenomenon of tropical-cyclone scale and of duration on the order of a week. For the boundary layer, observationally unsaturated virtually everywhere on a long-time average,
+Here, $T'$ denotes temperature; $L'$ the relevant latent heat of phase transition for water substance; and $Y'$ the mass fraction (or, to the accuracy being pursued here, alternatively regarded as the mixing ratio) of water vapour. To be sure, $Y'$ is inherently dimensionless, but we make this one exception in notation because we wish to emphasize the dependence on dimensional arguments. In \eqref{eq:bltrans1}, we have followed Carrier et al. (1971) in neglecting dissipation as a minor contributor to the total energy balance in a low-Mach-number, high-Reynolds-number flow. We depart from Carrier et al. (1971) in also ignoring radiative transfer because our steady model is being applied to a lower-atmospheric phenomenon of tropical-cyclone scale and of duration on the order of a week. For the boundary layer, observationally unsaturated virtually everywhere on a long-time average,
 
 \begin{equation}
 u' \ppd{Y'}{r'} + w'\ppd{Y'}{z'} = \nu'\left( \frac{\partial^2 Y'}{\partial z'^2}\right )
+\label{eq:bltrans2}
 \end{equation}
 
-Although the boundary-layer-scaled coordinates have yet to be introduced, we have anticipated that the transversely diffusive terms dominate in (3.24) and (3.26). The convective coefficients u 0 (r 0 , z 0 ) and w 0 (r 0 , z 0 ) are available from the previously treated dynamics, so the transport equations (3.24) and (3.26) are linear parabolic convective–diffusive balances. Carrier et al. (1971, p. 160) characterize this formulation of the energetics as one in which `... the water vapour plays a important role in heat transfer only as a source of latent heat'.
+Although the boundary-layer-scaled coordinates have yet to be introduced, we have anticipated that the transversely diffusive terms dominate in \eqref{eq:bltrans1} and \eqref{eq:bltrans2}. The convective coefficients $u'(r', z')$ and $w'(r', z')$ are available from the previously treated dynamics, so the transport equations \eqref{eq:bltrans1} and \eqref{eq:bltrans2} are linear parabolic convective-diffusive balances. Carrier et al. (1971, p. 160) characterize this formulation of the energetics as one in which `... the water vapour plays a important role in heat transfer only as a source of latent heat'.
 
 For even a 100 m/s vortex, the contribution of the kinetic energy term $q'^2 /2$ to the sum $E'$ is uniformly $\leq O(1 \%)$, and for many (though not all) purposes, $E' \rightarrow H' \equiv c_p' T'+L' Y' +g' z'$ . Within the boundary layer, even a relatively thick boundary layer, the gravitational term is a small contributor to $E'$ , $\leq O(3 \%)$.
 
@@ -537,7 +554,17 @@ where $T_{amb}'(0) = T_{amb,s}'$ and $Y_{amb}'(0) = Y_{amb,s}'$. More specifical
 
 The following standard approximate relations seem adequate for our purposes for relating thermodynamic variables:
 
-where subscript $a$ denotes dry air, subscript $va$p denotes water vapour, $R_a$ denotes the gas constant for dry air, and $\gamma$ denotes the ratio of specific heats for the mixture. The relations are inserted here because they enter into converting ambient sounding data from pressure coordinate $p'$ to the axial spatial coordinate $z'$. In this connection, the hydrostatic relation suffices at the periphery $r' = r_0'$:
+\begin{equation}
+p_a' = \rho_a' R_a'T', \quad \sigma p_{vap}'=\rho_{vap}'R_a' T', \quad Y' = \rho_{vap}'/\rho_a', \quad \gamma = c_p'/(c_p'-R_a')
+\end{equation}
+\begin{equation}
+\rh'=p_{vap}'/P'(T'), \quad p'=p_a'+p_{vap}', \quad \rho' = \rho_a' + \rho_{vap}'
+\end{equation}
+\begin{equation}
+p'-(1-\sigma)p_{vap}' = \rho' R_a'T'
+\end{equation}
+
+where subscript $a$ denotes dry air, subscript $vap$ denotes water vapour, $R_a$ denotes the gas constant for dry air, and $\gamma$ denotes the ratio of specific heats for the mixture. The relations are inserted here because they enter into converting ambient sounding data from pressure coordinate $p'$ to the axial spatial coordinate $z'$. In this connection, the hydrostatic relation suffices at the periphery $r' = r_0'$:
 \begin{equation}
 \pd{p'}{z'} = -\rho' g'
 \end{equation}
