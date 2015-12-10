@@ -344,7 +344,203 @@ for the various columns in the vortex are informative.
 
 \subsection{Dynamics (unchanged from JFM work for a constant-density model)}
 
+We first pursue solution for the boundary-layer flow over the large radial expanse from periphery to separation (wherever that occurs) because, as noted, the dynamics in the boundary-layer module constrains the secondary flow in the bulk vortex. The steady axisymmetric flow is approximated as incompressible since the maximum speed achieved in a tropical cyclone rarely exceeds 100 m/s, so the Mach number rarely reaches even 0.3. The analysis is carried out in a non-inertial coordinate system rotating at the constant speed of that component of the rotation of the Earth which is normal to the local tangent plane. A simple down-gradient-diffusion model with a constant transfer coefficient, ascribed eddy-diffusion values, is examined, in the absence of observational evidence compelling the adoption of a more refined formulation. Other transfer models, however, are readily accommodated by the procedures developed below.
+
+The conservation equations are
+\begin{equation}
+\nabla' \cdot \mathbf{q'}=0
+\end{equation}
+\begin{equation}
+\nabla'(q'^2/2) +(\nabla' \times \mathbf{q'})\times \mathbf{q'} + 2 \mathbf{\Omega_e'} \times \mathbf{q'}=-\nabla' \tilde{p}' - \nu' \nabla' \times (\nabla' \times \mathbf{q'})
+\end{equation}
+
+where $\tilde{p}' = (p'/\rho_{ref}') - (\mathbf{\Omega_e'} \times \mathbf{r'})^2/2 + g' z'$, $\rho_{ref}'$ denotes a reference density, the gravitational acceleration $\mathbf{g'} = −g' \hat{\mathbf{z}}$, the velocity in inertial coordinates $v' = \mathbf{\Omega_e'} \times \mathbf{r'} + \mathbf{q'}$,
+the angular velocity of the earth is $\mathbf{\Omega_E'}$, the normal to the local tangent plane is $\hat{z}$, $\mathbf{\Omega_e'} = \Omega' \hat{\mathbf{z}}$, $\Omega'= (\mathbf{\Omega_E'} \cdot \hat{\mathbf{z}})$ and $\nu'$ denotes the kinematic eddy viscosity.
+
+Non-dimensionalization is introduced by letting
+\begin{equation}
+\mathbf{q}=\mathbf{q'}/(\Psi_o' \Omega')^{1/2}, \qquad p=\tilde{p}' /(\Psi_o' \Omega'), \qquad \mathbf{r} = \mathbf{r}/(\Psi_o'/\Omega')^{1/2} \qquad and \qquad E = \nu' / \Psi_0'
+\end{equation}
+where the Ekman number $E \ll 1$ for circumstances of interest, and $\Psi_0'$ has the
+dimensions of a circulation. If $\Psi_0'$ is ascribed the value of the maximum swirl speed times the radius at which the maximum occurs, non-dimensionalization would employ unknown outputs, rather than prescribed inputs. Thus, we set $\Psi_0' = \Omega' r_0'$ where $r_0$ denotes the radial extent of the cylindrical domain.
+
+Thus,
+\begin{equation}
+\nabla \cdot \mathbf{q}=0
+\label{eq:blcon}
+\end{equation}
+\begin{equation}
+\nabla'(q'^2/2) +(\nabla \times \mathbf{q})\times \mathbf{q} + 2 \mathbf{\hat{z}} \times \mathbf{q}=-\nabla p - E \nabla \times (\nabla \times \mathbf{q})
+\label{eq:blradmom}
+\end{equation}
+These non-dimensional equations are studied in axisymmetric cylindrical polar coordinates (it is convenient to reserve the symbol $w$)
+\begin{equation}
+\mathbf{q} = u \mathbf{\hat{r}} + v \mathbf{\hat{\theta}} +\tilde{w}\mathbf{\hat{z}}, \qquad r = r \mathbf{\hat{r}} + z \mathbf{\hat{z}}
+\end{equation}
+At the top edge of the boundary layer, the gradient-wind equation is adopted as a lowest-order approximation to the conservation of radial momentum:
+
+\begin{equation}
+\pi_r = 2 V + V^2 /r
+\label{eq:blgradwind}
+\end{equation}
+
+where, in the bulk vortex, $p(r, z) \rightarrow \pi(r)$, and $v(r, z) \rightarrow V(r)$, at the top edge of the
+boundary layer. For consistency with the boundary-layer solution, it is anticipated that the axial velocity component in the bulk vortex $\tilde{w}(r,z) \rightarrow E^{1/2} W(r)$ at the top edge of the boundary layer. This modest magnitude, in conjunction with continuity, suggests that, near the top edge of the boundary layer, the nonlinear convective terms in the radial-momentum equation are small relative to the terms retained in \eqref{eq:blgradwind}, at least at smaller radius where higher swirl holds.
+
+If $\tilde{\zeta} = z/E^{1/2}$ (which implies that the boundary layer is $O(E^{1/2} )$ in thickness relative
+to $r_0'$), and if in the boundary layer
+\begin{equation}
+u = u_b(r,\tilde{\zeta})+..., \quad 
+v = v_b(r,\tilde{\zeta})+..., \quad 
+\tilde{w} = E^{1/2}w_b(r,\tilde{\zeta})+..., \quad 
+p = p_b(r,\tilde{\zeta})+... 
+\end{equation}
+
+then the axial component of the momentum-conservation equation \eqref{eq:blradmom} takes the
+conventional form $\ppd{p_b}{\tilde{\zeta}}=0$ and the pressure field in the boundary layer is found from \eqref{eq:blgradwind} if $V(r)$ is known. If
+\begin{equation}
+\psi = r v_b, \quad
+\Psi = rV, \quad
+\phi r u_b, \quad
+w=2^{-1/2} w_b, \quad
+x=r^2, \quad
+\zeta = 2^{1/2} \tilde{\zeta}
+\end{equation}
+then, in terms of dimensional quantities,
+\begin{equation}
+\phi = r'u'/(\Omega'r_0'^2), \quad
+\psi = r'v'/(\Omega'r_0'^2, \quad
+w=w'/(2\Omega'\nu')^{1/2}, \quad
+\zeta= z'/(\nu'/2\Omega')^{1/2}, \quad
+x = r'^2/r_0'^2
+\end{equation}
+
+the boundary-layer thickness being $O(\nu'/ \Omega')^{1/2}$ . Introduction of (3.8) and (3.9) into
+\eqref{eq:blcon} and \eqref{eq:blradmom} gives
+
+\begin{equation}
+\phi_x + w_\zeta =0
+\end{equation}
+\begin{equation}
+\phi \phi_x w \phi_\zeta + (\Psi^2 - \psi^2 - \phi^2)/2x -(\psi - \Psi) - \phi_{\zeta\zeta} = 0
+\end{equation}
+\begin{equation}
+\phi \psi_x + w \psi_\zeta + \phi - \psi_{\zeta\zeta}=0
+\end{equation}
+Patching to the bulk vortex gives, with $\Phi(x)$ taken as known and $\zeta_{edge}$ anticipated to
+be `large',
+
+\begin{equation}
+\zeta \rightarrow \zeta_{edge}: \phi \rightarrow 0; \qquad \phi \rightarrow \Phi(x)
+\end{equation}
+
+For the modest flow speeds holding in the vicinity of the periphery at $x = 1$, the nonlinear terms in (3.11)–(3.13) may be discarded as negligible relative to the linear terms. The solution to the linear balance of Coriolis `force', pressure force, and friction, in which $x$ enters parametrically only, was given by Ekman:
+\begin{equation}
+\phi \approx
+\end{equation}
+\begin{equation}
+\psi \approx
+\end{equation}
+\begin{equation}
+w \approx
+\end{equation}
+
+Of particular interest is the boundary-layer exchange with the overlying vortex,
+$w(x, \zeta \rightarrow \zeta_{edge} ) \equiv W(r)$ for $\Psi(x)$ of interest. For $x \rightarrow 1$, from (3.18)
+\begin{equation}
+w(x\rightarrow 1, \zeta \rightarrow \zeta_{edge}) \equiv W(x) \rightarrow 2^{1/2} \Psi_x(x)
+\end{equation}
+
+It is possible that (3.19) approximates adequately the
+exchange even for values of $x$ sufficiently smaller than unity that (3.16)–(3.18) do not approximate adequately the solution to (3.11)–(3.15). We shall check this suggestion. In any case, dependence on the parameter $\nu'$ is displayed mainly in (3.10), since $\nu'$ does not appear in the boundary-value problem for $\phi, \psi, w, \Psi, \zeta$, and $x$, except implicitly in the quantity $\zeta_{edge}$. 
+
+Since the absolute angular momentum is taken to be invariant along and across streamlines in module I, according to prior discussion, then, dimensionally, in the bulk
+vortex
+
+\begin{equation}
+r'v'(r') + \Omega' r'^2 = r_0' v_0' + \Omega' r_0'^2
+\end{equation}
+
+where $v'(r_0')$,  denoted $v_0'$, is regarded as known. Hence, under the non- dimensionalization discussed in (3.3) and thereafter, and in (3.9),
+
+\begin{equation}
+\Psi(r) = rV(r) = 1 + \varepsilon -x, \qquad \varepsilon \equiv v_0'/(\Omega' r_0')
+\end{equation}
+
+where $0 < \varepsilon \ll 1$ for parameter values of practical interest. Thus, $\varepsilon$, which may be characterized as a Rossby number, is significant near $x = 1$ only, and is not used to scale variables. The circulation in module I above the boundary layer is stable. There is downflow into the boundary layer as $x \rightarrow 1$. For values of $(2\Omega' \nu')^{1/2}$ of physical interest, the downflow is a very modest downdrift, according to (3.10).
+
+However, accumulatively over $x$, the downdrift implicit in (3.19) and (3.21) implies a significant radial inflow $\phi$ within the boundary layer. Very little of this radial inflow stems from influx over $\zeta$ at $x = 1$, from (3.16) and (3.21) for $\varepsilon \rightarrow 0$. Moreover, as $x$ decreases, the peak value $\Psi$ of relative angular momentum $\psi$ increases appreciably, from (3.14) and (3.21). Thus, on the left-hand sides of both (3.12) and (3.13), the nonlinear acceleration terms dominate the Coriolis term as $x$ decreases. However, whereas, in the conservation of angular momentum equation (3.13), friction balances nonlinear advection across the entire boundary layer as $x$ decreases, the presence of $x$ in the denominator of some nonlinear terms suggests that an analytically convenient, purely inviscid balance approximates the conservation of radial momentum equation (3.12) over the majority of the thickness of the boundary layer as $x$ decreases:
+
+\begin{equation}
+\phi^2 + \psi^2 \approx \Phi^2
+\end{equation}
+
+Thus, at any fixed small value of $x$ at which (3.21) holds, ψ monotonically decreases to zero, from a peak value near $(1 + \varepsilon)$, as ζ decreases, whereas φ monotonically increases from zero to a peak value approaching $(1 + \varepsilon)$. However, for small $x$, a two-layer substructure must develop because, in the immediate proximity of the sea surface $\zeta = 0$, the inflow φ must rapidly decrease from its peak value to zero within a relatively thin, swirl-free, frictional sublayer, to comply with the no-slip constraint (3.15). The evolution of the boundary-layer structure, from Ekman-layer profiles to a substantially different, two-layer, partially inviscid character, has noteworthy implications for the boundary layer (and, as it turns out, for other modules of the tropical cyclone). Selecting a uniformly suitable set of basis functions for a method-of-weighted-residuals integration is challenging in view of this change of behaviour with $x$. Wherever (3.22) holds to good approximation, turbulent diffusion plays a diminished role, and the details of the eddy-diffusion coefficient are of reduced importance. The plausibility argument just given for (3.22) is supported by more quantitative argument (Carrier et al. 1994, Appendix B.2).
+
 \subsection{Energetics}
+
+Close examination of energetics-related properties of the tropical-cyclone boundary layer, when averaged over a time scale longer than any local convective process, has been often bypassed in the literature. In the context of accounting for boundary-layer effects on the entire vortex, generally focus has been on applying bulk-aerodynamic relations to quantify the transfer of sensible and latent heat at the sea–air interface. Such relations are formal, dimensionless statements of little utility until the embedded transfer coefficients are appropriately assigned; until then, the relations merely express one unknown in terms of another. While research continues, the often adopted and speculative extrapolation to high-wind-speed conditions of the wind-speed dependence holding for the transfer coefficients at relatively modest wind speed has been shown to be observationally invalid and to result in erroneous overestimates of sea–air transfer of enthalpy at high wind speed. It is disconcerting that intensity-related results obtained from many, if not most, tropical-cyclone models are very sensitive to the uncertain values assigned to parameters appearing in conventional formulations of boundary conditions at the air–sea interface. Here, care is taken to incorporate the enthalpy transport into the boundary layer associated with downdrift from the overlying bulk-vortex module, as an important complement to roughly ambient-level sea–air transfer of enthalpy.
+
+The point of view expressed in the last paragraph (that the majority of the heat-and-moisture content of the throughput being processed in the core of the vortex is already in the atmosphere of the autumnal maritime tropics, and greatly enhanced sea-to-air transfer of enthalpy under the high-speed portion of the vortex to enrich the throughput is neither necessary nor plausible) is distinctly a minority one. An alternative, far more commonly adopted point of view is that proposed by Emanuel (2005):
+
+\begin{quote}
+... air flowing from high to low pressure would cool were no heat added to it... [H]eat flowing from sea into the air keeps it at nearly constant temperature. But there is a much more important source of heat: the enormous flow of energy that occurs when sea water evaporates into the inflowing air ... [E]vaporation ... effective in driving the storm occurs very near the hurricane’s eyewall, where the winds are strongest. When hurricanes make landfall, they quickly die because they are cut off from their oceanic energy source.
+\end{quote}
+
+In fact, isentropic thermodynamic relations are not pertinent to, and thus an inappropriate basis for anticipations about, properties of flow in frictional boundary layers; nearly saturated sea-level air can accept but little additional moisture; and hurricanes would die in two hours after landfall on even non-orographic coastlines were moment-to-moment enthalpy transfer crucial to their moment-to-moment maintenance, but hurricanes decay on (an inertial) time scale of 8-12 h after landfall.
+
+Nevertheless, distractive controversies about sea-to-air enthalpy transfer persist because tropical cyclones involve an extreme environment, and the conditions are difficult to reproduce for corroboration of measurements. In situ observations of the core of the vortex remain particularly sparse, and those few readings available, even if possibly atypical, are meticulously examined. Enhanced sea-to-air transfer of enthalpy under the eye of a tropical cyclone has been cited as the plausible source of high-entropy air reported near the sea surface in a small number of hurricanes. In any case, simple consideration of the relative lateral dimensions in a hurricane of the bulk vortex and of the base of the eye readily supports the findings of numerical models, namely, the practical significance for vortex intensity of any such local enhancement of sea-to-air transfer under the eye is nil.
+
+For an incompressible model of the steady axisymmetric boundary-layer dynamics, the energetics is decoupled from the dynamics. Under the Reynolds analogy (so the turbulent Prandtl and Schmidt numbers are unity) and the hydrostatic approximation, Carrier et al. (1971) adopt the relation
+
+\begin{equation}
+u' \ppd{E'}{r"} + w' \ppd{E'}{z'} = \nu'\left( \frac{\partial^2 E'}{\partial z'^2}\right )
+\end{equation}
+
+where, for a perfect gas with constant heat capacity $c_p'$ over the range of temperatures of interest, the total stagnation energy $E'$ is given by
+\begin{equation}
+E'\equiv c_p'T'+L'Y' + g'z' + q'^2 /2
+\end{equation}
+Here, T 0 denotes temperature; L 0 the relevant latent heat of phase transition for water substance; and Y 0 the mass fraction (or, to the accuracy being pursued here, alternatively regarded as the mixing ratio) of water vapour. To be sure, Y 0 is inherently dimensionless, but we make this one exception in notation because we wish to emphasize the dependence on dimensional arguments. In (3.24), we have followed Carrier et al. (1971) in neglecting dissipation as a minor contributor to the total energy balance in a low-Mach-number, high-Reynolds-number flow. We depart from Carrier et al. (1971) in also ignoring radiative transfer because our steady model is being applied to a lower-atmospheric phenomenon of tropical-cyclone scale and of duration on the order of a week. For the boundary layer, observationally unsaturated virtually everywhere on a long-time average,
+
+\begin{equation}
+u' \ppd{Y'}{r'} + w'\ppd{Y'}{z'} = \nu'\left( \frac{\partial^2 Y'}{\partial z'^2}\right )
+\end{equation}
+
+Although the boundary-layer-scaled coordinates have yet to be introduced, we have anticipated that the transversely diffusive terms dominate in (3.24) and (3.26). The convective coefficients u 0 (r 0 , z 0 ) and w 0 (r 0 , z 0 ) are available from the previously treated dynamics, so the transport equations (3.24) and (3.26) are linear parabolic convective–diffusive balances. Carrier et al. (1971, p. 160) characterize this formulation of the energetics as one in which `... the water vapour plays a important role in heat transfer only as a source of latent heat'.
+
+For even a 100 m/s vortex, the contribution of the kinetic energy term $q'^2 /2$ to the sum $E'$ is uniformly $\leq O(1 \%)$, and for many (though not all) purposes, $E' \rightarrow H' \equiv c_p' T'+L' Y' +g' z'$ . Within the boundary layer, even a relatively thick boundary layer, the gravitational term is a small contributor to $E'$ , $\leq O(3 \%)$.
+
+The boundary conditions are now addressed. At the nominal sea surface $z'=0$, the temperature is taken constant at all radii at the known ambient level $T_{amb,s}$ , any change (probably a noteworthy decrement, especially under the core for slower-translating vortices) being neglected. At the sea surface, the relative humidity $\rh'(r', 0)$ also is taken to be constant, at all radii, at the known  ambient level $\rh_{amb,s}$, the value being fairly close to (but less than) unity. Since $z'=0$ has been taken to be the datum for the gravitational potential, and in view of the no-slip approximation:
+
+\begin{equation}
+E'(r',0) = c_p' T_{amb,s}' + L' Y'(r',0), \quad E_{amb,s}' \equiv c_p'T_{amb,s}' + L' Y_{amb,s}
+\end{equation}
+
+where, if $P'(T')$ denotes the saturation vapour pressure for water substance, exponentially dependent on temperature $T'$,
+
+\begin{equation}
+Y'(r',0) = \sigma \rh_{amb,s} P'T_{amb,s}'/p'(r',0), \qquad Y_{amb,s}\equiv \sigma \rh_{amb,s}P'(T_{amb,s}')/p_{amb,s}'
+\end{equation}
+
+and $\sigma$ denotes the ratio of the molecular weight of water vapour to that of dry air, $\approx 0.622$
+
+At the periphery of the domain $r '= r_0'$
+\begin{equation}
+E'(r_0',z')\approx H'(r_0',z') = c_p'T_{amb}'(z') + L' Y_{amb}'(z') + g'z'
+\end{equation}
+\begin{equation}
+Y'(r_0', z') = Y_{amb}'(z')
+\end{equation}
+
+where $T_{amb}'(0) = T_{amb,s}'$ and $Y_{amb}'(0) = Y_{amb,s}'$. More specifically, $T_{amb}'(z')$ and $\rh_{amb}'(z')$ are here typified by the Jordan mean sounding for the maritime autumnal tropical ambient in the western Atlantic. Although this observational ambient profile extends from nominal sea level to 500 hPa only, this suffices for current (though not all) purposes. Dunion and Marron emphasize that the distribution of individual soundings is bimodal, virtually all the individual soundings being convectively unstable but more moist or drier than the mean, and the mean itself being infrequently observed. We have followed Carrier et al. (1971) and many others in focusing on the Jordan mean sounding, but we note that the mean, while convenient, might not have special relevance for the stratification holding at the periphery of a tropical cyclone.
+
+The following standard approximate relations seem adequate for our purposes for relating thermodynamic variables:
+
+where subscript $a$ denotes dry air, subscript $va$p denotes water vapour, $R_a$ denotes the gas constant for dry air, and $\gamma$ denotes the ratio of specific heats for the mixture. The relations are inserted here because they enter into converting ambient sounding data from pressure coordinate $p'$ to the axial spatial coordinate $z'$. In this connection, the hydrostatic relation suffices at the periphery $r' = r_0'$:
+\begin{equation}
+\pd{p'}{z'} = -\rho' g'
+\end{equation}
 
 \section{Diffusive Model of the Bulk-Vortex Module}
 
