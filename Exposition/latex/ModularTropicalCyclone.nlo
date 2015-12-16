@@ -20,5 +20,5 @@
 \nomenclatureentry{Cvsat@[{vsat}]\begingroup \nomlongdescr {saturated water vapor}\nomeqref {0}|nompageref}{2}
 \nomenclatureentry{Cswitch@[{switch}]\begingroup \nomlongdescr {lifting condensation level}\nomeqref {0}|nompageref}{2}
 \nomenclatureentry{Cs@[{s}]\begingroup \nomlongdescr {ocean-surface value; saturated (in core module)}\nomeqref {0}|nompageref}{2}
-\nomenclatureentry{Cunderrun@[{underrun}]\begingroup \nomlongdescr {eye-underrunning moist air}\nomeqref {0}|nompageref}{2}
+\nomenclatureentry{Cunderrun@[{underrun}]\begingroup \nomlongdescr {eye-underrunning moist (usually saturated) air}\nomeqref {0}|nompageref}{2}
 \nomenclatureentry{D$'$@[{$'$}]\begingroup \nomlongdescr {dimensional quantity; normalized mass fraction}\nomeqref {0}|nompageref}{2}

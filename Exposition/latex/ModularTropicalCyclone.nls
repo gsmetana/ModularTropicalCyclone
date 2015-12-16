@@ -48,7 +48,7 @@
 		\nompageref{2}
   \item [{trop}]\begingroup \nomlongdescr {tropopause}\nomeqref {0}
 		\nompageref{2}
-  \item [{underrun}]\begingroup \nomlongdescr {eye-underrunning moist air}\nomeqref {0}
+  \item [{underrun}]\begingroup \nomlongdescr {eye-underrunning moist (usually saturated) air}\nomeqref {0}
 		\nompageref{2}
   \item [{v}]\begingroup \nomlongdescr {water vapor}\nomeqref {0}
 		\nompageref{2}
